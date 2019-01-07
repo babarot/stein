@@ -46,13 +46,13 @@ func (c *ApplyCommand) Run(args []string) int {
 	}
 	args = flags.Args()
 
-	// args = append(args, )
-
 	if len(args) == 0 {
 		return c.exit(errors.New("No config files given as arguments"))
 	}
 
-	paths := dealWithCommaSeparatedString(c.Option.PolicyPath)
+	// policy path can take a string separated by a comma like below
+	// => foo/a,bar/b,buz/a/b/c
+	paths := strings.Split(c.Option.PolicyPath, ",")
 
 	policy, err := loader.Load(paths...)
 	if err != nil {
@@ -66,11 +66,17 @@ func (c *ApplyCommand) Run(args []string) int {
 	}
 	policy.Data = data
 
+	// settings about linter are below
 	linter := lint.NewLinter(policy)
 
+	files, err := lint.Args(args)
+	if err != nil {
+		return c.exit(err)
+	}
+
 	var results []lint.Result
-	for _, arg := range args {
-		result, err := linter.Run(arg)
+	for _, file := range files {
+		result, err := linter.Run(file)
 		if err != nil {
 			return c.exit(err)
 		}

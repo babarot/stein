@@ -3,13 +3,8 @@ package funcs
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
-	"path/filepath"
 
-	"sigs.k8s.io/yaml"
-
-	"github.com/hashicorp/hcl"
 	"github.com/tidwall/gjson"
 	"k8s.io/client-go/kubernetes/scheme"
 	"k8s.io/client-go/util/jsonpath"
@@ -87,54 +82,18 @@ func JSONPathFunc(file string) function.Function {
 
 }
 
-func getJSON(file, query string) ([]byte, error) {
-	var data []byte
-	// var err error
-	switch filepath.Ext(file) {
-	case ".yaml", ".yml":
-		contents, err := ioutil.ReadFile(file)
-		if err != nil {
-			return data, nil
-		}
-		data, err = yaml.YAMLToJSON(contents)
-		if err != nil {
-			return data, nil
-		}
-	case ".json":
-		contents, err := ioutil.ReadFile(file)
-		if err != nil {
-			return data, nil
-		}
-		data = contents
-	case ".hcl", ".tf":
-		contents, err := ioutil.ReadFile(file)
-		if err != nil {
-			return data, nil
-		}
-		var v interface{}
-		err = hcl.Unmarshal(contents, &v)
-		if err != nil {
-			return data, fmt.Errorf("unable to parse HCL: %s", err)
-		}
-		jd, err := json.MarshalIndent(v, "", "  ")
-		if err != nil {
-			return data, fmt.Errorf("unable to marshal json: %s", err)
-		}
-		data = jd
-	default:
-		return data, fmt.Errorf("invalid file format: %q (%s)", file, filepath.Ext(file))
-	}
+func getJSON(query string, file string, data []byte) ([]byte, error) {
 	result := gjson.GetBytes(data, query)
 	if !result.Exists() {
+		// TODO
 		// return []byte{}, fmt.Errorf("%q: not found in %q", query, file)
 		return []byte(""), nil
 	}
 	return []byte(result.String()), nil
-
 }
 
 // GJSONFunc is
-func GJSONFunc(file string) function.Function {
+func GJSONFunc(file string, data []byte) function.Function {
 	return function.New(&function.Spec{
 		Params: []function.Parameter{
 			{
@@ -144,7 +103,7 @@ func GJSONFunc(file string) function.Function {
 		},
 		Type: func(args []cty.Value) (cty.Type, error) {
 			query := args[0].AsString()
-			res, err := getJSON(file, query)
+			res, err := getJSON(query, file, data)
 			if err != nil {
 				return cty.NilType, err
 			}
@@ -158,7 +117,7 @@ func GJSONFunc(file string) function.Function {
 		},
 		Impl: func(args []cty.Value, retType cty.Type) (cty.Value, error) {
 			query := args[0].AsString()
-			res, err := getJSON(file, query)
+			res, err := getJSON(query, file, data)
 			if err != nil {
 				return cty.NilVal, err
 			}

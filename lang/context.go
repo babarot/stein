@@ -16,7 +16,7 @@ import (
 )
 
 // BuildContext is
-func (p Policy) BuildContext(body hcl.Body, filename string) (*hcl.EvalContext, hcl.Diagnostics) {
+func (p Policy) BuildContext(body hcl.Body, filename string, filedata []byte) (*hcl.EvalContext, hcl.Diagnostics) {
 	// var files []cty.Value
 	// for file := range p.Files {
 	// 	files = append(files, cty.StringVal(file))
@@ -32,7 +32,7 @@ func (p Policy) BuildContext(body hcl.Body, filename string) (*hcl.EvalContext, 
 		},
 		Functions: map[string]function.Function{
 			// jsonpath
-			"jsonpath": funcs.GJSONFunc(filename),
+			"jsonpath": funcs.GJSONFunc(filename, filedata),
 			// filepath
 			"glob":        funcs.GlobFunc,
 			"pathshorten": funcs.PathShortenFunc,

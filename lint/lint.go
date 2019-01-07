@@ -79,10 +79,10 @@ func NewLinter(policy loader.Policy) *Linter {
 	}
 }
 
-func (l *Linter) decodePolicy(yamlfile string) (Policy, error) {
+func (l *Linter) decodePolicy(file File) (Policy, error) {
 	var policy Policy
 
-	ctx, diags := l.policy.BuildContext(l.body, yamlfile)
+	ctx, diags := l.policy.BuildContext(l.body, file.Path, file.Data)
 	if diags.HasErrors() {
 		return policy, diags
 	}
@@ -114,6 +114,7 @@ type Result struct {
 	Filename string
 	Items    []Item
 	OK       bool
+	Meta     string
 }
 
 // Item is
@@ -125,8 +126,8 @@ type Item struct {
 }
 
 // Run runs the linter
-func (l *Linter) Run(yamlfile string) (Result, error) {
-	policy, err := l.decodePolicy(yamlfile)
+func (l *Linter) Run(file File) (Result, error) {
+	policy, err := l.decodePolicy(file)
 	if err != nil {
 		return Result{}, err
 	}
@@ -135,9 +136,9 @@ func (l *Linter) Run(yamlfile string) (Result, error) {
 		return Result{}, err
 	}
 
-	l.cache.policies[yamlfile] = policy
+	l.cache.policies[file.Path] = policy
 	l.cache.policy = policy
-	l.cache.filepath = yamlfile
+	l.cache.filepath = file.Path
 	l.config = policy.Config
 
 	if err := l.Validate(); err != nil {
@@ -145,9 +146,10 @@ func (l *Linter) Run(yamlfile string) (Result, error) {
 	}
 
 	result := Result{
-		Filename: yamlfile,
+		Filename: file.Path,
 		Items:    []Item{},
 		OK:       true,
+		Meta:     file.Meta,
 	}
 
 	length := l.calcReportLength()
@@ -198,10 +200,20 @@ func (l *Linter) Print(result Result) {
 		consolePadding = "  "
 	)
 
+	cfg := l.config.Report
+
 	// setup print
 	switch style {
 	case "console":
-		color.New(color.Underline).Fprintln(out, result.Filename)
+		color.New(color.Underline).Fprintf(out, result.Filename)
+		if len(result.Meta) > 0 {
+			meta := fmt.Sprintf(" (%s)", result.Meta)
+			if cfg.Color {
+				meta = color.CyanString(meta)
+			}
+			fmt.Fprintf(out, meta)
+		}
+		fmt.Fprintln(out)
 	}
 
 	// main print
@@ -266,7 +278,7 @@ func (l *Linter) PrintSummary(results ...Result) {
 	fmt.Fprintln(l.stderr, result)
 }
 
-// SkipCase returns if there is even one IgnoreCases.
+// SkipCase returns true if there is even one IgnoreCases.
 func (r *Rule) SkipCase() bool {
 	for _, ignore := range r.IgnoreCases {
 		if ignore {
