@@ -1,17 +1,22 @@
 stein
-========
+=====
 
-A linter for config files (e.g. Kubernetes manifests) with a customizable rule set
+Stein is a linter for config files with a customizable rule set.
+Supported config file types are JSON, YAML and HCL for now.
 
-<!--
-![](https://user-images.githubusercontent.com/4442708/50218892-d13c9480-03d0-11e9-88e4-d5ce4cdb274f.png)
--->
+The basic design of this tool are heavily inspired by [HashiCorp Sentinel](https://www.hashicorp.com/sentinel) and its lots of implementations come from [Terraform](https://www.terraform.io/).
 
 ## Motivation
 
-Policy as code...
+As the motivation of this tool, the factor which accounts for the most of them is the [Policy as Code](docs/policy-as-code.md).
 
-## Docs
+Thanks to [Infrastructure as Code](https://en.wikipedia.org/wiki/Infrastructure_as_code), the number of cases that the configurations of its infrastructure are described as code is increasing day by day.
+Then, it became necessary to set the lint or policy for the config files.
+As an example: the namespace of Kubernetes to be deployed, the number of replicas of Pods, the naming convention of a namespace, etc.
+
+This tool makes it possible to describe those requests as code (called as the [rules](docs/policy/rules.md)).
+
+## Documentations
 
 - [Concepts](docs/concepts.md)
 - [Commands (CLI)](docs/commands.md)
