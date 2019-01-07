@@ -24,15 +24,20 @@ const (
 
 	// DefaultFormat is a default format string
 	DefaultFormat = "[{{.Level}}]  {{.Rule}}  {{.Message}}"
+
+	// LevelError represents the error level reported by lint
+	LevelError = "ERROR"
+	// LevelWarning represents the warning level reported by lint
+	LevelWarning = "WARN"
 )
 
-// Status is
+// Status represents the status code of Lint
 type Status int
 
 const (
-	// Success is
+	// Success is the success code of Lint
 	Success Status = iota
-	// Failure is
+	// Failure is the failure code of Lint
 	Failure
 )
 
@@ -48,8 +53,6 @@ type Linter struct {
 	policy *lang.Policy
 	// all configuration body decoded by HCL
 	body hcl.Body
-
-	// files map[string]*hcl.File
 }
 
 type cache struct {
@@ -63,7 +66,7 @@ type cache struct {
 	filepath string
 }
 
-// NewLinter is
+// NewLinter creates Linter object based on Lint Policy
 func NewLinter(policy loader.Policy) *Linter {
 	return &Linter{
 		stdout: os.Stdout,
@@ -75,7 +78,6 @@ func NewLinter(policy loader.Policy) *Linter {
 		},
 		body:   policy.Body,
 		policy: policy.Data,
-		// files:  loaded.Files,
 	}
 }
 
@@ -93,10 +95,9 @@ func (l *Linter) decodePolicy(file File) (Policy, error) {
 		return policy, diags
 	}
 
-	// policy.Config can be nil. If so, it should be set to default value
+	// policy.Config can be nil
+	// In that case it should be set to default value
 	if policy.Config == nil {
-
-		// Default config setting
 		policy.Config = &Config{
 			Report: ReportConfig{
 				Format: DefaultFormat,
@@ -109,15 +110,18 @@ func (l *Linter) decodePolicy(file File) (Policy, error) {
 	return policy, nil
 }
 
-// Result represents
+// Result represents the execution result of Lint
+// It's represented against one argument
+// The result of each rules for the argument is stored in Items
 type Result struct {
-	Filename string
-	Items    []Item
-	OK       bool
-	Meta     string
+	Path  string
+	Items []Item
+	OK    bool
+	// Metadata is something notes related to Result
+	Metadata string
 }
 
-// Item is
+// Item represents the result of a rule
 type Item struct {
 	Name    string
 	Message string
@@ -125,7 +129,7 @@ type Item struct {
 	Level   string
 }
 
-// Run runs the linter
+// Run runs the linter against a file of an argument
 func (l *Linter) Run(file File) (Result, error) {
 	policy, err := l.decodePolicy(file)
 	if err != nil {
@@ -146,10 +150,10 @@ func (l *Linter) Run(file File) (Result, error) {
 	}
 
 	result := Result{
-		Filename: file.Path,
+		Path:     file.Path,
 		Items:    []Item{},
 		OK:       true,
-		Meta:     file.Meta,
+		Metadata: file.Meta,
 	}
 
 	length := l.calcReportLength()
@@ -192,45 +196,44 @@ func (r *Rule) getStatus() Status {
 	return Failure
 }
 
-// Print is
+// Print prints the result of Lint based on Result reported by Run
 func (l *Linter) Print(result Result) {
+	const consolePadding = "  "
+
 	var (
-		out            = l.stderr
-		style          = l.config.Report.Style
-		consolePadding = "  "
+		out = l.stderr
+		cfg = l.config.Report
 	)
 
-	cfg := l.config.Report
-
-	// setup print
-	switch style {
+	// Setup Print method
+	switch cfg.Style {
 	case "console":
-		color.New(color.Underline).Fprintf(out, result.Filename)
-		if len(result.Meta) > 0 {
-			meta := fmt.Sprintf(" (%s)", result.Meta)
+		color.New(color.Underline).Fprintf(out, result.Path)
+		if len(result.Metadata) > 0 {
+			metadata := fmt.Sprintf(" (%s)", result.Metadata)
 			if cfg.Color {
-				meta = color.CyanString(meta)
+				metadata = color.CyanString(metadata)
 			}
-			fmt.Fprintf(out, meta)
+			fmt.Fprintf(out, metadata)
 		}
 		fmt.Fprintln(out)
 	}
 
-	// main print
+	// Main logic of Print
 	for _, rule := range result.Items {
 		// Do not print successful items
 		if rule.Status == Success {
 			continue
 		}
-		switch style {
+		switch cfg.Style {
 		case "console":
 			fmt.Fprintf(out, consolePadding)
 		}
 		fmt.Fprintln(out, rule.Message)
 	}
 
-	// teardown print
-	switch style {
+	// Teardown Print method
+	switch cfg.Style {
 	case "console":
 		if result.OK {
 			fmt.Fprintln(out, consolePadding+"No violated rules")
@@ -239,17 +242,17 @@ func (l *Linter) Print(result Result) {
 	}
 }
 
-// Status is
-func (l *Linter) Status(results ...Result) int {
+// Status indicates execution result of Lint by the status code
+func (l *Linter) Status(results ...Result) Status {
 	for _, result := range results {
 		if !result.OK {
-			return 1
+			return Failure
 		}
 	}
-	return 0
+	return Success
 }
 
-// PrintSummary is [TODO]
+// PrintSummary prints the summary of all results of the entire Lint
 func (l *Linter) PrintSummary(results ...Result) {
 	s := struct {
 		warns  int
@@ -257,18 +260,13 @@ func (l *Linter) PrintSummary(results ...Result) {
 	}{}
 	for _, result := range results {
 		for _, item := range result.Items {
-			// switch item.Status {
-			// case Success:
-			// case Failure:
-			// 	s.errors++
-			// }
 			if item.Status == Success {
 				continue
 			}
 			switch item.Level {
-			case "ERROR":
+			case LevelError:
 				s.errors++
-			case "WARN":
+			case LevelWarning:
 				s.warns++
 			}
 		}
@@ -321,8 +319,8 @@ func (r *Rule) Validate() error {
 		message string
 	}{
 		{
-			r.Report.Level == "ERROR" || r.Report.Level == "WARN",
-			"report level accepts only ERROR or WARN",
+			r.Report.Level == LevelError || r.Report.Level == LevelWarning,
+			fmt.Sprintf("report level accepts only %s or %s", LevelError, LevelWarning),
 		},
 		{
 			len(r.Report.Message) > 0,
@@ -405,9 +403,9 @@ func (r *Rule) BuildMessage(cfg ReportConfig, length ReportLength) (string, erro
 
 	if cfg.Color {
 		switch level {
-		case "ERROR":
+		case LevelError:
 			level = color.RedString(level)
-		case "WARN":
+		case LevelWarning:
 			level = color.YellowString(level)
 		}
 		// Colorize by default in case of only no advance color specification

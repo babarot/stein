@@ -85,7 +85,11 @@ func JSONPathFunc(file string) function.Function {
 func getJSON(query string, file string, data []byte) ([]byte, error) {
 	result := gjson.GetBytes(data, query)
 	if !result.Exists() {
-		// TODO
+		// Even if the given query refers to a field that does not exist,
+		// it does not return an error
+		// This is because there are cases which a rule defined by a user
+		// refers to a field that does not exist and tests it
+		//
 		// return []byte{}, fmt.Errorf("%q: not found in %q", query, file)
 		return []byte(""), nil
 	}

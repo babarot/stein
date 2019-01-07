@@ -100,8 +100,8 @@ func handleYAML(path string) (files []File, err error) {
 		}
 		meta := ""
 		if len(documents) > 1 {
-			// If more than one block is defined in one YAML file,
-			// notes the numbering of the block as Meta field
+			// If one or more blocks are defined in one YAML file,
+			// records the numbering of the block in Meta field
 			meta = fmt.Sprintf("Block %d", idx+1)
 		}
 		files = append(files, File{

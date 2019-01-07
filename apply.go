@@ -125,10 +125,8 @@ func (c *ApplyCommand) exit(msg interface{}) int {
 			wr.WriteDiagnostic(diags[0])
 			return 1
 		}
+	case lint.Status:
+		return int(m)
 	}
 	return c.CLI.exit(msg)
-}
-
-func dealWithCommaSeparatedString(str string) []string {
-	return strings.Split(str, ",")
 }

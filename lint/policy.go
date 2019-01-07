@@ -6,7 +6,7 @@ import (
 	"github.com/hashicorp/hcl2/hcl"
 )
 
-// Policy is the configuration structure for the linter
+// Policy represents the rule set against config files of arguments
 type Policy struct {
 	Config  *Config  `hcl:"config,block"`
 	Rules   []Rule   `hcl:"rule,block"`
