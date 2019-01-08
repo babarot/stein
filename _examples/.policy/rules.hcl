@@ -13,16 +13,32 @@ rule "namespace_is_specified" {
   }
 }
 
-rule "namespace_name_is_valid" {
+rule "namespace_name" {
   description = "Check namespace name is valid"
 
-  ignore_cases = []
+  ignore_cases = [
+    "${is_irregular_namespace_pattern()}",
+  ]
 
   expressions = [
-    # "${jsonpath(".metadata.namespace") == get_service_id_with_env(filename)}",
-    # "${contains(lookup2(var.hoge, "gateway"), get_service_id_with_env(filename))}",
-    # "${jsonpath(".metadata.namespace") == get_service_id_with_env(filename) || contains(maplist(var.hoge, jsonpath(".metadata.namespace")), get_service_id_with_env(filename))}",
-    "${jsonpath("metadata.namespace") == get_service_id_with_env(filename) || contains(lookuplist(var.namespace_name_map, jsonpath("metadata.namespace")), get_service_id_with_env(filename))}",
+    "${jsonpath("metadata.namespace") == get_service_id_with_env(filename)}",
+  ]
+
+  report {
+    level   = "ERROR"
+    message = "${format("Namespace name %q is invalid", jsonpath("metadata.namespace"))}"
+  }
+}
+
+rule "namespace_name_irregular" {
+  description = "Check namespace name is valid"
+
+  ignore_cases = [
+    "${!is_irregular_namespace_pattern()}",
+  ]
+
+  expressions = [
+    "${contains(lookuplist(var.namespace_name_map, jsonpath("metadata.namespace")), get_service_id_with_env(filename))}",
   ]
 
   report {

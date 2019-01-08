@@ -1,9 +1,3 @@
-variable "enviroments" {
-  description = "enviroment variables"
-  type        = "list"
-  default     = ["prod", "dev"]
-}
-
 variable "shortened_environment" {
   description = "Shortened environment, such as prod, dev"
   type        = "map"
@@ -17,13 +11,12 @@ variable "shortened_environment" {
 
 variable "special_cases" {
   description = ""
-  type        = "map"
+  type        = "list"
 
-  default = {
-    # "x-gateway-jp-prod" = "gateway"
-    # "x-gateway-jp-dev"  = "gateway"
-    "gateway" = "x-gateway-jp-dev"
-  }
+  default = [
+    "x-gateway-jp-dev",
+    "x-gateway-jp-prod",
+  ]
 }
 
 variable "namespace_name_map" {

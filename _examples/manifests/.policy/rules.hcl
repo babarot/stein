@@ -8,9 +8,7 @@ rule "filename" {
   ]
 
   report {
-    level = "ERROR"
-
-    # message = "${format("%q should be %q+.yaml", basename(filename), jsonpath(".metadata.name"))}"
+    level   = "ERROR"
     message = "${format("Filename should be %s.yaml (metadata.name + .yaml)", jsonpath("metadata.name"))}"
   }
 }
@@ -28,12 +26,6 @@ rule "resource_per_file" {
     level   = "ERROR"
     message = "Only 1 resource should be defined in a YAML file"
   }
-
-  # debug = [
-  #   "${wc(file(filename), "l")}",
-  #   "${wc(file(filename), "c")}",
-  #   "${wc(file(filename), "w")}",
-  # ]
 }
 
 rule "yaml_separator" {

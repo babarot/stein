@@ -3,7 +3,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: test
-  namespace: gateway
+  # namespace: gateway
+  namespace: x-gateway-jp-dev
 spec:
   selector:
     matchLabels:
