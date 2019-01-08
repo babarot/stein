@@ -237,20 +237,23 @@ Usage:
 # => true
 ```
 
-### `color(name, str)`
+### `color(str, attrs...)`
 
 Returns a string colorized by the color name.
 
 Types:
 
-- input args: `string`, `string`
+- input args: `string`, `string`...
 - return values: `string`
 
 Usage:
 
 ```hcl
-"${color("white", "hello!")}"
+"${color("hello!", "white")}"
 # => "\x1b[37mhello!\x1b[0m"
+
+"${color("hello!", "red", "BgBlack")}"
+# => "\x1b[31m\x1b[40mhello!\x1b[0m"
 ```
 
 ## Custom Functions

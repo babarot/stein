@@ -2,11 +2,15 @@ package lang
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/hashicorp/hcl2/hcl"
 	"github.com/hashicorp/hcl2/hcl/hclsyntax"
 	"github.com/zclconf/go-cty/cty"
 )
+
+// RulePrefix is the prefix of the rule name
+const RulePrefix = "rule."
 
 func decodeRuleBlock(block *hcl.Block) (*Rule, hcl.Diagnostics) {
 	rule := &Rule{
@@ -26,6 +30,16 @@ func decodeRuleBlock(block *hcl.Block) (*Rule, hcl.Diagnostics) {
 			Detail:   badIdentifierDetail,
 			Subject:  &block.LabelRanges[0],
 		})
+	}
+
+	if attr, exists := content.Attributes["depends_on"]; exists {
+		val, valDiags := attr.Expr.Value(nil)
+		diags = append(diags, valDiags...)
+		for it := val.ElementIterator(); it.Next(); {
+			_, dep := it.Element()
+			dependency := strings.TrimPrefix(dep.AsString(), RulePrefix)
+			rule.Dependencies = append(rule.Dependencies, dependency)
+		}
 	}
 
 	for _, block := range content.Blocks {
@@ -61,10 +75,11 @@ type Rule struct {
 	TypeRange hcl.Range
 	DeclRange hcl.Range
 
-	Description string
-	IgnoreCases []bool
-	Expressions []bool
-	Report      *Report
+	Description  string
+	Dependencies []string
+	IgnoreCases  []bool
+	Expressions  []bool
+	Report       *Report
 
 	Debug []string
 }
@@ -92,11 +107,9 @@ var ruleBlockSchema = &hcl.BodySchema{
 	Blocks: []hcl.BlockHeaderSchema{
 		{
 			Type: "locals",
-			// LabelNames: []string{"name"},
 		},
 		{
 			Type: "report",
-			// LabelNames: []string{"name"},
 		},
 	},
 	Attributes: []hcl.AttributeSchema{
@@ -105,11 +118,14 @@ var ruleBlockSchema = &hcl.BodySchema{
 			Required: true,
 		},
 		{
-			Name:     "expressions",
-			Required: true,
+			Name: "depends_on",
 		},
 		{
 			Name: "ignore_cases",
+		},
+		{
+			Name:     "expressions",
+			Required: true,
 		},
 	},
 }

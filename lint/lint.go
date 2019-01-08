@@ -12,6 +12,7 @@ import (
 
 	"github.com/b4b4r07/stein/lang"
 	"github.com/b4b4r07/stein/lang/loader"
+	"github.com/b4b4r07/stein/pkg/topological"
 	"github.com/fatih/color"
 	"github.com/hashicorp/hcl2/gohcl"
 	"github.com/hashicorp/hcl2/hcl"
@@ -115,7 +116,7 @@ func (l *Linter) decodePolicy(file File) (Policy, error) {
 // The result of each rules for the argument is stored in Items
 type Result struct {
 	Path  string
-	Items []Item
+	Items Items
 	OK    bool
 	// Metadata is something notes related to Result
 	Metadata string
@@ -128,6 +129,9 @@ type Item struct {
 	Status  Status
 	Level   string
 }
+
+// Items is the collenction of Item object
+type Items []Item
 
 // Run runs the linter against a file of an argument
 func (l *Linter) Run(file File) (Result, error) {
@@ -156,10 +160,22 @@ func (l *Linter) Run(file File) (Result, error) {
 		Metadata: file.Meta,
 	}
 
+	// sort rules by depends_on
+	policy.Rules.Sort()
+
 	length := l.calcReportLength()
 	for _, rule := range policy.Rules {
 		if err := rule.Validate(); err != nil {
 			return result, err
+		}
+
+		// Check if the rule has own dependencies
+		if rule.hasDependencies() {
+			ok := rule.checkDependenciesFailed(result)
+			if !ok {
+				// skip this rule because the rule which it depends on has failed
+				continue
+			}
 		}
 
 		message, err := rule.BuildMessage(policy.Config.Report, length)
@@ -184,6 +200,96 @@ func (l *Linter) Run(file File) (Result, error) {
 	}
 
 	return result, nil
+}
+
+// Sort sorts the rules based on its own dependencies
+//
+// For example, in the case that these rules are defined like below,
+// the order which the rules are executed should be as follows:
+//
+//   rule.a --- rule.b --- rule.c
+//                      `- rule.d
+//
+//   rule "a" {
+//     ...
+//   }
+//   rule "b" {
+//     depends_on = ["rule.a"]
+//   }
+//   rule "c" {
+//     depends_on = ["rule.b"]
+//   }
+//   rule "d" {
+//     depends_on = ["rule.a"]
+//   }
+//
+// This implementation is based on the algorithm of topological sort
+//
+func (r *Rules) Sort() {
+	graph := topological.NewGraph(len(*r))
+	for _, rule := range *r {
+		graph.AddNode(rule.Name)
+	}
+
+	for _, rule := range *r {
+		if !rule.hasDependencies() {
+			continue
+		}
+		for _, dependency := range rule.Dependencies {
+			dependency = strings.TrimPrefix(dependency, RulePrefix)
+			graph.AddEdge(dependency, rule.Name)
+		}
+	}
+
+	orderNames, ok := graph.Sort()
+	if !ok {
+		panic("error")
+	}
+
+	var sortedRules Rules
+	for _, name := range orderNames {
+		sortedRules = append(sortedRules, r.getOneByName(name))
+	}
+	*r = sortedRules
+}
+
+func (r Rules) getOneByName(name string) Rule {
+	for _, rule := range r {
+		if rule.Name == name {
+			return rule
+		}
+	}
+	return Rule{}
+}
+
+func (r *Rule) hasDependencies() bool {
+	return len(r.Dependencies) > 0
+}
+
+// check if the rules which this rule depends on are failed
+func (r *Rule) checkDependenciesFailed(result Result) bool {
+	for _, dependency := range r.Dependencies {
+		depRule := strings.TrimPrefix(dependency, RulePrefix)
+		item := result.Items.getOneByName(depRule)
+		switch item.Status {
+		case Success:
+			// even if this item succeeds,
+			// checks all other items
+			continue
+		case Failure:
+			return false
+		}
+	}
+	return true
+}
+
+func (i Items) getOneByName(name string) Item {
+	for _, item := range i {
+		if item.Name == name {
+			return item
+		}
+	}
+	return Item{}
 }
 
 func (r *Rule) getStatus() Status {

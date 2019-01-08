@@ -9,7 +9,7 @@ import (
 // Policy represents the rule set against config files of arguments
 type Policy struct {
 	Config  *Config  `hcl:"config,block"`
-	Rules   []Rule   `hcl:"rule,block"`
+	Rules   Rules    `hcl:"rule,block"`
 	Outputs []Output `hcl:"output,block"`
 
 	Debugs []Debug `hcl:"debug,block"`
@@ -33,13 +33,17 @@ type ReportConfig struct {
 type Rule struct {
 	Name string `hcl:"name,label"`
 
-	Description string `hcl:"description"`
-	IgnoreCases []bool `hcl:"ignore_cases,optional"`
-	Expressions []bool `hcl:"expressions"`
-	Report      Report `hcl:"report,block"`
+	Description  string   `hcl:"description"`
+	Dependencies []string `hcl:"depends_on,optional"`
+	IgnoreCases  []bool   `hcl:"ignore_cases,optional"`
+	Expressions  []bool   `hcl:"expressions"`
+	Report       Report   `hcl:"report,block"`
 
 	Debugs []string `hcl:"debug,optional"`
 }
+
+// Rules is the collenction of Rule object
+type Rules []Rule
 
 // Report represents the rule of reporting style
 type Report struct {

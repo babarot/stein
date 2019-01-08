@@ -91,12 +91,13 @@ func Decode(body hcl.Body) (*Policy, hcl.Diagnostics) {
 		}
 	}
 
-	diags = append(diags, validateRules(policy.Rules)...)
+	diags = append(diags, checkRulesUnique(policy.Rules)...)
+	diags = append(diags, checkRulesDependencies(policy.Rules)...)
 
 	return policy, diags
 }
 
-func validateRules(rules []*Rule) hcl.Diagnostics {
+func checkRulesUnique(rules []*Rule) hcl.Diagnostics {
 	encountered := map[string]*Rule{}
 	var diags hcl.Diagnostics
 	for _, rule := range rules {
@@ -109,6 +110,34 @@ func validateRules(rules []*Rule) hcl.Diagnostics {
 			})
 		}
 		encountered[rule.Name] = rule
+	}
+	return diags
+}
+
+func checkRulesDependencies(rules []*Rule) hcl.Diagnostics {
+	var diags hcl.Diagnostics
+	for _, rule := range rules {
+		for _, dep := range rule.Dependencies {
+			exists := func(rules []*Rule) bool {
+				for _, rule := range rules {
+					if rule.Name == dep {
+						return true
+					}
+				}
+				return false
+			}(rules)
+			if !exists {
+				// TODO: Replace more suitable range with rule.DeclRange
+				//   "rule.DeclRange" is the declaration range of this rule
+				//   however, what we want here is the declaration range of "depends_on"
+				diags = append(diags, &hcl.Diagnostic{
+					Severity: hcl.DiagError,
+					Summary:  "Invalid dependency rule",
+					Detail:   fmt.Sprintf("A dependency rule %q specified in %q is not defined", dep, rule.Name),
+					Subject:  &rule.DeclRange,
+				})
+			}
+		}
 	}
 	return diags
 }

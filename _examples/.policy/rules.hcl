@@ -1,4 +1,4 @@
-rule "namespace_is_specified" {
+rule "namespace_specification" {
   description = "Check namespace name is not empty"
 
   ignore_cases = []
@@ -16,6 +16,8 @@ rule "namespace_is_specified" {
 rule "namespace_name" {
   description = "Check namespace name is valid"
 
+  depends_on = ["rule.namespace_specification"]
+
   ignore_cases = [
     "${is_irregular_namespace_pattern()}",
   ]
@@ -32,6 +34,8 @@ rule "namespace_name" {
 
 rule "namespace_name_irregular" {
   description = "Check namespace name is valid"
+
+  depends_on = ["rule.namespace_specification"]
 
   ignore_cases = [
     "${!is_irregular_namespace_pattern()}",
