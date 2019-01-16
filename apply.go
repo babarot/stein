@@ -11,6 +11,7 @@ import (
 	"github.com/b4b4r07/stein/lang"
 	"github.com/b4b4r07/stein/lang/loader"
 	"github.com/b4b4r07/stein/lint"
+	"github.com/fatih/color"
 	"github.com/hashicorp/hcl2/hcl"
 )
 
@@ -20,6 +21,7 @@ type ApplyCommand struct {
 	Option ApplyOption
 
 	policyFiles map[string]*hcl.File
+	runningFile lint.File
 }
 
 // ApplyOption is the options for ApplyCommand
@@ -76,6 +78,7 @@ func (c *ApplyCommand) Run(args []string) int {
 
 	var results []lint.Result
 	for _, file := range files {
+		c.runningFile = file
 		result, err := linter.Run(file)
 		if err != nil {
 			return c.exit(err)
@@ -117,6 +120,7 @@ func (c *ApplyCommand) exit(msg interface{}) int {
 	)
 	switch m := msg.(type) {
 	case error:
+		color.New(color.Underline).Fprintln(c.Stderr, c.runningFile.Path)
 		switch diags := m.(type) {
 		case hcl.Diagnostics:
 			if len(diags) == 0 {
