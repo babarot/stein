@@ -1,12 +1,33 @@
-rule "test" {
-  description = "Test"
+rule "replicas" {
+  description = ""
 
-  expressions = [true]
+  ignore_cases = [
+    "${jsonpath("kind") != "Deployment"}",
+  ]
+
+  expressions = [
+    "${jsonpath("spec.replicas", 0) >= 1}",
+  ]
 
   report {
     level   = "ERROR"
-    message = "${color("red", "red")}"
+    message = "Too few replicas"
   }
+}
 
-  debug = []
+rule "images" {
+  description = ""
+
+  ignore_cases = [
+    "${jsonpath("kind") != "Deployment"}",
+  ]
+
+  expressions = [
+    "${jsonpath("spec.template.spec.containers.#.name") != ""}",
+  ]
+
+  report {
+    level   = "ERROR"
+    message = "hoge"
+  }
 }

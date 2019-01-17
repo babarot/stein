@@ -256,6 +256,10 @@ Usage:
 # => "\x1b[31m\x1b[40mhello!\x1b[0m"
 ```
 
+### `jsonpath(query, default...)`
+
+WIP
+
 ## Custom Functions
 
 While supporting some useful built-in functions, Stein allows to create user-defined functions.

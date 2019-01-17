@@ -194,6 +194,7 @@ func (l *Linter) Run(file File) (Result, error) {
 		if rule.getStatus() != Success {
 			result.OK = false
 		}
+
 		for _, debug := range rule.Debugs {
 			pp.Println(debug)
 		}
