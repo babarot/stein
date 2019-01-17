@@ -32,6 +32,22 @@ func decodeRuleBlock(block *hcl.Block) (*Rule, hcl.Diagnostics) {
 		})
 	}
 
+	// TODO: Depends on jsonpath's default value
+	//   By introducing the default value concept into jsonpath func,
+	//   it became not to need to take care of this
+	//   if jsonpath doesn't have default value, this case will be failed sometimes
+	//   e.g. "${jsonpath("spec.replicas") > 0}"
+	//   if kind is Service, jsonpath("spec.replicas") returns ""
+	//   so this expression will be "${"" > 0}" as a result
+	//   This is the reason why needs default value for jsonpath
+	//   Otherwise, operate the LHS which is dependent on RHS in hcl2 library
+	//
+	//   See also
+	//   https://github.com/hashicorp/hcl2/blob/cce5ae6cc5c890122f922573d6bf973eef0509f7/hcl/hclsyntax/expression_ops.go#L123-L196
+	//
+	// if attr, exists := content.Attributes["expressions"]; exists {
+	// }
+
 	if attr, exists := content.Attributes["depends_on"]; exists {
 		val, valDiags := attr.Expr.Value(nil)
 		diags = append(diags, valDiags...)

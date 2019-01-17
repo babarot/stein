@@ -3,6 +3,7 @@ package funcs
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 
 	"github.com/tidwall/gjson"
@@ -91,7 +92,13 @@ func getJSON(query string, file string, data []byte) ([]byte, error) {
 		// refers to a field that does not exist and tests it
 		//
 		// return []byte{}, fmt.Errorf("%q: not found in %q", query, file)
-		return []byte(""), nil
+		// return []byte(""), nil
+		//
+		// TODO: Fix this handling
+		//   By introducing the default value,
+		//   no problem for now even if the result is not found.
+		//   This is because returns default values if not found case
+		return []byte{}, fmt.Errorf("%q: not found in %q", query, file)
 	}
 	return []byte(result.String()), nil
 }
@@ -105,25 +112,37 @@ func GJSONFunc(file string, data []byte) function.Function {
 				Type: cty.String,
 			},
 		},
+		VarParam: &function.Parameter{
+			Name: "default",
+			Type: cty.DynamicPseudoType,
+		},
 		Type: func(args []cty.Value) (cty.Type, error) {
 			query := args[0].AsString()
+			defaultVal := cty.StringVal("")
+			if len(args) > 1 {
+				defaultVal = args[1]
+			}
 			res, err := getJSON(query, file, data)
 			if err != nil {
-				return cty.NilType, err
+				return defaultVal.Type(), nil
 			}
 			ty, err := ctyjson.ImpliedType(res)
 			if err != nil {
 				// When the result from getJSON can not be converted to JSON (that is, array or map),
 				// treat the return value as a string
-				return cty.String, nil
+				return defaultVal.Type(), nil
 			}
 			return ty, nil
 		},
 		Impl: func(args []cty.Value, retType cty.Type) (cty.Value, error) {
 			query := args[0].AsString()
+			defaultVal := cty.StringVal("")
+			if len(args) > 1 {
+				defaultVal = args[1]
+			}
 			res, err := getJSON(query, file, data)
 			if err != nil {
-				return cty.NilVal, err
+				return defaultVal, nil
 			}
 			val, err := ctyjson.Unmarshal(res, retType)
 			if err != nil {
