@@ -383,10 +383,14 @@ func (l *Linter) PrintSummary(results ...Result) {
 	fmt.Fprintln(l.stderr, result)
 }
 
-// SkipCase returns true if there is even one IgnoreCases.
+// SkipCase returns true if cases of a precondition block includes one or more failed cases
 func (r *Rule) SkipCase() bool {
-	for _, ignore := range r.IgnoreCases {
-		if ignore {
+	// don't skip if a precondition block is not specified
+	if r.Precondition == nil {
+		return false
+	}
+	for _, ok := range r.Precondition.Cases {
+		if !ok {
 			return true
 		}
 	}

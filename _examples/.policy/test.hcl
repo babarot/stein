@@ -1,9 +1,9 @@
 rule "replicas" {
   description = ""
 
-  ignore_cases = [
-    "${jsonpath("kind") != "Deployment"}",
-  ]
+  precondition {
+    cases = ["${kind("Deployment")}"]
+  }
 
   expressions = [
     "${jsonpath("spec.replicas", 0) >= 1}",
@@ -18,9 +18,9 @@ rule "replicas" {
 rule "images" {
   description = ""
 
-  ignore_cases = [
-    "${jsonpath("kind") != "Deployment"}",
-  ]
+  precondition {
+    cases = ["${kind("Deployment")}"]
+  }
 
   expressions = [
     "${jsonpath("spec.template.spec.containers.#.name") != ""}",

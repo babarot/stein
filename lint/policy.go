@@ -33,11 +33,11 @@ type ReportConfig struct {
 type Rule struct {
 	Name string `hcl:"name,label"`
 
-	Description  string   `hcl:"description"`
-	Dependencies []string `hcl:"depends_on,optional"`
-	IgnoreCases  []bool   `hcl:"ignore_cases,optional"`
-	Expressions  []bool   `hcl:"expressions"`
-	Report       Report   `hcl:"report,block"`
+	Description  string        `hcl:"description"`
+	Dependencies []string      `hcl:"depends_on,optional"`
+	Precondition *Precondition `hcl:"precondition,block"`
+	Expressions  []bool        `hcl:"expressions"`
+	Report       Report        `hcl:"report,block"`
 
 	Debugs []string `hcl:"debug,optional"`
 }
@@ -54,6 +54,11 @@ type Report struct {
 
 	// Message is shown when the rule is failed
 	Message string `hcl:"message"`
+}
+
+// Precondition represents a condition that determines whether the rule should be executed
+type Precondition struct {
+	Cases []bool `hcl:"cases"`
 }
 
 // Output is WIP
