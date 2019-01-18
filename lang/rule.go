@@ -74,6 +74,12 @@ func decodeRuleBlock(block *hcl.Block) (*Rule, hcl.Diagnostics) {
 			if report != nil {
 				rule.Report = report
 			}
+		case "precondition":
+			precondition, preconditionDiags := decodePreconditionBlock(block)
+			diags = append(diags, preconditionDiags...)
+			if precondition != nil {
+				rule.Precondition = precondition
+			}
 		default:
 			continue
 		}
@@ -93,7 +99,7 @@ type Rule struct {
 
 	Description  string
 	Dependencies []string
-	IgnoreCases  []bool
+	Precondition *Precondition
 	Expressions  []bool
 	Report       *Report
 
@@ -119,6 +125,16 @@ type Report struct {
 	Message string
 }
 
+// Precondition is
+type Precondition struct {
+	Config hcl.Body
+
+	TypeRange hcl.Range
+	DeclRange hcl.Range
+
+	Cases []bool
+}
+
 var ruleBlockSchema = &hcl.BodySchema{
 	Blocks: []hcl.BlockHeaderSchema{
 		{
@@ -126,6 +142,9 @@ var ruleBlockSchema = &hcl.BodySchema{
 		},
 		{
 			Type: "report",
+		},
+		{
+			Type: "precondition",
 		},
 	},
 	Attributes: []hcl.AttributeSchema{
@@ -135,9 +154,6 @@ var ruleBlockSchema = &hcl.BodySchema{
 		},
 		{
 			Name: "depends_on",
-		},
-		{
-			Name: "ignore_cases",
 		},
 		{
 			Name:     "expressions",
@@ -214,4 +230,22 @@ func decodeReportBlock(block *hcl.Block) (*Report, hcl.Diagnostics) {
 	}
 
 	return report, diags
+}
+
+func decodePreconditionBlock(block *hcl.Block) (*Precondition, hcl.Diagnostics) {
+	_, config, diags := block.Body.PartialContent(&hcl.BodySchema{
+		Attributes: []hcl.AttributeSchema{
+			{
+				Name:     "cases",
+				Required: true,
+			},
+		},
+	})
+
+	precondition := &Precondition{
+		Config:    config,
+		DeclRange: block.DefRange,
+	}
+
+	return precondition, diags
 }

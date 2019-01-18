@@ -35,7 +35,8 @@ There are **meta-parameters** available to all rules:
 
 - `description` (string) - A human-friendly description for the rule. This is primarily for documentation for users using your Stein configuration. When a module is published in Terraform Registry, the given description is shown as part of the documentation.
 - `depends_on` (list of strings) - Other rules which this rule depends on. This rule will be skipped if the dependency rules has failed. The rule name which will be described in "depends_on" list should follow as "rule.xxx".
-- `ignore_cases` (list of bools) - Conditions to ignore execution of the rule. If it contains one or more True condition, this rule will be skipped.
+- `precondition` (configuration block; optional) -
+    - `cases` (list of bools) - Conditions to determine whether the rule should be executed. This rule will only be executed if all preconditions return true.
 - `expressions` (list of bools) - Conditions for deciding whether this rule passes or fails. In order to pass, all conditions must return True.
 - `report` (configuration block) -
     - `level` (string) - Error level. It can take "ERROR" or "WARN" as the level. In case of "ERROR", this rule fails. But in case of "WARN", this rule doesn't fail.
@@ -49,14 +50,29 @@ The full syntax is:
 rule NAME {
   description = DESCRIPTION
 
-  [depends_on = [rule, rule, ...]]
-  [ignore_cases = [bool, bool, ...]]
+  [depends_on = [NAME, ...]]
 
-  expressions = [bool, bool, ...]
+  [PRECONDITION]
 
-  report {
-    level = [ERROR|WARN]
-    message = MESSAGE
-  }
+  expressions = [CONDITION, ...]
+
+  REPORT
+}
+```
+
+where PRECONDITION is:
+
+```hcl
+precondition {
+  cases = [CONDITION, ...]
+}
+```
+
+where REPORT is:
+
+```hcl
+report {
+  level = [ERROR|WARN]
+  message = MESSAGE
 }
 ```
