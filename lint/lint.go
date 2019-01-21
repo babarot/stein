@@ -169,11 +169,10 @@ func (l *Linter) Run(file File) (Result, error) {
 			return result, err
 		}
 
-		// Check if the rule has own dependencies
 		if rule.hasDependencies() {
-			ok := rule.checkDependenciesFailed(result)
+			// Skip execution of the rule if the dependent rule fails
+			ok := rule.checkDependenciesAreOK(result)
 			if !ok {
-				// skip this rule because the rule which it depends on has failed
 				continue
 			}
 		}
@@ -242,14 +241,17 @@ func (r *Rules) Sort() {
 		}
 	}
 
-	orderNames, ok := graph.Sort()
+	orderedRuleNames, ok := graph.Sort()
 	if !ok {
-		panic("error")
+		// TODO: Handle this pattern
+		//   For now it can be ignored.
+		//
+		// return
 	}
 
 	var sortedRules Rules
-	for _, name := range orderNames {
-		sortedRules = append(sortedRules, r.getOneByName(name))
+	for _, orderedRuleName := range orderedRuleNames {
+		sortedRules = append(sortedRules, r.getOneByName(orderedRuleName))
 	}
 	*r = sortedRules
 }
@@ -267,8 +269,7 @@ func (r *Rule) hasDependencies() bool {
 	return len(r.Dependencies) > 0
 }
 
-// check if the rules which this rule depends on are failed
-func (r *Rule) checkDependenciesFailed(result Result) bool {
+func (r *Rule) checkDependenciesAreOK(result Result) bool {
 	for _, dependency := range r.Dependencies {
 		depRule := strings.TrimPrefix(dependency, RulePrefix)
 		item := result.Items.getOneByName(depRule)
