@@ -9,9 +9,12 @@ import (
 )
 
 const (
-	envAppName    = "stein"
-	envAppVersion = "0.1.0"
-	envEnvPrefix  = "STEIN_"
+	// AppName is the application name
+	AppName = "stein"
+	// Version is the application version
+	Version = "0.2.0"
+
+	envEnvPrefix = "STEIN_"
 )
 
 // CLI represents the command-line interface
@@ -27,7 +30,7 @@ func main() {
 		Stderr: os.Stderr,
 	}
 
-	app := cli.NewCLI(envAppName, envAppVersion)
+	app := cli.NewCLI(AppName, Version)
 	app.Args = os.Args[1:]
 	app.Commands = map[string]cli.CommandFactory{
 		"apply": func() (cli.Command, error) {
@@ -39,7 +42,7 @@ func main() {
 	}
 	exitStatus, err := app.Run()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "[ERROR] %s: %v\n", envAppName, err)
+		fmt.Fprintf(os.Stderr, "[ERROR] %s: %v\n", AppName, err)
 	}
 	os.Exit(exitStatus)
 }
@@ -54,7 +57,7 @@ func (c CLI) exit(msg interface{}) int {
 		fmt.Fprintf(c.Stdout, "%s\n", m)
 		return 0
 	case error:
-		fmt.Fprintf(c.Stderr, "[ERROR] %s: %s\n", envAppName, m.Error())
+		fmt.Fprintf(c.Stderr, "[ERROR] %s: %s\n", AppName, m.Error())
 		return 1
 	default:
 		panic(msg)

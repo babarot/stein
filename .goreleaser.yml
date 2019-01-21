@@ -1,0 +1,28 @@
+# This is an example goreleaser.yaml file with some sane defaults.
+# Make sure to check the documentation at http://goreleaser.com
+builds:
+  - binary: stein
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - amd64
+    ldflags:
+     - -X main.Version={{.Version}}
+archive:
+  format: zip
+  name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
+  files:
+    - README.md
+    - CHANGELOG.md
+    - docs/*
+release:
+  github:
+    owner: b4b4r07
+    name: stein
+changelog:
+  sort: asc
+  filters:
+    exclude:
+    - '^docs:'
+    - '^test:'
