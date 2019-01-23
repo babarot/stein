@@ -68,7 +68,7 @@ type cache struct {
 }
 
 // NewLinter creates Linter object based on Lint Policy
-func NewLinter(policy loader.Policy) *Linter {
+func NewLinter() *Linter {
 	return &Linter{
 		stdout: os.Stdout,
 		stderr: os.Stderr,
@@ -77,13 +77,21 @@ func NewLinter(policy loader.Policy) *Linter {
 			policy:   Policy{},
 			filepath: "",
 		},
-		body:   policy.Body,
-		policy: policy.Data,
 	}
+}
+
+// SetPolicy is
+func (l *Linter) SetPolicy(policy loader.Policy) {
+	l.body = policy.Body
+	l.policy = policy.Data
 }
 
 func (l *Linter) decodePolicy(file File) (Policy, error) {
 	var policy Policy
+
+	if l.policy == nil {
+		return policy, errors.New("no DAM")
+	}
 
 	ctx, diags := l.policy.BuildContext(l.body, file.Path, file.Data)
 	if diags.HasErrors() {

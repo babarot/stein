@@ -61,7 +61,7 @@ func (p *Parser) loadHCLFile(path string) (hcl.Body, hcl.Diagnostics) {
 	return file.Body, diags
 }
 
-func visit(files *[]string) filepath.WalkFunc {
+func visitHCL(files *[]string) filepath.WalkFunc {
 	return func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
@@ -74,6 +74,19 @@ func visit(files *[]string) filepath.WalkFunc {
 	}
 }
 
+// func visitDir(dir string) filepath.WalkFunc {
+// 	return func(path string, info os.FileInfo, err error) error {
+// 		if err != nil {
+// 			return err
+// 		}
+// 		switch filepath.Ext(path) {
+// 		case ".hcl":
+// 			*files = append(*files, path)
+// 		}
+// 		return nil
+// 	}
+// }
+
 func getPolicyFiles(path string) ([]string, error) {
 	var (
 		files []string
@@ -84,13 +97,54 @@ func getPolicyFiles(path string) ([]string, error) {
 		return files, err
 	}
 	if fi.IsDir() {
-		return files, filepath.Walk(path, visit(&files))
+		return files, filepath.Walk(path, visitHCL(&files))
 	}
 	switch filepath.Ext(path) {
 	case ".hcl":
 		files = append(files, path)
 	}
 	return files, err
+}
+
+// GetPolicyDir is
+func GetPolicyDir(paths []string) map[string][]string {
+	dirMap := map[string][]string{}
+	for _, path := range paths {
+		var dirs []string
+		p := path
+		for {
+			if !strings.Contains(path, "/") {
+				break
+			}
+			path = filepath.Dir(path)
+			policyDir := filepath.Join(path, ".policy")
+			_, err := os.Stat(policyDir)
+			if err != nil {
+				continue
+			}
+			dirs = append(dirs, policyDir)
+		}
+		dirMap[p] = dirs
+	}
+	return dirMap
+}
+
+// Get is
+func Get(path string) []string {
+	var dirs []string
+	for {
+		if !strings.Contains(path, "/") {
+			break
+		}
+		path = filepath.Dir(path)
+		policyDir := filepath.Join(path, ".policy")
+		_, err := os.Stat(policyDir)
+		if err != nil {
+			continue
+		}
+		dirs = append(dirs, policyDir)
+	}
+	return dirs
 }
 
 // func readBody(path string) (hcl.Body, map[string]*hcl.File, error) {

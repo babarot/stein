@@ -8,8 +8,6 @@ import (
 	"os"
 	"strings"
 
-	"github.com/b4b4r07/stein/lang"
-	"github.com/b4b4r07/stein/lang/loader"
 	"github.com/b4b4r07/stein/lint"
 	"github.com/fatih/color"
 	"github.com/hashicorp/hcl2/hcl"
@@ -27,11 +25,13 @@ type ApplyCommand struct {
 // ApplyOption is the options for ApplyCommand
 type ApplyOption struct {
 	PolicyPath string
+	PolicyHome string
 }
 
 func (c *ApplyCommand) flagSet() *flag.FlagSet {
 	flags := flag.NewFlagSet("apply", flag.ExitOnError)
 	flags.StringVar(&c.Option.PolicyPath, "policy", ".", "path to the policy files or the directory where policy files are located")
+	flags.StringVar(&c.Option.PolicyHome, "policy-home", ".policy", "")
 	flags.VisitAll(func(f *flag.Flag) {
 		if s := os.Getenv(strings.ToUpper(envEnvPrefix + f.Name)); s != "" {
 			f.Value.Set(s)
@@ -54,30 +54,28 @@ func (c *ApplyCommand) Run(args []string) int {
 
 	// policy path can take a string separated by a comma like below
 	// => foo/a,bar/b,buz/a/b/c
-	paths := strings.Split(c.Option.PolicyPath, ",")
-
-	policy, err := loader.Load(paths...)
-	if err != nil {
-		return c.exit(err)
-	}
-	c.policyFiles = policy.Files
-
-	data, diags := lang.Decode(policy.Body)
-	if diags.HasErrors() {
-		return c.exit(diags)
-	}
-	policy.Data = data
-
+	// paths := strings.Split(c.Option.PolicyPath, ",")
+	// pp.Println(c.Option.PolicyHome)
+	// pp.Println(args)
+	// println("")
+	// pp.Println(paths)
+	// dirMap := loader.GetPolicyDir(args)
+	// pp.Println(dirMap)
+	// for _, arg := range args {
+	// 	pp.Println(arg, loader.Get(arg))
+	// }
 	// settings about linter are below
-	linter := lint.NewLinter(policy)
 
 	files, err := lint.Args(args)
 	if err != nil {
 		return c.exit(err)
 	}
 
+	linter := lint.NewLinter()
 	var results []lint.Result
 	for _, file := range files {
+		linter.SetPolicy(file.Policy)
+		c.policyFiles = file.Policy.Files
 		c.runningFile = file
 		result, err := linter.Run(file)
 		if err != nil {
@@ -120,6 +118,7 @@ func (c *ApplyCommand) exit(msg interface{}) int {
 	)
 	switch m := msg.(type) {
 	case error:
+		// TODO
 		color.New(color.Underline).Fprintln(c.Stderr, c.runningFile.Path)
 		switch diags := m.(type) {
 		case hcl.Diagnostics:

@@ -9,6 +9,8 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/b4b4r07/stein/lang"
+	"github.com/b4b4r07/stein/lang/loader"
 	"github.com/hashicorp/hcl"
 
 	"k8s.io/apimachinery/pkg/util/yaml"
@@ -22,11 +24,24 @@ type File struct {
 
 	// Meta field means the annotation
 	Meta string
+
+	Policy loader.Policy
 }
 
 // Args converts from its arguments to the collection of File object
 func Args(paths []string) (files []File, err error) {
 	for _, path := range paths {
+		policy, err := loader.Load(loader.Get(path)...)
+		if err != nil {
+			return files, err
+		}
+		// c.policyFiles = policy.Files
+		data, diags := lang.Decode(policy.Body)
+		if diags.HasErrors() {
+			return files, err
+		}
+		policy.Data = data
+
 		ext := filepath.Ext(path)
 		switch ext {
 		case ".yaml", ".yml":
@@ -34,15 +49,19 @@ func Args(paths []string) (files []File, err error) {
 			if err != nil {
 				return files, err
 			}
-			files = append(files, yamlFiles...)
+			for _, file := range yamlFiles {
+				file.Policy = policy
+				files = append(files, file)
+			}
 		case ".json":
 			data, err := ioutil.ReadFile(path)
 			if err != nil {
 				return files, err
 			}
 			files = append(files, File{
-				Path: path,
-				Data: data,
+				Path:   path,
+				Data:   data,
+				Policy: policy,
 			})
 		case ".hcl", ".tf":
 			contents, err := ioutil.ReadFile(path)
@@ -59,8 +78,9 @@ func Args(paths []string) (files []File, err error) {
 				return files, fmt.Errorf("unable to marshal json: %s", err)
 			}
 			files = append(files, File{
-				Path: path,
-				Data: data,
+				Path:   path,
+				Data:   data,
+				Policy: policy,
 			})
 		default:
 			return files, fmt.Errorf("%q (%s): unsupported file type", path, ext)
