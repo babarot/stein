@@ -2,21 +2,10 @@
 
 Stein is a tool like a linter for config files (such as JSON, YAML, HCL) with a customizable rule set.
 
-```console
-$ stein apply manifests/**/*
-manifests/microservices/x-gateway-jp/development/Deployment/redis-master.yaml
-  No violated rules
+As the motivation of this tool, the factor which accounts for the most of them is the [Policy as Code](docs/policy-as-code.md).
 
-manifests/microservices/x-echo-jp/development/Deployment/test.yml
-  [ERROR]  rule.one_resource_per_one_file  Only 1 resource should be defined in a YAML file
-  [WARN ]  rule.yaml_separator             YAML separator "---" should be removed
-  [ERROR]  rule.filename_extension         Filename extension should be yaml or yaml.enc
+Thanks to [Infrastructure as Code](https://en.wikipedia.org/wiki/Infrastructure_as_code), the number of cases that the configurations of its infrastructure are described as code is increasing day by day.
+Then, it became necessary to set the lint or policy for the config files.
+As an example: the namespace of Kubernetes to be deployed, the number of replicas of Pods, the naming convention of a namespace, etc.
 
-manifests/microservices/x-echo-jp/development/Service/service.yaml
-  [ERROR]  rule.namespace_is_specified     Namespace is not specified
-  [ERROR]  rule.metadata_name_is_correct   "service.yaml" should be "redis-master"+.yaml
-
-4 error(s), 1 warn(s)
-```
-
-Motivation...bla bla bla
+<img width="878" alt="2019-01-24 23 58 36" src="https://user-images.githubusercontent.com/4442708/51686626-112c1280-2034-11e9-81b1-ac77b253ab2e.png">

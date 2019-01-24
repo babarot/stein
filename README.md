@@ -23,6 +23,38 @@ As an example: the namespace of Kubernetes to be deployed, the number of replica
 
 This tool makes it possible to describe those requests as code (called as the [rules](docs/policy/rules.md)).
 
+## Installation
+
+```console
+$ go get github.com/b4b4r07/stein
+```
+
+or
+
+```bash
+VERSION="X.X.X"
+OS="darwin" # or "linux"
+wget "https://github.com/b4b4r07/stein/releases/download/v${VERSION}/stein_${OS}_amd64.zip"
+unzip -n "stein_${OS}_amd64.zip"
+```
+
+## Try to use!
+
+Example is here: [`test.sh`](./test.sh). It also responds to `-h` and `--help` as you'd expect.
+To view a list of the available commands at any time, just run `stein` with no arguments.
+
+```console
+$ stein apply _examples/spinnaker/*/*/*
+_examples/spinnaker/x-echo-jp/development/deploy-to-dev-v2.yaml (Block 1)
+  No violated rules
+
+_examples/spinnaker/x-echo-jp/development/deploy-to-dev-v2.yaml (Block 2)
+  [ERROR]  rule.namespace_name            Namespace name "x-echo-jp-prod" is invalid
+
+=====================
+1 error(s), 0 warn(s)
+```
+
 ## Documentations
 
 - [Concepts](docs/concepts.md)
