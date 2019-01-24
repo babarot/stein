@@ -25,27 +25,30 @@ type File struct {
 	// Meta field means the annotation
 	Meta string
 
+	// File struct has Policy data
+	// because policy applied to the file should be determined by each file
 	Policy loader.Policy
 }
 
-// Args converts from its arguments to the collection of File object
-func Args(paths []string) (files []File, err error) {
-	for _, path := range paths {
-		policy, err := loader.Load(loader.Get(path)...)
+// filesFromArgs converts from given arguments to the collection of File object
+func filesFromArgs(args []string, additionals ...string) (files []File, err error) {
+	for _, arg := range args {
+		policies := loader.SearchPolicyDir(arg)
+		policies = append(policies, additionals...)
+		policy, err := loader.Load(policies...)
 		if err != nil {
 			return files, err
 		}
-		// c.policyFiles = policy.Files
 		data, diags := lang.Decode(policy.Body)
 		if diags.HasErrors() {
-			return files, err
+			return files, diags
 		}
 		policy.Data = data
 
-		ext := filepath.Ext(path)
+		ext := filepath.Ext(arg)
 		switch ext {
 		case ".yaml", ".yml":
-			yamlFiles, err := handleYAML(path)
+			yamlFiles, err := handleYAML(arg)
 			if err != nil {
 				return files, err
 			}
@@ -54,17 +57,17 @@ func Args(paths []string) (files []File, err error) {
 				files = append(files, file)
 			}
 		case ".json":
-			data, err := ioutil.ReadFile(path)
+			data, err := ioutil.ReadFile(arg)
 			if err != nil {
 				return files, err
 			}
 			files = append(files, File{
-				Path:   path,
+				Path:   arg,
 				Data:   data,
 				Policy: policy,
 			})
 		case ".hcl", ".tf":
-			contents, err := ioutil.ReadFile(path)
+			contents, err := ioutil.ReadFile(arg)
 			if err != nil {
 				return files, err
 			}
@@ -78,12 +81,12 @@ func Args(paths []string) (files []File, err error) {
 				return files, fmt.Errorf("unable to marshal json: %s", err)
 			}
 			files = append(files, File{
-				Path:   path,
+				Path:   arg,
 				Data:   data,
 				Policy: policy,
 			})
 		default:
-			return files, fmt.Errorf("%q (%s): unsupported file type", path, ext)
+			return files, fmt.Errorf("%q (%s): unsupported file type", arg, ext)
 		}
 	}
 	return files, nil

@@ -50,10 +50,12 @@ type Linter struct {
 	config *Config
 	cache  cache
 
-	// policy schema
+	// policy is a policy schema
 	policy *lang.Policy
-	// all configuration body decoded by HCL
+	// body is a decoded body that all policies is merged
 	body hcl.Body
+	// files are converted from given arguments (file paths are assumed)
+	files []File
 }
 
 type cache struct {
@@ -68,7 +70,11 @@ type cache struct {
 }
 
 // NewLinter creates Linter object based on Lint Policy
-func NewLinter() *Linter {
+func NewLinter(args []string, additionals ...string) (*Linter, error) {
+	files, err := filesFromArgs(args, additionals...)
+	if err != nil {
+		return &Linter{}, err
+	}
 	return &Linter{
 		stdout: os.Stdout,
 		stderr: os.Stderr,
@@ -77,11 +83,13 @@ func NewLinter() *Linter {
 			policy:   Policy{},
 			filepath: "",
 		},
-	}
+		policy: nil,
+		body:   nil,
+		files:  files,
+	}, nil
 }
 
-// SetPolicy is
-func (l *Linter) SetPolicy(policy loader.Policy) {
+func (l *Linter) setPolicy(policy loader.Policy) {
 	l.body = policy.Body
 	l.policy = policy.Data
 }
@@ -126,6 +134,9 @@ type Result struct {
 	Path  string
 	Items Items
 	OK    bool
+
+	// RulesNotFound is
+	RulesNotFound bool
 	// Metadata is something notes related to Result
 	Metadata string
 }
@@ -141,8 +152,16 @@ type Item struct {
 // Items is the collenction of Item object
 type Items []Item
 
+// Files returns []File object converted from given arguments
+func (l *Linter) Files() []File {
+	return l.files
+}
+
 // Run runs the linter against a file of an argument
 func (l *Linter) Run(file File) (Result, error) {
+	// Set a policy to read for each files
+	l.setPolicy(file.Policy)
+
 	policy, err := l.decodePolicy(file)
 	if err != nil {
 		return Result{}, err
@@ -162,10 +181,11 @@ func (l *Linter) Run(file File) (Result, error) {
 	}
 
 	result := Result{
-		Path:     file.Path,
-		Items:    []Item{},
-		OK:       true,
-		Metadata: file.Meta,
+		Path:          file.Path,
+		Items:         []Item{},
+		OK:            true,
+		RulesNotFound: len(policy.Rules) == 0,
+		Metadata:      file.Meta,
 	}
 
 	// sort rules by depends_on
@@ -351,7 +371,10 @@ func (l *Linter) Print(result Result) {
 	// Teardown Print method
 	switch cfg.Style {
 	case "console":
-		if result.OK {
+		switch {
+		case result.RulesNotFound:
+			fmt.Fprintln(out, consolePadding+"No rules found")
+		case result.OK:
 			fmt.Fprintln(out, consolePadding+"No violated rules")
 		}
 		fmt.Fprintln(out)

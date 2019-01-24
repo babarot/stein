@@ -12,21 +12,12 @@ import (
 	"github.com/hashicorp/hcl2/hclparse"
 )
 
-// // Loaded is
-// type Loaded struct {
-// 	Policy *lang.Policy
-// 	Files  map[string]*hcl.File
-// 	Body   hcl.Body
-// }
-
-// Parser is
+// Parser represents mainly HCL parser
 type Parser struct {
 	p *hclparse.Parser
 }
 
-// NewParser is
-// // Loader is a starting point function for loading the HCL file
-// // (called this policy in this application).
+// NewParser creates Parser instance
 func NewParser() *Parser {
 	return &Parser{hclparse.NewParser()}
 }
@@ -74,19 +65,8 @@ func visitHCL(files *[]string) filepath.WalkFunc {
 	}
 }
 
-// func visitDir(dir string) filepath.WalkFunc {
-// 	return func(path string, info os.FileInfo, err error) error {
-// 		if err != nil {
-// 			return err
-// 		}
-// 		switch filepath.Ext(path) {
-// 		case ".hcl":
-// 			*files = append(*files, path)
-// 		}
-// 		return nil
-// 	}
-// }
-
+// getPolicyFiles walks the given path and returns the files ending with HCL
+// Also, it returns the path if the path is just a file and a HCL file
 func getPolicyFiles(path string) ([]string, error) {
 	var (
 		files []string
@@ -106,98 +86,67 @@ func getPolicyFiles(path string) ([]string, error) {
 	return files, err
 }
 
-// GetPolicyDir is
-func GetPolicyDir(paths []string) map[string][]string {
-	dirMap := map[string][]string{}
-	for _, path := range paths {
-		var dirs []string
-		p := path
-		for {
-			if !strings.Contains(path, "/") {
-				break
-			}
-			path = filepath.Dir(path)
-			policyDir := filepath.Join(path, ".policy")
-			_, err := os.Stat(policyDir)
-			if err != nil {
-				continue
-			}
-			dirs = append(dirs, policyDir)
-		}
-		dirMap[p] = dirs
-	}
-	return dirMap
-}
-
-// Get is
-func Get(path string) []string {
+// SearchPolicyDir searchs the hierarchy of the given path step by step and find the default directory
+func SearchPolicyDir(path string) []string {
 	var dirs []string
 	for {
 		if !strings.Contains(path, "/") {
 			break
 		}
+		// search parent dir nextly
 		path = filepath.Dir(path)
-		policyDir := filepath.Join(path, ".policy")
-		_, err := os.Stat(policyDir)
+		policyDirPath := filepath.Join(path, ".policy")
+		_, err := os.Stat(policyDirPath)
 		if err != nil {
+			// skip if policy dir doesn't exist
 			continue
 		}
-		dirs = append(dirs, policyDir)
+		dirs = append(dirs, policyDirPath)
 	}
 	return dirs
 }
 
-// func readBody(path string) (hcl.Body, map[string]*hcl.File, error) {
-// 	parser := NewParser()
-//
-// 	var diags hcl.Diagnostics
-// 	var bodies []hcl.Body
-// 	var err error
-//
-// 	files, err := getPolicyFiles(path)
-// 	if err != nil {
-// 		return nil, map[string]*hcl.File{}, err
-// 	}
-//
-// 	for _, file := range files {
-// 		body, fDiags := parser.loadHCLFile(file)
-// 		bodies = append(bodies, body)
-// 		diags = append(diags, fDiags...)
-// 	}
-//
-// 	if diags.HasErrors() {
-// 		err = diags
-// 	}
-//
-// 	return hcl.MergeBodies(bodies), parser.p.Files(), err
-// }
-
-// Policy is
+// Policy represents the raw data of HCL files decoded by hcl2 package
 type Policy struct {
 	Body  hcl.Body
 	Files map[string]*hcl.File
-	Data  *lang.Policy
+	// Data represents the raw data decoded based on stein schema
+	Data *lang.Policy
 }
 
-// Load is
+// Load reads the files and converts them to Policy object
 func Load(paths ...string) (Policy, error) {
 	parser := NewParser()
 
 	var diags hcl.Diagnostics
 	var bodies []hcl.Body
+	var policies []string
 	var err error
 
+	// paths can take a file path and a dir path
 	for _, path := range paths {
+		// if c.Option.Policy is empty, in other words, additionals is nothing,
+		// paths are likely to contain empty string.
+		// if so, skip to run getPolicyFiles
+		if path == "" {
+			continue
+		}
 		files, err := getPolicyFiles(path)
 		if err != nil {
 			return Policy{}, err
 		}
+		// gather full paths of HCL file to one array
+		policies = append(policies, files...)
+	}
 
-		for _, file := range files {
-			body, fDiags := parser.loadHCLFile(file)
-			bodies = append(bodies, body)
-			diags = append(diags, fDiags...)
-		}
+	// delete duplicate file paths
+	// in consideration of the case the same files are read
+	//
+	// TODO: think if unique is needed (if not needed, just returns error)
+	for _, policy := range unique(policies) {
+		body, fDiags := parser.loadHCLFile(policy)
+		bodies = append(bodies, body)
+		diags = append(diags, fDiags...)
 	}
 
 	if diags.HasErrors() {
@@ -210,25 +159,14 @@ func Load(paths ...string) (Policy, error) {
 	}, err
 }
 
-// // Load is
-// func (l *Loader) Load() (*lang.Policy, error) {
-// 	// body, files, err := readBody(path)
-// 	// if err != nil {
-// 	// 	return Loaded{
-// 	// 		Policy: nil,
-// 	// 		Body:   body,
-// 	// 		Files:  files,
-// 	// 	}, err
-// 	// }
-// 	var err error
-// 	policy, diags := lang.Parse(l.Body, l.Files)
-// 	if diags.HasErrors() {
-// 		err = diags
-// 	}
-// 	return policy, err
-// 	// return Loaded{
-// 	// 	Policy: policy,
-// 	// 	Body:   l.Body,
-// 	// 	Files:  l.Files,
-// 	// }, err
-// }
+func unique(args []string) []string {
+	results := make([]string, 0, len(args))
+	encountered := map[string]bool{}
+	for i := 0; i < len(args); i++ {
+		if !encountered[args[i]] {
+			encountered[args[i]] = true
+			results = append(results, args[i])
+		}
+	}
+	return results
+}
