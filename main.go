@@ -12,7 +12,7 @@ const (
 	// AppName is the application name
 	AppName = "stein"
 	// Version is the application version
-	Version = "0.2.0"
+	Version = "0.2.1"
 
 	envEnvPrefix = "STEIN_"
 )
@@ -21,7 +21,6 @@ const (
 type CLI struct {
 	Stdout io.Writer
 	Stderr io.Writer
-	// Files  map[string]*hcl.File
 }
 
 func main() {

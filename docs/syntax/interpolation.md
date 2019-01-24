@@ -1,12 +1,12 @@
 # Interpolation Syntax
 
-Embedded within strings in Terraform, whether you're using the Terraform syntax or JSON syntax, you can interpolate other values. These interpolations are wrapped in ${}, such as ${var.foo}.
+Embedded within strings in Terraform, whether you're using the Terraform syntax or JSON syntax, you can interpolate other values. These interpolations are wrapped in `${}`, such as `${var.foo}`.
 
 The interpolation syntax is powerful and allows you to reference variables, attributes of resources, call functions, etc.
 
-You can perform simple math in interpolations, allowing you to write expressions such as ${count.index + 1}. And you can also use conditionals to determine a value based on some logic.
+You can perform simple math in interpolations, allowing you to write expressions such as `${count.index + 1}`. And you can also use conditionals to determine a value based on some logic.
 
-You can escape interpolation with double dollar signs: $${foo} will be rendered as a literal ${foo}.
+You can escape interpolation with double dollar signs: `$${foo}` will be rendered as a literal `${foo}`.
 
 ## Available Variables
 

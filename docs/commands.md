@@ -26,13 +26,9 @@ A configuration file can be specified with `-config` to define available import 
 
 The command-line flags are all optional. The list of available flags are:
 
-- `-config=path` - Path to a configuration file specifying available imports, mock data, globals, etc.
+- `-policy=file[,file,dir,...]` - Path to HCL file path or a directory path located in HCL files. You can specify multiple paths (directory or just HCL file) with a comma. The `STEIN_POLICY` variable is the environment variable version of this flag.
 
-<!--
--global key=value - Global values to inject into the running policy. This is equivalent to setting "global" in the configuration file. Any keys set here will override conflicting keys in the configuration. The value should be a JSON value. If the first character is not a valid JSON starting symbol, then the entire value is treated as a string.
-
--explain - Always show the execution trace. This shows intermediate boolean expression values. This always shows for failed policies.
--->
+See also [How policies are loaded by `stein` - Policy](policy.md#how-policies-are-loaded-by-stein).
 
 ## Command: `fmt`
 

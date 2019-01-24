@@ -1,0 +1,10 @@
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: test
+  namespace: x-echo-jp-dev
+spec:
+  minAvailable: 50%
+  selector:
+    matchLabels:
+      app: echo
