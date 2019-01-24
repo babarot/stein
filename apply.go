@@ -8,8 +8,6 @@ import (
 	"os"
 	"strings"
 
-	"github.com/b4b4r07/stein/lang"
-	"github.com/b4b4r07/stein/lang/loader"
 	"github.com/b4b4r07/stein/lint"
 	"github.com/fatih/color"
 	"github.com/hashicorp/hcl2/hcl"
@@ -20,7 +18,6 @@ type ApplyCommand struct {
 	CLI
 	Option ApplyOption
 
-	policyFiles map[string]*hcl.File
 	runningFile lint.File
 }
 
@@ -31,7 +28,7 @@ type ApplyOption struct {
 
 func (c *ApplyCommand) flagSet() *flag.FlagSet {
 	flags := flag.NewFlagSet("apply", flag.ExitOnError)
-	flags.StringVar(&c.Option.PolicyPath, "policy", ".", "path to the policy files or the directory where policy files are located")
+	flags.StringVar(&c.Option.PolicyPath, "policy", "", "path to the policy files or the directory where policy files are located")
 	flags.VisitAll(func(f *flag.Flag) {
 		if s := os.Getenv(strings.ToUpper(envEnvPrefix + f.Name)); s != "" {
 			f.Value.Set(s)
@@ -52,32 +49,13 @@ func (c *ApplyCommand) Run(args []string) int {
 		return c.exit(errors.New("No config files given as arguments"))
 	}
 
-	// policy path can take a string separated by a comma like below
-	// => foo/a,bar/b,buz/a/b/c
-	paths := strings.Split(c.Option.PolicyPath, ",")
-
-	policy, err := loader.Load(paths...)
-	if err != nil {
-		return c.exit(err)
-	}
-	c.policyFiles = policy.Files
-
-	data, diags := lang.Decode(policy.Body)
-	if diags.HasErrors() {
-		return c.exit(diags)
-	}
-	policy.Data = data
-
-	// settings about linter are below
-	linter := lint.NewLinter(policy)
-
-	files, err := lint.Args(args)
+	linter, err := lint.NewLinter(args, strings.Split(c.Option.PolicyPath, ",")...)
 	if err != nil {
 		return c.exit(err)
 	}
 
 	var results []lint.Result
-	for _, file := range files {
+	for _, file := range linter.Files() {
 		c.runningFile = file
 		result, err := linter.Run(file)
 		if err != nil {
@@ -113,13 +91,14 @@ func (c *ApplyCommand) Help() string {
 // exit overwides CLI.exit
 func (c *ApplyCommand) exit(msg interface{}) int {
 	wr := hcl.NewDiagnosticTextWriter(
-		c.Stderr,      // writer to send messages to
-		c.policyFiles, // the parser's file cache, for source snippets
-		100,           // wrapping width
-		true,          // generate colored/highlighted output
+		c.Stderr,                   // writer to send messages to
+		c.runningFile.Policy.Files, // the parser's file cache, for source snippets
+		100,  // wrapping width
+		true, // generate colored/highlighted output
 	)
 	switch m := msg.(type) {
 	case error:
+		// TODO
 		color.New(color.Underline).Fprintln(c.Stderr, c.runningFile.Path)
 		switch diags := m.(type) {
 		case hcl.Diagnostics:

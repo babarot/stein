@@ -8,17 +8,12 @@ Stein provides a language and workflow for building policy across any system tha
 
 Stein uses its own [language]() for writing policies. You can view a [language reference]() as well as the [specification]() for details. You don't have to read those documents immediately, since the language should be easy enough to pick up throughout this section.
 
-## What's Policy?
-
-Policy is a collection of rule sets. It includes functions, variables and configurations to help you write the rule to your config files such as YAML.
-
-## Why writing policies?
-
 ## What's next
 
 - [Syntax](syntax/syntax.md)
-- Policy
+  - [Interpolation Syntax](syntax/interpolation.md)
+- [Policy](policy.md)
   - [Rules](policy/rules.md)
   - [Variables](policy/variables.md)
   - [Functions](policy/functions.md)
-  - Config
+  - [Config](policy/config.md)

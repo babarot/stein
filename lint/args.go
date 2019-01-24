@@ -9,6 +9,8 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/b4b4r07/stein/lang"
+	"github.com/b4b4r07/stein/lang/loader"
 	"github.com/hashicorp/hcl"
 
 	"k8s.io/apimachinery/pkg/util/yaml"
@@ -22,30 +24,50 @@ type File struct {
 
 	// Meta field means the annotation
 	Meta string
+
+	// File struct has Policy data
+	// because policy applied to the file should be determined by each file
+	Policy loader.Policy
 }
 
-// Args converts from its arguments to the collection of File object
-func Args(paths []string) (files []File, err error) {
-	for _, path := range paths {
-		ext := filepath.Ext(path)
+// filesFromArgs converts from given arguments to the collection of File object
+func filesFromArgs(args []string, additionals ...string) (files []File, err error) {
+	for _, arg := range args {
+		policies := loader.SearchPolicyDir(arg)
+		policies = append(policies, additionals...)
+		policy, err := loader.Load(policies...)
+		if err != nil {
+			return files, err
+		}
+		data, diags := lang.Decode(policy.Body)
+		if diags.HasErrors() {
+			return files, diags
+		}
+		policy.Data = data
+
+		ext := filepath.Ext(arg)
 		switch ext {
 		case ".yaml", ".yml":
-			yamlFiles, err := handleYAML(path)
+			yamlFiles, err := handleYAML(arg)
 			if err != nil {
 				return files, err
 			}
-			files = append(files, yamlFiles...)
+			for _, file := range yamlFiles {
+				file.Policy = policy
+				files = append(files, file)
+			}
 		case ".json":
-			data, err := ioutil.ReadFile(path)
+			data, err := ioutil.ReadFile(arg)
 			if err != nil {
 				return files, err
 			}
 			files = append(files, File{
-				Path: path,
-				Data: data,
+				Path:   arg,
+				Data:   data,
+				Policy: policy,
 			})
 		case ".hcl", ".tf":
-			contents, err := ioutil.ReadFile(path)
+			contents, err := ioutil.ReadFile(arg)
 			if err != nil {
 				return files, err
 			}
@@ -59,11 +81,12 @@ func Args(paths []string) (files []File, err error) {
 				return files, fmt.Errorf("unable to marshal json: %s", err)
 			}
 			files = append(files, File{
-				Path: path,
-				Data: data,
+				Path:   arg,
+				Data:   data,
+				Policy: policy,
 			})
 		default:
-			return files, fmt.Errorf("%q (%s): unsupported file type", path, ext)
+			return files, fmt.Errorf("%q (%s): unsupported file type", arg, ext)
 		}
 	}
 	return files, nil
