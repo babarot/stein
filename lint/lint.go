@@ -12,7 +12,7 @@ import (
 
 	"github.com/b4b4r07/stein/lint/internal/policy"
 	"github.com/b4b4r07/stein/lint/internal/policy/loader"
-	"github.com/b4b4r07/stein/pkg/topological"
+	"github.com/b4b4r07/stein/lint/internal/topological"
 	"github.com/fatih/color"
 	"github.com/hashicorp/hcl2/gohcl"
 	"github.com/hashicorp/hcl2/hcl"
