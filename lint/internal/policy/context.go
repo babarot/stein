@@ -1,4 +1,4 @@
-package lang
+package policy
 
 import (
 	"fmt"
@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/b4b4r07/stein/lang/funcs"
-	"github.com/b4b4r07/stein/lang/terraform"
+	"github.com/b4b4r07/stein/lint/internal/policy/funcs"
+	"github.com/b4b4r07/stein/lint/internal/policy/terraform"
 	"github.com/hashicorp/hcl2/ext/userfunc"
 	"github.com/hashicorp/hcl2/hcl"
 	"github.com/zclconf/go-cty/cty"

@@ -9,8 +9,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/b4b4r07/stein/lang"
-	"github.com/b4b4r07/stein/lang/loader"
+	"github.com/b4b4r07/stein/lint/internal/policy"
+	"github.com/b4b4r07/stein/lint/internal/policy/loader"
 	"github.com/hashicorp/hcl"
 
 	"k8s.io/apimachinery/pkg/util/yaml"
@@ -35,15 +35,15 @@ func filesFromArgs(args []string, additionals ...string) (files []File, err erro
 	for _, arg := range args {
 		policies := loader.SearchPolicyDir(arg)
 		policies = append(policies, additionals...)
-		policy, err := loader.Load(policies...)
+		loadedPolicy, err := loader.Load(policies...)
 		if err != nil {
 			return files, err
 		}
-		data, diags := lang.Decode(policy.Body)
+		data, diags := policy.Decode(loadedPolicy.Body)
 		if diags.HasErrors() {
 			return files, diags
 		}
-		policy.Data = data
+		loadedPolicy.Data = data
 
 		ext := filepath.Ext(arg)
 		switch ext {
@@ -53,7 +53,7 @@ func filesFromArgs(args []string, additionals ...string) (files []File, err erro
 				return files, err
 			}
 			for _, file := range yamlFiles {
-				file.Policy = policy
+				file.Policy = loadedPolicy
 				files = append(files, file)
 			}
 		case ".json":
@@ -64,7 +64,7 @@ func filesFromArgs(args []string, additionals ...string) (files []File, err erro
 			files = append(files, File{
 				Path:   arg,
 				Data:   data,
-				Policy: policy,
+				Policy: loadedPolicy,
 			})
 		case ".hcl", ".tf":
 			contents, err := ioutil.ReadFile(arg)
@@ -83,7 +83,7 @@ func filesFromArgs(args []string, additionals ...string) (files []File, err erro
 			files = append(files, File{
 				Path:   arg,
 				Data:   data,
-				Policy: policy,
+				Policy: loadedPolicy,
 			})
 		default:
 			return files, fmt.Errorf("%q (%s): unsupported file type", arg, ext)
