@@ -429,9 +429,9 @@ func (r *Rule) SkipCase() bool {
 	return false
 }
 
-// TrueCase returns true if all expressions in a rule are true.
+// TrueCase returns true if all conditions in a rule are true.
 func (r *Rule) TrueCase() bool {
-	for _, expr := range r.Expressions {
+	for _, expr := range r.Conditions {
 		if !expr {
 			return false
 		}
