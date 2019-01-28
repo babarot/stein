@@ -7,16 +7,11 @@ all:
 build: ## Build for local environment
 	@go build
 
-.PHONY: changelog
-changelog: ## Generate changelog automatically
-	@go get -u github.com/git-chglog/git-chglog/cmd/git-chglog
-	git-chglog --output CHANGELOG.md
-	git diff
-
 .PHONY: release
 release: ## Build for multiple OSs, packaging it and upload to GitHub Release
+	@#go get -u github.com/motemen/gobump/cmd/gobump
+	@#go get -u github.com/git-chglog/git-chglog/cmd/git-chglog
 	@#go get -u github.com/goreleaser/goreleaser
-	@#goreleaser --release-notes CHANGELOG.md --rm-dist
 	@bash ./scripts/release.sh
 
 .PHONY: help
