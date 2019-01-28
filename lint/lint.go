@@ -10,8 +10,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/b4b4r07/stein/lang"
-	"github.com/b4b4r07/stein/lang/loader"
+	"github.com/b4b4r07/stein/lint/internal/policy"
+	"github.com/b4b4r07/stein/lint/internal/policy/loader"
 	"github.com/b4b4r07/stein/pkg/topological"
 	"github.com/fatih/color"
 	"github.com/hashicorp/hcl2/gohcl"
@@ -51,7 +51,7 @@ type Linter struct {
 	cache  cache
 
 	// policy is a policy schema
-	policy *lang.Policy
+	policy *policy.Policy
 	// body is a decoded body that all policies is merged
 	body hcl.Body
 	// files are converted from given arguments (file paths are assumed)

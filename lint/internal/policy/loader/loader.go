@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/b4b4r07/stein/lang"
+	"github.com/b4b4r07/stein/lint/internal/policy"
 	"github.com/hashicorp/hcl2/hcl"
 	"github.com/hashicorp/hcl2/hclparse"
 )
@@ -111,7 +111,7 @@ type Policy struct {
 	Body  hcl.Body
 	Files map[string]*hcl.File
 	// Data represents the raw data decoded based on stein schema
-	Data *lang.Policy
+	Data *policy.Policy
 }
 
 // Load reads the files and converts them to Policy object
