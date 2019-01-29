@@ -36,7 +36,7 @@ type Rule struct {
 	Description  string        `hcl:"description"`
 	Dependencies []string      `hcl:"depends_on,optional"`
 	Precondition *Precondition `hcl:"precondition,block"`
-	Expressions  []bool        `hcl:"expressions"`
+	Conditions   []bool        `hcl:"conditions"`
 	Report       Report        `hcl:"report,block"`
 
 	Debugs []string `hcl:"debug,optional"`

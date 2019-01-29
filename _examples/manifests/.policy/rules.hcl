@@ -1,7 +1,7 @@
 rule "filename" {
   description = "Check filename is the same as metadata.name"
 
-  expressions = [
+  conditions = [
     "${jsonpath("metadata.name") == remove_ext(filename)}",
   ]
 
@@ -14,7 +14,7 @@ rule "filename" {
 rule "resource_per_file" {
   description = ""
 
-  expressions = [
+  conditions = [
     "${wc(grep("^kind: ", file(filename))) == 0}",
   ]
 
@@ -27,7 +27,7 @@ rule "resource_per_file" {
 rule "yaml_separator" {
   description = "Do not use YAML separator"
 
-  expressions = [
+  conditions = [
     "${length(grep("^---", file(filename))) == 0}",
   ]
 

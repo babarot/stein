@@ -12,7 +12,7 @@ A `rule` configuration looks like the following:
 rule "replicas" {
   description = "Check the number of replicas is sufficient"
 
-  expressions = [
+  conditions = [
     "${jsonpath(".spec.replicas") > 3}",
   ]
 
@@ -37,7 +37,7 @@ There are **meta-parameters** available to all rules:
 - `depends_on` (list of strings) - Other rules which this rule depends on. This rule will be skipped if the dependency rules has failed. The rule name which will be described in "depends_on" list should follow as "rule.xxx".
 - `precondition` (configuration block; optional) -
     - `cases` (list of bools) - Conditions to determine whether the rule should be executed. This rule will only be executed if all preconditions return true.
-- `expressions` (list of bools) - Conditions for deciding whether this rule passes or fails. In order to pass, all conditions must return True.
+- `conditions` (list of bools) - Conditions for deciding whether this rule passes or fails. In order to pass, all conditions must return True.
 - `report` (configuration block) -
     - `level` (string) - Error level. It can take "ERROR" or "WARN" as the level. In case of "ERROR", this rule fails. But in case of "WARN", this rule doesn't fail.
     - `message` (string) - Error message. Let's write the conditions for passing the role here.
@@ -54,7 +54,7 @@ rule NAME {
 
   [PRECONDITION]
 
-  expressions = [CONDITION, ...]
+  conditions = [CONDITION, ...]
 
   REPORT
 }

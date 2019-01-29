@@ -45,7 +45,7 @@ func decodeRuleBlock(block *hcl.Block) (*Rule, hcl.Diagnostics) {
 	//   See also
 	//   https://github.com/hashicorp/hcl2/blob/cce5ae6cc5c890122f922573d6bf973eef0509f7/hcl/hclsyntax/expression_ops.go#L123-L196
 	//
-	// if attr, exists := content.Attributes["expressions"]; exists {
+	// if attr, exists := content.Attributes["conditions"]; exists {
 	// }
 
 	if attr, exists := content.Attributes["depends_on"]; exists {
@@ -100,7 +100,7 @@ type Rule struct {
 	Description  string
 	Dependencies []string
 	Precondition *Precondition
-	Expressions  []bool
+	Conditions   []bool
 	Report       *Report
 
 	Debug []string
@@ -156,7 +156,7 @@ var ruleBlockSchema = &hcl.BodySchema{
 			Name: "depends_on",
 		},
 		{
-			Name:     "expressions",
+			Name:     "conditions",
 			Required: true,
 		},
 	},

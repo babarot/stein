@@ -1,7 +1,7 @@
 rule "namespace_specification" {
   description = "Check namespace name is not empty"
 
-  expressions = [
+  conditions = [
     "${jsonpath("metadata.namespace") != ""}",
   ]
 
@@ -22,7 +22,7 @@ rule "namespace_name" {
     ]
   }
 
-  expressions = [
+  conditions = [
     "${jsonpath("metadata.namespace") == get_service_id_with_env(filename)}",
   ]
 
@@ -43,7 +43,7 @@ rule "namespace_name_irregular" {
     ]
   }
 
-  expressions = [
+  conditions = [
     "${contains(lookuplist(var.namespace_name_map, jsonpath("metadata.namespace")), get_service_id_with_env(filename))}",
   ]
 
@@ -56,7 +56,7 @@ rule "namespace_name_irregular" {
 rule "extension" {
   description = "Acceptable yaml file extensions are limited"
 
-  expressions = [
+  conditions = [
     "${ext(filename) == ".yaml" || ext(filename) == ".yaml.enc"}",
   ]
 
