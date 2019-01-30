@@ -22,7 +22,7 @@ Let's say you want to create a lint policy for the next YAML file.
 apiVersion: v1
 metadata:
   name: my-service
-  namespace: echo
+  # namespace: echo
 spec:
   selector:
     app: MyApp
@@ -61,14 +61,17 @@ This list is a collections of boolean values.
 If this list contains one or more ***false*** values, this rule will fail.
 The failed rule will output an error message according to the report block.
 
-## Run `stein`
+By the way, `jsonpath` is provided as a built-in function.
+The available functions are here: [Interpolation Syntax](syntax/interpolation.md).
+
+## Run stein
 
 After writing up your rules, let's run stein command.
 
 The Stein CLI is a well-behaved command line application.
 In erroneous cases, a non-zero exit status will be returned.
 It also responds to `-h` and `--help` as you'd expect.
-To view a list of the available commands at any time, just run `stein` with no arguments.
+To view a list of the available commands at any time, just run stein with no arguments.
 
 To apply the rule to that YAML file and run the test you can do with the [`apply`](commands.md#command-apply) subcommand.
 
