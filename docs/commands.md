@@ -7,7 +7,7 @@ The complete list of subcommands is below.
 
 The Stein CLI is a well-behaved command line application.
 In erroneous cases, a non-zero exit status will be returned.
-It also responds to -h and --help as you'd expect.
+It also responds to `-h` and `--help` as you'd expect.
 To view a list of the available commands at any time, just run `stein` with no arguments.
 
 ## Command: `apply`

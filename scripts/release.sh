@@ -7,7 +7,7 @@ ask() {
     while true
     do
         read -r -p "${message} [y/n] " input
-        case $input in
+        case "${input}" in
             [yY][eE][sS]|[yY])
                 return 0
                 ;;
@@ -58,7 +58,7 @@ main() {
     ask "OK to commit/push these changes?" || return 1
     git commit -am "Bump version ${next_version} and update changelog"
     git tag "v${next_version}"
-    git push && git push --tags
+    git push
 
     ask "OK to release?" || return 1
     goreleaser --release-notes CHANGELOG.md --rm-dist
