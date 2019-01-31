@@ -17,17 +17,12 @@ import (
 
 // BuildContext is
 func (p Policy) BuildContext(body hcl.Body, filename string, filedata []byte) (*hcl.EvalContext, hcl.Diagnostics) {
-	// var files []cty.Value
-	// for file := range p.Files {
-	// 	files = append(files, cty.StringVal(file))
-	// }
 	ctx := &hcl.EvalContext{
 		Variables: map[string]cty.Value{
 			"filename": cty.StringVal(filename), // alias of path.filename
 			"path": cty.ObjectVal(map[string]cty.Value{
 				"file": cty.StringVal(filename),
 				"dir":  cty.StringVal(filepath.Base(filename)),
-				// "policies": cty.ListVal(files),
 			}),
 		},
 		Functions: map[string]function.Function{
@@ -37,6 +32,7 @@ func (p Policy) BuildContext(body hcl.Body, filename string, filedata []byte) (*
 			"glob":        funcs.GlobFunc,
 			"pathshorten": funcs.PathShortenFunc,
 			"ext":         funcs.ExtFunc,
+			"exist":       funcs.ExistFunc,
 			// basic
 			"match": funcs.MatchFunc,
 			"color": funcs.ColorFunc,

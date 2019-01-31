@@ -256,6 +256,22 @@ Usage:
 # => "\x1b[31m\x1b[40mhello!\x1b[0m"
 ```
 
+### `exist(path)`
+
+Returns true if path exists
+
+Types:
+
+- input args: `string`
+- return values: `boolean`
+
+Usage:
+
+```hcl
+"${exist("/path/to/whatever")}"
+# => true (if exists)
+```
+
 ### `jsonpath(query, default...)`
 
 WIP

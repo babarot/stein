@@ -36,3 +36,22 @@ rule "yaml_separator" {
     message = "YAML separator \"---\" should be removed"
   }
 }
+
+rule "pdb_defined" {
+  description = "Check the PDB resouces are defined"
+
+  precondition {
+    cases = [
+      "${kind("Deployment")}",
+    ]
+  }
+
+  conditions = [
+    "${length(glob(format("%s/PodDisruptionBudget/*", dirname(dirname(filename))))) > 0}",
+  ]
+
+  report {
+    level   = "ERROR"
+    message = "PDB for this Deployment not found"
+  }
+}
