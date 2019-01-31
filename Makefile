@@ -7,6 +7,10 @@ all:
 build: ## Build for local environment
 	@go build
 
+.PHONY: run
+run: ## Run example script
+	@bash ./scripts/test.sh
+
 .PHONY: release
 release: ## Build for multiple OSs, packaging it and upload to GitHub Release
 	@#go get -u github.com/motemen/gobump/cmd/gobump
