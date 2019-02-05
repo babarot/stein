@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"log"
 	"os"
 	"path/filepath"
 
@@ -32,9 +33,13 @@ type File struct {
 
 // filesFromArgs converts from given arguments to the collection of File object
 func filesFromArgs(args []string, additionals ...string) (files []File, err error) {
+	log.Printf("[TRACE] converting from args to lint.Files\n")
 	for _, arg := range args {
+		log.Printf("[INFO] converting lint.File: %s\n", arg)
 		policies := loader.SearchPolicyDir(arg)
 		policies = append(policies, additionals...)
+		log.Printf("[INFO] policies: %#v\n", policies)
+
 		loadedPolicy, err := loader.Load(policies...)
 		if err != nil {
 			return files, err
@@ -52,6 +57,7 @@ func filesFromArgs(args []string, additionals ...string) (files []File, err erro
 			if err != nil {
 				return files, err
 			}
+			log.Printf("[TRACE] %d block(s) found in YAML: %s\n", len(yamlFiles), arg)
 			for _, file := range yamlFiles {
 				file.Policy = loadedPolicy
 				files = append(files, file)

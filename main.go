@@ -3,8 +3,11 @@ package main
 import (
 	"fmt"
 	"io"
+	"log"
 	"os"
+	"runtime"
 
+	"github.com/b4b4r07/stein/pkg/logging"
 	"github.com/mitchellh/cli"
 )
 
@@ -24,6 +27,16 @@ type CLI struct {
 }
 
 func main() {
+	logWriter, err := logging.LogOutput()
+	if err != nil {
+		panic(err)
+	}
+	log.SetOutput(logWriter)
+
+	log.Printf("[INFO] Stein version: %s", Version)
+	log.Printf("[INFO] Go runtime version: %s", runtime.Version())
+	log.Printf("[INFO] CLI args: %#v", os.Args)
+
 	stein := CLI{
 		Stdout: os.Stdout,
 		Stderr: os.Stderr,
