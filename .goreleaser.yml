@@ -15,7 +15,7 @@ archive:
   files:
     - README.md
     - CHANGELOG.md
-    - docs/*
+    - docs/**/*.md
 release:
   github:
     owner: b4b4r07
