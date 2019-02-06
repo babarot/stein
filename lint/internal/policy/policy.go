@@ -52,7 +52,6 @@ var policySchema = &hcl.BodySchema{
 // Decode is
 func Decode(body hcl.Body) (*Policy, hcl.Diagnostics) {
 	policy := &Policy{}
-	// Files: files,
 	content, diags := body.Content(policySchema)
 
 	for _, block := range content.Blocks {

@@ -3,11 +3,13 @@ package loader
 import (
 	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
 
 	"github.com/b4b4r07/stein/lint/internal/policy"
+	"github.com/b4b4r07/stein/pkg/logging"
 	"github.com/hashicorp/hcl2/hcl"
 	"github.com/hashicorp/hcl2/hclparse"
 )
@@ -23,6 +25,7 @@ func NewParser() *Parser {
 }
 
 func (p *Parser) loadHCLFile(path string) (hcl.Body, hcl.Diagnostics) {
+	log.Printf("[TRACE] parsing as HCL body: %s\n", path)
 	src, err := ioutil.ReadFile(path)
 	if err != nil {
 		return nil, hcl.Diagnostics{
@@ -88,6 +91,8 @@ func getPolicyFiles(path string) ([]string, error) {
 
 // SearchPolicyDir searchs the hierarchy of the given path step by step and find the default directory
 func SearchPolicyDir(path string) []string {
+	origin := path
+	log.Printf("[TRACE] search .policy dir in each path steps of %q\n", path)
 	var dirs []string
 	for {
 		if !strings.Contains(path, "/") {
@@ -96,6 +101,7 @@ func SearchPolicyDir(path string) []string {
 		// search parent dir nextly
 		path = filepath.Dir(path)
 		policyDirPath := filepath.Join(path, ".policy")
+		log.Printf("[TRACE] check existence: %s\n", policyDirPath)
 		_, err := os.Stat(policyDirPath)
 		if err != nil {
 			// skip if policy dir doesn't exist
@@ -103,6 +109,7 @@ func SearchPolicyDir(path string) []string {
 		}
 		dirs = append(dirs, policyDirPath)
 	}
+	log.Printf("[TRACE] recognized %#v as policy dirs for %s\n", dirs, origin)
 	return dirs
 }
 
@@ -116,6 +123,7 @@ type Policy struct {
 
 // Load reads the files and converts them to Policy object
 func Load(paths ...string) (Policy, error) {
+	log.Printf("[TRACE] finding HCL files from %#v\n", paths)
 	parser := NewParser()
 
 	var diags hcl.Diagnostics
@@ -139,10 +147,14 @@ func Load(paths ...string) (Policy, error) {
 		policies = append(policies, files...)
 	}
 
+	log.Printf("[INFO] found HCL files which should be loaded as policies: %v\n",
+		logging.Dump(policies))
+
 	// delete duplicate file paths
 	// in consideration of the case the same files are read
 	//
 	// TODO: think if unique is needed (if not needed, just returns error)
+	log.Printf("[TRACE] remove duplicated policies in unique()\n")
 	for _, policy := range unique(policies) {
 		body, fDiags := parser.loadHCLFile(policy)
 		bodies = append(bodies, body)

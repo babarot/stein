@@ -6,6 +6,7 @@ import (
 	"fmt"
 	tt "html/template"
 	"io"
+	"log"
 	"os"
 	"regexp"
 	"strings"
@@ -13,6 +14,7 @@ import (
 	"github.com/b4b4r07/stein/lint/internal/policy"
 	"github.com/b4b4r07/stein/lint/internal/policy/loader"
 	"github.com/b4b4r07/stein/lint/internal/topological"
+	"github.com/b4b4r07/stein/pkg/logging"
 	"github.com/fatih/color"
 	"github.com/hashicorp/hcl2/gohcl"
 	"github.com/hashicorp/hcl2/hcl"
@@ -71,6 +73,9 @@ type cache struct {
 
 // NewLinter creates Linter object based on Lint Policy
 func NewLinter(args []string, additionals ...string) (*Linter, error) {
+	log.Printf("[TRACE] lint args: %#v\n", args)
+	log.Printf("[TRACE] lint additional policies: %#v\n", additionals)
+
 	files, err := filesFromArgs(args, additionals...)
 	if err != nil {
 		return &Linter{}, err
@@ -98,7 +103,8 @@ func (l *Linter) decodePolicy(file File) (Policy, error) {
 	var policy Policy
 
 	if l.policy == nil {
-		return policy, errors.New("no DAM")
+		log.Printf("[ERROR] l.policy is nil, needs to be set by l.setPolicy()")
+		return policy, errors.New("decoded policy is not found")
 	}
 
 	ctx, diags := l.policy.BuildContext(l.body, file.Path, file.Data)
@@ -122,6 +128,7 @@ func (l *Linter) decodePolicy(file File) (Policy, error) {
 				Color:  true,
 			},
 		}
+		log.Printf("[INFO] use default policy config %v\n", logging.Dump(policy.Config))
 	}
 
 	return policy, nil
@@ -135,7 +142,7 @@ type Result struct {
 	Items Items
 	OK    bool
 
-	// RulesNotFound is
+	// RulesNotFound is a flag for rules not found
 	RulesNotFound bool
 	// Metadata is something notes related to Result
 	Metadata string
@@ -154,18 +161,24 @@ type Items []Item
 
 // Files returns []File object converted from given arguments
 func (l *Linter) Files() []File {
+	log.Printf("[INFO] lint files: %v\n", logging.Dump(l.files))
 	return l.files
 }
 
 // Run runs the linter against a file of an argument
 func (l *Linter) Run(file File) (Result, error) {
+	log.Printf("[INFO] run lint.Run with arg %q\n", file.Path)
+	log.Printf("[TRACE] start to run lint.Run with file %v\n", logging.Dump(file))
+
 	// Set a policy to read for each files
 	l.setPolicy(file.Policy)
 
+	log.Printf("[TRACE] decoding policy file by policy schema\n")
 	policy, err := l.decodePolicy(file)
 	if err != nil {
 		return Result{}, err
 	}
+	log.Printf("[TRACE] policy decoded: %v\n", logging.Dump(policy))
 
 	if err := policy.Validate(); err != nil {
 		return Result{}, err
@@ -193,6 +206,7 @@ func (l *Linter) Run(file File) (Result, error) {
 
 	length := l.calcReportLength()
 	for _, rule := range policy.Rules {
+		log.Printf("[INFO] evalute %q\n", RulePrefix+rule.Name)
 		if err := rule.Validate(); err != nil {
 			return result, err
 		}
@@ -201,6 +215,9 @@ func (l *Linter) Run(file File) (Result, error) {
 			// Skip execution of the rule if the dependent rule fails
 			ok := rule.checkDependenciesAreOK(result)
 			if !ok {
+				log.Printf(
+					"[TRACE] skip to evalute %q because dependencies %v are failed",
+					RulePrefix+rule.Name, rule.Dependencies)
 				continue
 			}
 		}
@@ -225,6 +242,8 @@ func (l *Linter) Run(file File) (Result, error) {
 		for _, debug := range rule.Debugs {
 			pp.Println(debug)
 		}
+
+		log.Printf("[TRACE] result: %v\n", logging.Dump(result.Items[len(result.Items)-1]))
 	}
 
 	return result, nil
@@ -568,8 +587,8 @@ func (r *Rule) BuildMessage(cfg ReportConfig, length ReportLength) (string, erro
 
 	switch renderedFormat.Len() {
 	case 0:
-		// something wrong TODO
-		return "", errors.New("error happen")
+		log.Printf("[ERROR] unexpected error. renderedFormat.Len() is zero length")
+		return "", errors.New("invalid format string")
 	default:
 		format = renderedFormat.String()
 	}
