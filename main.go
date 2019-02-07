@@ -15,7 +15,7 @@ const (
 	// AppName is the application name
 	AppName = "stein"
 	// Version is the application version
-	Version = "0.2.3"
+	Version = "0.2.4"
 
 	envEnvPrefix = "STEIN_"
 )
