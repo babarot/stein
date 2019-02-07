@@ -78,8 +78,10 @@ func NewLinter(args []string, additionals ...string) (*Linter, error) {
 
 	files, err := filesFromArgs(args, additionals...)
 	if err != nil {
+		log.Printf("[ERROR] filesFromArgs failed in NewLinter: %v", err)
 		return &Linter{}, err
 	}
+
 	return &Linter{
 		stdout: os.Stdout,
 		stderr: os.Stderr,
@@ -169,6 +171,11 @@ func (l *Linter) Files() []File {
 func (l *Linter) Run(file File) (Result, error) {
 	log.Printf("[INFO] run lint.Run with arg %q\n", file.Path)
 	log.Printf("[TRACE] start to run lint.Run with file %v\n", logging.Dump(file))
+
+	if file.Diagnostics.HasErrors() {
+		log.Printf("[ERROR] file.Diagnostics found %v\n", logging.Dump(file.Diagnostics))
+		return Result{}, file.Diagnostics
+	}
 
 	// Set a policy to read for each files
 	l.setPolicy(file.Policy)

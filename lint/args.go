@@ -13,6 +13,7 @@ import (
 	"github.com/b4b4r07/stein/lint/internal/policy"
 	"github.com/b4b4r07/stein/lint/internal/policy/loader"
 	"github.com/hashicorp/hcl"
+	hcl2 "github.com/hashicorp/hcl2/hcl"
 
 	"k8s.io/apimachinery/pkg/util/yaml"
 )
@@ -29,12 +30,16 @@ type File struct {
 	// File struct has Policy data
 	// because policy applied to the file should be determined by each file
 	Policy loader.Policy
+
+	Diagnostics hcl2.Diagnostics
 }
 
 // filesFromArgs converts from given arguments to the collection of File object
 func filesFromArgs(args []string, additionals ...string) (files []File, err error) {
 	log.Printf("[TRACE] converting from args to lint.Files\n")
+
 	for _, arg := range args {
+		var diags hcl2.Diagnostics
 		log.Printf("[INFO] converting lint.File: %s\n", arg)
 		policies := loader.SearchPolicyDir(arg)
 		policies = append(policies, additionals...)
@@ -42,12 +47,18 @@ func filesFromArgs(args []string, additionals ...string) (files []File, err erro
 
 		loadedPolicy, err := loader.Load(policies...)
 		if err != nil {
-			return files, err
+			switch e := err.(type) {
+			case hcl2.Diagnostics:
+				log.Printf("[DEBUG] diags reported from loader.Load in fileFromArg\n")
+				diags = append(diags, e...)
+			case error:
+				return files, err
+			}
 		}
-		data, diags := policy.Decode(loadedPolicy.Body)
-		if diags.HasErrors() {
-			return files, diags
-		}
+
+		data, decodeDiags := policy.Decode(loadedPolicy.Body)
+		diags = append(diags, decodeDiags...)
+
 		loadedPolicy.Data = data
 
 		ext := filepath.Ext(arg)
@@ -60,6 +71,7 @@ func filesFromArgs(args []string, additionals ...string) (files []File, err erro
 			log.Printf("[TRACE] %d block(s) found in YAML: %s\n", len(yamlFiles), arg)
 			for _, file := range yamlFiles {
 				file.Policy = loadedPolicy
+				file.Diagnostics = diags
 				files = append(files, file)
 			}
 		case ".json":
@@ -68,9 +80,10 @@ func filesFromArgs(args []string, additionals ...string) (files []File, err erro
 				return files, err
 			}
 			files = append(files, File{
-				Path:   arg,
-				Data:   data,
-				Policy: loadedPolicy,
+				Path:        arg,
+				Data:        data,
+				Policy:      loadedPolicy,
+				Diagnostics: diags,
 			})
 		case ".hcl", ".tf":
 			contents, err := ioutil.ReadFile(arg)
@@ -87,14 +100,16 @@ func filesFromArgs(args []string, additionals ...string) (files []File, err erro
 				return files, fmt.Errorf("unable to marshal json: %s", err)
 			}
 			files = append(files, File{
-				Path:   arg,
-				Data:   data,
-				Policy: loadedPolicy,
+				Path:        arg,
+				Data:        data,
+				Policy:      loadedPolicy,
+				Diagnostics: diags,
 			})
 		default:
 			return files, fmt.Errorf("%q (%s): unsupported file type", arg, ext)
 		}
 	}
+
 	return files, nil
 }
 
