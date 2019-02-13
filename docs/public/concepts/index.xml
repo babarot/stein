@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Concepts on Stein documentation</title>
+    <link>https://b4b4r07.github.io/stein/concepts/</link>
+    <description>Recent content in Concepts on Stein documentation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 17 Oct 2017 15:26:15 +0000</lastBuildDate>
+    
+	<atom:link href="https://b4b4r07.github.io/stein/concepts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Policy as Code</title>
+      <link>https://b4b4r07.github.io/stein/concepts/policy-as-code/</link>
+      <pubDate>Tue, 17 Oct 2017 15:26:15 +0000</pubDate>
+      
+      <guid>https://b4b4r07.github.io/stein/concepts/policy-as-code/</guid>
+      <description>Policy as code is the idea of writing code in a high-level language to manage and automate policies. By representing policies as code in text files, proven software development best practices can be adopted such as version control, automated testing, and automated deployment.
+Many existing policy or ACL systems do not practice policy as code. Many policies are set by clicking in a GUI, which isn&amp;rsquo;t easily repeatable nor versionable.</description>
+    </item>
+    
+  </channel>
+</rss>

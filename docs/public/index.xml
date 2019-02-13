@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stein documentation</title>
+    <link>https://b4b4r07.github.io/stein/</link>
+    <description>Recent content on Stein documentation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 17 Oct 2017 15:26:15 +0000</lastBuildDate>
+    
+	<atom:link href="https://b4b4r07.github.io/stein/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Policy as Code</title>
+      <link>https://b4b4r07.github.io/stein/concepts/policy-as-code/</link>
+      <pubDate>Tue, 17 Oct 2017 15:26:15 +0000</pubDate>
+      
+      <guid>https://b4b4r07.github.io/stein/concepts/policy-as-code/</guid>
+      <description>Policy as code is the idea of writing code in a high-level language to manage and automate policies. By representing policies as code in text files, proven software development best practices can be adopted such as version control, automated testing, and automated deployment.
+Many existing policy or ACL systems do not practice policy as code. Many policies are set by clicking in a GUI, which isn&amp;rsquo;t easily repeatable nor versionable.</description>
+    </item>
+    
+    <item>
+      <title>stein apply</title>
+      <link>https://b4b4r07.github.io/stein/commands/apply/</link>
+      <pubDate>Tue, 17 Oct 2017 15:26:15 +0000</pubDate>
+      
+      <guid>https://b4b4r07.github.io/stein/commands/apply/</guid>
+      <description>The stein apply command is used to execute a policy locally for development purposes.
+Usage: stein apply [options] POLICY  This command executes the policy file at the path specified by POLICY.
+The output will indicate whether the policy passed or failed. The exit code also reflects the status of the policy: 0 is pass, 1 is fail, 2 is undefined (fail, but because the result was undefined), and 2 is a runtime error.</description>
+    </item>
+    
+    <item>
+      <title>stein fmt</title>
+      <link>https://b4b4r07.github.io/stein/commands/fmt/</link>
+      <pubDate>Tue, 17 Oct 2017 15:26:15 +0000</pubDate>
+      
+      <guid>https://b4b4r07.github.io/stein/commands/fmt/</guid>
+      <description>The stein fmt command formats a policy source to a canonical format.
+Usage: stein fmt [options] FILE ...  This command formats all the specified policy files to a canonical format.
+By default, policy files are overwritten in place. This behavior can be changed with the -write flag. If a specified FILE is - then stdin is read and the output is always written to stdout.
+The command-line flags are all optional.</description>
+    </item>
+    
+  </channel>
+</rss>

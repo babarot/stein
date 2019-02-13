@@ -1,4 +1,10 @@
-# Variable Configuration
+---
+title: "Variable Configuration"
+date: 2017-10-17T15:26:15Z
+draft: false
+weight: 30
+
+---
 
 Input variables serve as parameters for a Terraform module.
 

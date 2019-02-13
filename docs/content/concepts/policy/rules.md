@@ -1,4 +1,10 @@
-# Rule Configuration
+---
+title: "Rule Configuration"
+date: 2017-10-17T15:26:15Z
+draft: false
+weight: 20
+
+---
 
 The most important thing you'll configure with Stein are rules. Rules are a component of your policies. It might be some rule set such as a region to be deployed, naming convention, or some linting. Or it can be a higher level component such as an email provider, DNS record, or database provider.
 

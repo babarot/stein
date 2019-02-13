@@ -1,9 +1,14 @@
-# Policy
+---
+title: "Policy"
+date: 2017-10-17T15:26:15Z
+draft: false
+weight: 20
+
+---
 
 A policy is the collection of Stein rules written in HCL.
 
 ## What's a policy?
-
 
 ## Why needs policies?
 

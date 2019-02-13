@@ -1,4 +1,10 @@
-# Policy as Code
+---
+title: "Policy as Code"
+date: 2017-10-17T15:26:15Z
+draft: false
+weight: 11
+
+---
 
 Policy as code is the idea of writing code in a high-level language to manage and automate policies. By representing policies as code in text files, proven software development best practices can be adopted such as version control, automated testing, and automated deployment.
 

@@ -1,4 +1,10 @@
-# Function Configuration
+---
+title: "Function Configuration"
+date: 2017-10-17T15:26:15Z
+draft: false
+weight: 50
+
+---
 
 It is recommended that you read the [Custom Functions](../syntax/custom-functions.md) page prior to reading this section of the documentation. The page will explain what the custom functions are and how to use them. On the other hands, this documentation will guide you the basics of writing custom functions and introducing it into your policies efficiently.
 

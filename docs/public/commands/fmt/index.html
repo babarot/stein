@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>stein fmt - Stein documentation</title>
+<meta name="description" content="Stein is a linter for config files with a customizable rule set">
+<meta name="generator" content="Hugo 0.46" />
+<link href="https://b4b4r07.github.io/stein/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://b4b4r07.github.io/stein/commands/fmt/">
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://b4b4r07.github.io/stein/js/functions.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://b4b4r07.github.io/stein/js/jquery.backtothetop/jquery.backtothetop.min.js"></script></head>
+<body>
+<div class="container"><header>
+<h1>Stein documentation</h1>
+
+ <span class="version">Version 0.2.4</span>
+<a href="https://github.com/b4b4r07/stein" class="github"><i class="fab fa-github"></i></a>
+<p class="description">Stein is a linter for config files with a customizable rule set</p>
+
+</header>
+<div class="menu">
+<nav>
+<ul>
+<li><a href="/stein/">Home</a></li>
+<li><a href="https://twitter.com/thingsym">Twitter</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>stein fmt</h1><p>The <code>stein fmt</code> command formats a policy source to a canonical format.</p>
+
+<pre><code>Usage: stein fmt [options] FILE ...
+</code></pre>
+
+<p>This command formats all the specified policy files to a canonical format.</p>
+
+<p>By default, policy files are overwritten in place. This behavior can be changed with the <code>-write</code> flag. If a specified FILE is - then stdin is read and the output is always written to stdout.</p>
+
+<p>The command-line flags are all optional. The list of available flags are:</p>
+
+<ul>
+<li><code>-write=true</code> - Write formatted policy to the named source file. If false, output will go to stdout. If multiple files are specified, the output will be concatenated directly.</li>
+<li><code>-check=false</code> - Don&rsquo;t format, only check if formatting is necessary. Files that require formatting are printed, and a non-zero exit code is returned if changes are required.</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-console" data-lang="console">$ stein fmt -check test.hcl
+   config {
+-
+     report {
+       format = &#34;{{.Level}}: {{.Rule}}: {{.Message}}&#34;
+-      style = &#34;console&#34;
+-      color = true
++      style  = &#34;console&#34;
++      color  = true
+     }
+-
+   }</code></pre></div><div class="edit-meta">Last updated on 17 Oct 2017 / Published on 17 Oct 2017<br><a href="https://github.com/b4b4r07/stein/edit/master/content/commands/fmt.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="/stein/commands/apply/" title="stein apply"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - stein apply</a>
+<a class="nav nav-next" href="/stein/commands/apply/" title="stein apply">Next - stein apply <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+<nav>
+<ul>
+<li class=""><a href="https://b4b4r07.github.io/stein/">Home</a></li>
+
+<li class=""><a href="/stein/concepts/">Concepts</a>
+<ul class="">
+<li class=""><a href="/stein/concepts/policy-as-code/">Policy as Code</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/stein/getting-started/">Getting Started</a>
+</li>
+
+<li class=""><a href="/stein/writing-policy/">Writing Policy</a>
+</li>
+
+<li class="parent"><a href="/stein/commands/">Stein CLI Commands</a>
+<ul class="sub-menu">
+<li class=""><a href="/stein/commands/apply/">stein apply</a></li>
+<li class="active"><a href="/stein/commands/fmt/">stein fmt</a></li>
+</ul>
+  
+</li>
+</ul>
+</nav>
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

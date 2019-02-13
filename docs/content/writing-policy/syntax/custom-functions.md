@@ -1,4 +1,10 @@
-# Custom Functions
+---
+title: "Custom Functions"
+date: 2017-10-17T15:26:15Z
+draft: false
+weight: 21
+
+---
 
 *Notes:* This idea basically comes from https://github.com/hashicorp/hcl2/tree/master/ext/userfunc
 
