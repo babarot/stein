@@ -2,7 +2,7 @@
 title: "Policy as Code"
 date: 2017-10-17T15:26:15Z
 draft: false
-weight: 11
+weight: 12
 
 ---
 
@@ -12,8 +12,9 @@ Many existing policy or ACL systems do not practice policy as code. Many policie
 
 Stein is built around the idea and provides all the benefits of policy as code.
 
-## Notes
-
+{{% notice info %}}
 The idea of "Policy as Code" is proposed by HashiCorp and HashiCorp Sentinel.
+<br>
+[Policy as Code - Sentinel by HashiCorp](https://docs.hashicorp.com/sentinel/concepts/policy-as-code)
+{{% /notice%}}
 
-- [Policy as Code - Sentinel by HashiCorp](https://docs.hashicorp.com/sentinel/concepts/policy-as-code)

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Stein CLI Commands on Stein documentation</title>
+    <title>Stein CLI Commands on Stein Documentations</title>
     <link>https://b4b4r07.github.io/stein/commands/</link>
-    <description>Recent content in Stein CLI Commands on Stein documentation</description>
+    <description>Recent content in Stein CLI Commands on Stein Documentations</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 17 Oct 2017 15:26:15 +0000</lastBuildDate>
@@ -12,7 +12,7 @@
     
     
     <item>
-      <title>stein apply</title>
+      <title>Command: apply</title>
       <link>https://b4b4r07.github.io/stein/commands/apply/</link>
       <pubDate>Tue, 17 Oct 2017 15:26:15 +0000</pubDate>
       
@@ -23,7 +23,7 @@ The output will indicate whether the policy passed or failed. The exit code also
     </item>
     
     <item>
-      <title>stein fmt</title>
+      <title>Command: fmt</title>
       <link>https://b4b4r07.github.io/stein/commands/fmt/</link>
       <pubDate>Tue, 17 Oct 2017 15:26:15 +0000</pubDate>
       

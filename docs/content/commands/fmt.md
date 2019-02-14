@@ -1,8 +1,9 @@
 ---
-title: "stein fmt"
+title: "Command: fmt"
+item: "fmt"
 date: 2017-10-17T15:26:15Z
 draft: false
-weight: 21
+weight: 62
 
 ---
 
@@ -18,8 +19,8 @@ By default, policy files are overwritten in place. This behavior can be changed 
 
 The command-line flags are all optional. The list of available flags are:
 
-- `-write=true` - Write formatted policy to the named source file. If false, output will go to stdout. If multiple files are specified, the output will be concatenated directly.
-- `-check=false` - Don't format, only check if formatting is necessary. Files that require formatting are printed, and a non-zero exit code is returned if changes are required.
+- [`-write=true`](#write-true) - Write formatted policy to the named source file. If false, output will go to stdout. If multiple files are specified, the output will be concatenated directly.
+- [`-check=false`](#check-false) - Don't format, only check if formatting is necessary. Files that require formatting are printed, and a non-zero exit code is returned if changes are required.
 
 ```console
 $ stein fmt -check test.hcl

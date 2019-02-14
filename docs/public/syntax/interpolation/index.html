@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Interpolation Syntax - Stein Documentations</title>
+<meta name="description" content="A linter for config files with a customizable rule set">
+<meta name="generator" content="Hugo 0.46" />
+<link href="https://b4b4r07.github.io/stein/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://b4b4r07.github.io/stein/syntax/interpolation/">
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://b4b4r07.github.io/stein/js/functions.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://b4b4r07.github.io/stein/js/jquery.backtothetop/jquery.backtothetop.min.js"></script></head>
+<body>
+<div class="container"><header>
+<h1>Stein Documentations</h1>
+<a href="https://github.com/b4b4r07/stein" class="github"><i class="fab fa-github"></i></a>
+<p class="description">A linter for config files with a customizable rule set</p>
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein//css/style.css">
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein//css/custom.css">
+</header>
+<div class="menu">
+<nav>
+<ul>
+<li><a href="/stein/">Home</a></li>
+<li><a href="https://github.com/b4b4r07/stein/issues/new">Issues</a></li>
+<li><a href="https://github.com/b4b4r07/stein/releases">Releases</a></li>
+<li><a href="https://github.com/b4b4r07/stein/blob/master/CHANGELOG.md">Changelog</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>Interpolation Syntax</h1>
+
+<p>Embedded within strings in Terraform, whether you&rsquo;re using the Terraform syntax or JSON syntax, you can interpolate other values. These interpolations are wrapped in <code>${}</code>, such as <code>${var.foo}</code>.</p>
+
+<p>The interpolation syntax is powerful and allows you to reference variables, attributes of resources, call functions, etc.</p>
+
+<p>You can perform simple math in interpolations, allowing you to write conditions such as <code>${count.index + 1}</code>. And you can also use conditionals to determine a value based on some logic.</p>
+
+<p>You can escape interpolation with double dollar signs: <code>$${foo}</code> will be rendered as a literal <code>${foo}</code>.</p>
+
+<h2 id="available-variables">Available Variables</h2>
+
+<p>There are a variety of available variable references you can use.</p>
+
+<h3 id="user-string-variables">User string variables</h3>
+
+<p>Use the <code>var.prefix</code> followed by the variable name. For example, <code>${var.foo}</code> will interpolate the <code>foo</code> variable value.</p>
+
+<h3 id="user-map-variables">User map variables</h3>
+
+<p>The syntax is <code>var.MAP[&quot;KEY&quot;]</code>. For example, <code>${var.amis[&quot;us-east-1&quot;]}</code> would get the value of the <code>us-east-1</code> key within the amis map variable.</p>
+
+<h3 id="user-list-variables">User list variables</h3>
+
+<p>The syntax is <code>&quot;${var.LIST}&quot;</code>. For example, <code>&quot;${var.subnets}&quot;</code> would get the value of the subnets list, as a list. You can also return list elements by index: <code>${var.subnets[idx]}</code>.</p>
+
+<h3 id="path-information">Path information</h3>
+
+<p><em>WIP</em></p>
+
+<p>The syntax is <code>path.TYPE</code>. <code>TYPE</code> can be <code>file</code>, <code>dir</code>, or <code>policies</code>. cwd will interpolate the current working directory. module will interpolate the path to the current module. root will interpolate the path of the root module. In general, you probably want the path.module variable.</p>
+<div class="highlight"><pre class="chroma"><code class="language-hcl" data-lang="hcl">&#34;${path.file}&#34;
+# =&gt; manifests/microservices/x-gateway-jp/development/Service/a.yaml
+# [Notes]
+#  this variable is an alias of `filename` variable
+
+&#34;${path.dir}&#34;
+# =&gt; manifests/microservices/x-gateway-jp/development/Service</code></pre></div>
+<h3 id="predefined-variables">Predefined variables</h3>
+
+<ul>
+<li><code>filename</code>: Filename to be applied policy (alias of <code>path.policy</code>)</li>
+</ul>
+
+<h3 id="environment-variables-information">Environment variables information</h3>
+
+<p>The syntax is <code>env.ENV</code>. <code>ENV</code> can be <code>USER</code>, <code>HOME</code>, etc. These values comes from <code>env</code> command output.</p>
+<div class="highlight"><pre class="chroma"><code class="language-hcl" data-lang="hcl">&#34;${env.HOME}&#34;
+# =&gt; /home/username
+
+&#34;${env.EDITOR}&#34;
+# =&gt; vim</code></pre></div>
+<h2 id="conditionals">Conditionals</h2>
+
+<p>Interpolations may contain conditionals to branch on the final value.</p>
+<div class="highlight"><pre class="chroma"><code class="language-hcl" data-lang="hcl">&#34;${var.user == &#34;john&#34; ? var.member : env.anonymous}&#34;
+
+# =&gt; var.member (if var.user is john)
+# =&gt; var.anonymous (if var.user is not john)</code></pre></div>
+<p>The conditional syntax is the well-known ternary operation:</p>
+
+<pre><code>CONDITION ? TRUEVAL : FALSEVAL
+</code></pre>
+
+<p>The condition can be any valid interpolation syntax, such as variable access, a function call, or even another conditional. The true and false value can also be any valid interpolation syntax. The returned types by the true and false side must be the same.</p>
+
+<p>The supported operators are:</p>
+
+<ul>
+<li>Equality: <code>==</code> and <code>!=</code></li>
+<li>Numerical comparison: <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code></li>
+<li>Boolean logic: <code>&amp;&amp;</code>, <code>||</code>, unary <code>!</code></li>
+</ul>
+
+<h2 id="built-in-functions">Built-in Functions</h2>
+
+<p>Stein ships with built-in functions. Functions are called with the syntax <code>name(arg, arg2, ...)</code>. For example, to read a file: <code>${file(&quot;path.txt&quot;)}</code>.</p>
+
+<p>Stein supports all Terraform&rsquo;s built-in functions listed in <a href="https://www.terraform.io/docs/configuration/interpolation.html#built-in-functions">this page</a>.</p>
+
+<p>In addition to these functions, it also comes with the original built-in functions to make it even easier to write rules.</p>
+
+<h3 id="glob-pattern"><code>glob(pattern)</code></h3>
+
+<p>Returns the files matched by given pattern</p>
+
+<p>Types:</p>
+
+<ul>
+<li>input args: <code>string</code></li>
+<li>return values: <code>list of string</code></li>
+</ul>
+
+<p>Usage:</p>
+<div class="highlight"><pre class="chroma"><code class="language-hcl" data-lang="hcl">&#34;${glob(&#34;*.txt&#34;)}&#34;
+# =&gt; [&#34;a.txt&#34;, &#34;b.txt&#34;, &#34;c.txt&#34;]</code></pre></div>
+<h3 id="pathshorten-path"><code>pathshorten(path)</code></h3>
+
+<p>Returns the file path shortened like <a href="http://vimdoc.sourceforge.net/htmldoc/eval.html#pathshorten()">Vim&rsquo;s one</a>.</p>
+
+<p>Types:</p>
+
+<ul>
+<li>input args: <code>string</code></li>
+<li>return values: <code>string</code></li>
+</ul>
+
+<p>Usage:</p>
+<div class="highlight"><pre class="chroma"><code class="language-hcl" data-lang="hcl">&#34;${pathshorten(&#34;manifests/microservices/x-gateway-jp/development/Service/a.yaml&#34;)}&#34;
+# =&gt; &#34;m/m/x/d/S/a.yaml&#34;</code></pre></div>
+<h3 id="ext-path"><code>ext(path)</code></h3>
+
+<p>Returns the file extensions.</p>
+
+<p>Types:</p>
+
+<ul>
+<li>input args: <code>string</code></li>
+<li>return values: <code>string</code></li>
+</ul>
+
+<p>Usage:</p>
+<div class="highlight"><pre class="chroma"><code class="language-hcl" data-lang="hcl">&#34;${ext(&#34;a.txt&#34;)}&#34;
+# =&gt; &#34;.txt&#34;</code></pre></div>
+<h3 id="wc-text-l-w-c"><code>wc(text, [&quot;l&quot;, &quot;w&quot;, &quot;c&quot;])</code></h3>
+
+<p>Returns the counted number of text as options (<strong>l</strong>ines, <strong>w</strong>ords, <strong>c</strong>hars). Default option is <strong>l</strong>ines.</p>
+
+<p>Types:</p>
+
+<ul>
+<li>input args: <code>string</code>, <code>string</code>&hellip; (Optional)</li>
+<li>return values: <code>number</code></li>
+</ul>
+
+<p>Usage:</p>
+<div class="highlight"><pre class="chroma"><code class="language-hcl" data-lang="hcl">&#34;${wc(&#34;foo\nbar baz&#34;)}&#34;
+# =&gt; 2
+
+&#34;${wc(&#34;foo\nbar baz&#34;, &#34;c&#34;)}&#34;
+# =&gt; 9
+
+&#34;${wc(&#34;foo\nbar baz&#34;, &#34;w&#34;)}&#34;
+# =&gt; 3</code></pre></div>
+<h3 id="grep-text-pattern"><code>grep(text, pattern)</code></h3>
+
+<p>Returns the text block matched with the given pattern.</p>
+
+<p>Types:</p>
+
+<ul>
+<li>input args: <code>string</code></li>
+<li>return values: <code>string</code></li>
+</ul>
+
+<p>Usage:</p>
+
+<pre><code>My life didn't please me,
+so I created my life.
+- Coco Chanel
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-hcl" data-lang="hcl">&#34;${grep(file(&#34;text.txt&#34;), &#34;life&#34;)}&#34;
+# =&gt; &#34;My life didn&#39;t please me,\nso I created my life.&#34;</code></pre></div>
+<h3 id="lookuplist-map-key"><code>lookuplist(map, key)</code></h3>
+
+<p>Returns a list matched by the key in the given map.</p>
+
+<p>Like the Terraform&rsquo;s <a href="https://www.terraform.io/docs/configuration/interpolation.html#lookup-map-key-default-"><code>lookup</code></a> but this is only for returning a list.</p>
+
+<p>Types:</p>
+
+<ul>
+<li>input args: <code>map</code>, <code>string</code></li>
+<li>return values: <code>list of string</code></li>
+</ul>
+
+<p>Usage:</p>
+<div class="highlight"><pre class="chroma"><code class="language-hcl" data-lang="hcl">variable &#34;colors&#34; {
+  type = &#34;map&#34;
+
+  default = {
+    &#34;red&#34; = [
+      &#34;burgundy&#34;,
+      &#34;terracotta&#34;,
+      &#34;scarlet&#34;,
+    ]
+    &#34;blue&#34; = [
+      &#34;heliotrope&#34;,
+      &#34;cerulean blue&#34;,
+      &#34;turquoise blue&#34;,
+    ]
+  }
+}</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-hcl" data-lang="hcl">&#34;${lookuplist(var.colors, &#34;red&#34;)}&#34;
+# =&gt; [&#34;burgundy&#34;, &#34;terracotta&#34;, &#34;scarlet&#34;]
+
+&#34;${contains(lookuplist(var.colors, &#34;red&#34;), &#34;scarlet&#34;)}&#34;
+# =&gt; true</code></pre></div>
+<h3 id="match-pattern-text"><code>match(pattern, text)</code></h3>
+
+<p>Returns a true if the text is matched with the pattern.</p>
+
+<p>Types:</p>
+
+<ul>
+<li>input args: <code>string</code>, <code>string</code></li>
+<li>return values: <code>boolean</code></li>
+</ul>
+
+<p>Usage:</p>
+<div class="highlight"><pre class="chroma"><code class="language-hcl" data-lang="hcl">&#34;${match(&#34;abcdef&#34;, &#34;^a&#34;)}&#34;
+# =&gt; true</code></pre></div>
+<h3 id="color-str-attrs"><code>color(str, attrs...)</code></h3>
+
+<p>Returns a string colorized by the color name.</p>
+
+<p>Types:</p>
+
+<ul>
+<li>input args: <code>string</code>, <code>string</code>&hellip;</li>
+<li>return values: <code>string</code></li>
+</ul>
+
+<p>Usage:</p>
+<div class="highlight"><pre class="chroma"><code class="language-hcl" data-lang="hcl">&#34;${color(&#34;hello!&#34;, &#34;white&#34;)}&#34;
+# =&gt; &#34;\x1b[37mhello!\x1b[0m&#34;
+
+&#34;${color(&#34;hello!&#34;, &#34;red&#34;, &#34;BgBlack&#34;)}&#34;
+# =&gt; &#34;\x1b[31m\x1b[40mhello!\x1b[0m&#34;</code></pre></div>
+<h3 id="exist-path"><code>exist(path)</code></h3>
+
+<p>Returns true if path exists</p>
+
+<p>Types:</p>
+
+<ul>
+<li>input args: <code>string</code></li>
+<li>return values: <code>boolean</code></li>
+</ul>
+
+<p>Usage:</p>
+<div class="highlight"><pre class="chroma"><code class="language-hcl" data-lang="hcl">&#34;${exist(&#34;/path/to/whatever&#34;)}&#34;
+# =&gt; true (if exists)</code></pre></div>
+<h3 id="jsonpath-query-default"><code>jsonpath(query, default...)</code></h3>
+
+<p>WIP</p>
+
+<h2 id="custom-functions">Custom Functions</h2>
+
+<p>While supporting some useful built-in functions, Stein allows to create user-defined functions.</p>
+<div class="highlight"><pre class="chroma"><code class="language-hcl" data-lang="hcl">function &#34;add&#34; {
+  params = [a, b]
+  result = a + b
+}</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-hcl" data-lang="hcl">&#34;${add(1, 3)}&#34;
+# =&gt; 4</code></pre></div>
+<p>For more details, please see also <a href="custom-functions.md">Custom Functions</a></p>
+
+<h2 id="math">Math</h2>
+
+<p>Almost the same as <a href="https://www.terraform.io/docs/configuration/interpolation.html#math">Terraform Math</a> mechanism.</p>
+<div class="edit-meta">Last updated on 17 Oct 2017 / Published on 17 Oct 2017<br><a href="https://github.com/b4b4r07/stein/edit/master/content/syntax/interpolation.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="/stein/syntax/" title="Syntax"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Syntax</a>
+<a class="nav nav-next" href="/stein/syntax/custom-functions/" title="Custom Functions">Next - Custom Functions <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+<nav>
+<ul>
+<li class=""><a href="https://b4b4r07.github.io/stein/">Home</a></li>
+
+<li class=""><a href="/stein/concepts/">Concepts</a>
+<ul class="">
+<li class=""><a href="/stein/concepts/policy/">Policy</a></li>
+<li class=""><a href="/stein/concepts/policy-as-code/">Policy as Code</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/stein/getting-started/">Getting Started</a>
+</li>
+
+<li class=""><a href="/stein/writing-policy/">Writing Policy</a>
+</li>
+
+<li class=""><a href="/stein/policy/">Policy Configuration</a>
+<ul class="">
+<li class=""><a href="/stein/policy/rules/">Rule</a></li>
+<li class=""><a href="/stein/policy/variables/">Variable</a></li>
+<li class=""><a href="/stein/policy/functions/">Function</a></li>
+<li class=""><a href="/stein/policy/config/">Config</a></li>
+<li class=""><a href="/stein/policy/load-order/">Load Order</a></li>
+</ul>
+  
+</li>
+
+<li class="parent"><a href="/stein/syntax/">Syntax</a>
+<ul class="sub-menu">
+<li class="active"><a href="/stein/syntax/interpolation/">Interpolation</a></li>
+<li class=""><a href="/stein/syntax/custom-functions/">Custom Functions</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/stein/commands/">Commands</a>
+<ul class="">
+<li class=""><a href="/stein/commands/apply/">apply</a></li>
+<li class=""><a href="/stein/commands/fmt/">fmt</a></li>
+</ul>
+  
+</li>
+</ul>
+</nav>
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

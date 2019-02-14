@@ -8,12 +8,87 @@
   </url>
   
   <url>
+    <loc>https://b4b4r07.github.io/stein/concepts/policy/</loc>
+    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://b4b4r07.github.io/stein/concepts/policy-as-code/</loc>
     <lastmod>2017-10-17T15:26:15+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://b4b4r07.github.io/stein/getting-started/</loc>
+    <loc>https://b4b4r07.github.io/stein/configration/</loc>
+    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://b4b4r07.github.io/stein/configration/policy/</loc>
+    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://b4b4r07.github.io/stein/configration/policy/rules/</loc>
+    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://b4b4r07.github.io/stein/configration/policy/variables/</loc>
+    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://b4b4r07.github.io/stein/configration/policy/functions/</loc>
+    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://b4b4r07.github.io/stein/configration/policy/config/</loc>
+    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://b4b4r07.github.io/stein/configration/load/</loc>
+    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://b4b4r07.github.io/stein/intro/</loc>
+    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://b4b4r07.github.io/stein/configration/syntax/</loc>
+    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://b4b4r07.github.io/stein/intro/install/</loc>
+    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://b4b4r07.github.io/stein/configration/syntax/interpolation/</loc>
+    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://b4b4r07.github.io/stein/configration/syntax/custom-functions/</loc>
+    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://b4b4r07.github.io/stein/intro/rules/</loc>
+    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://b4b4r07.github.io/stein/intro/run/</loc>
+    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://b4b4r07.github.io/stein/commands/</loc>
     <lastmod>2017-10-17T15:26:15+00:00</lastmod>
   </url>
   
@@ -24,16 +99,6 @@
   
   <url>
     <loc>https://b4b4r07.github.io/stein/commands/fmt/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://b4b4r07.github.io/stein/writing-policy/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://b4b4r07.github.io/stein/commands/</loc>
     <lastmod>2017-10-17T15:26:15+00:00</lastmod>
   </url>
   

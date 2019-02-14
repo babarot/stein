@@ -3,8 +3,8 @@
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Concepts - Stein documentation</title>
-<meta name="description" content="Stein is a linter for config files with a customizable rule set">
+<title>Concepts - Stein Documentations</title>
+<meta name="description" content="A linter for config files with a customizable rule set">
 <meta name="generator" content="Hugo 0.46" />
 <link href="https://b4b4r07.github.io/stein/index.xml" rel="alternate" type="application/rss+xml">
 <link rel="canonical" href="https://b4b4r07.github.io/stein/concepts/">
@@ -17,32 +17,42 @@
 <script src="https://b4b4r07.github.io/stein/js/jquery.backtothetop/jquery.backtothetop.min.js"></script></head>
 <body>
 <div class="container"><header>
-<h1>Stein documentation</h1>
-
- <span class="version">Version 0.2.4</span>
+<h1>Stein Documentations</h1>
 <a href="https://github.com/b4b4r07/stein" class="github"><i class="fab fa-github"></i></a>
-<p class="description">Stein is a linter for config files with a customizable rule set</p>
+<p class="description">A linter for config files with a customizable rule set</p>
 
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein//css/style.css">
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein//css/custom.css">
 </header>
 <div class="menu">
 <nav>
 <ul>
 <li><a href="/stein/">Home</a></li>
-<li><a href="https://twitter.com/thingsym">Twitter</a></li></ul>
+<li><a href="https://github.com/b4b4r07/stein/issues/new">Issues</a></li>
+<li><a href="https://github.com/b4b4r07/stein/releases">Releases</a></li>
+<li><a href="https://github.com/b4b4r07/stein/blob/master/CHANGELOG.md">Changelog</a></li></ul>
 </nav>
 </div>
 <div class="content-container">
-<main><h1>Concepts</h1><p>Stein is a tool like a linter for config files (such as JSON, YAML, HCL) with a customizable rule set.</p>
+<main><h1>Concepts</h1><p>This section covers some concepts that are important to understand for day to day Stein usage. Every page in this section is recommended reading for anyone setting up Stein.</p>
 
-<p>As the motivation of this tool, the factor which accounts for the most of them is the <a href="docs/policy-as-code.md">Policy as Code</a>.</p>
+<p>Please use the navigation to the left to learn more about a topic.</p>
 
-<p>Thanks to <a href="https://en.wikipedia.org/wiki/Infrastructure_as_code">Infrastructure as Code</a>, the number of cases that the configurations of its infrastructure are described as code is increasing day by day.
+<!--
+
+Stein is a tool like a linter for config files (such as JSON, YAML, HCL) with a customizable rule set.
+
+As the motivation of this tool, the factor which accounts for the most of them is the [Policy as Code](docs/policy-as-code.md).
+
+Thanks to [Infrastructure as Code](https://en.wikipedia.org/wiki/Infrastructure_as_code), the number of cases that the configurations of its infrastructure are described as code is increasing day by day.
 Then, it became necessary to set the lint or policy for the config files.
-As an example: the namespace of Kubernetes to be deployed, the number of replicas of Pods, the naming convention of a namespace, etc.</p>
-
-<p><img width="878" alt="2019-01-24 23 58 36" src="https://user-images.githubusercontent.com/4442708/51686626-112c1280-2034-11e9-81b1-ac77b253ab2e.png"></p>
-<div class="edit-meta">Last updated on 17 Oct 2017 / Published on 17 Oct 2017<br><a href="https://github.com/b4b4r07/stein/edit/master/content/concepts/_index.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="/stein/" title="Stein documentation"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Stein documentation</a>
-<a class="nav nav-next" href="/stein/concepts/policy-as-code/" title="Policy as Code">Next - Policy as Code <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+As an example: the namespace of Kubernetes to be deployed, the number of replicas of Pods, the naming convention of a namespace, etc.
+<img width="878" alt="2019-01-24 23 58 36" src="https://user-images.githubusercontent.com/4442708/51686626-112c1280-2034-11e9-81b1-ac77b253ab2e.png">
+-->
+<div class="edit-meta">Last updated on 17 Oct 2017 / Published on 17 Oct 2017<br><a href="https://github.com/b4b4r07/stein/edit/master/content/concepts/_index.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="/stein/" title="Stein Documentations"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Stein Documentations</a>
+<a class="nav nav-next" href="/stein/concepts/policy/" title="Policy">Next - Policy <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
 </footer>
 </main><div class="sidebar">
@@ -52,21 +62,50 @@ As an example: the namespace of Kubernetes to be deployed, the number of replica
 
 <li class="parent active"><a href="/stein/concepts/">Concepts</a>
 <ul class="sub-menu">
+<li class=""><a href="/stein/concepts/policy/">Policy</a></li>
 <li class=""><a href="/stein/concepts/policy-as-code/">Policy as Code</a></li>
 </ul>
   
 </li>
 
-<li class=""><a href="/stein/getting-started/">Getting Started</a>
-</li>
-
-<li class=""><a href="/stein/writing-policy/">Writing Policy</a>
-</li>
-
-<li class=""><a href="/stein/commands/">Stein CLI Commands</a>
+<li class=""><a href="/stein/configration/">Configration</a>
 <ul class="">
-<li class=""><a href="/stein/commands/apply/">stein apply</a></li>
-<li class=""><a href="/stein/commands/fmt/">stein fmt</a></li>
+
+<li class=""><a href="/stein/configration/policy/">Policy</a>
+<ul class="">
+<li class=""><a href="/stein/configration/policy/rules/">Rule</a></li>
+<li class=""><a href="/stein/configration/policy/variables/">Variable</a></li>
+<li class=""><a href="/stein/configration/policy/functions/">Function</a></li>
+<li class=""><a href="/stein/configration/policy/config/">Config</a></li>
+</ul>
+  
+</li>
+<li class=""><a href="/stein/configration/load/">Load Order</a></li>
+
+<li class=""><a href="/stein/configration/syntax/">Syntax</a>
+<ul class="">
+<li class=""><a href="/stein/configration/syntax/interpolation/">Interpolation</a></li>
+<li class=""><a href="/stein/configration/syntax/custom-functions/">Custom Functions</a></li>
+</ul>
+  
+</li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/stein/intro/">Getting Started</a>
+<ul class="">
+<li class=""><a href="/stein/intro/install/">Installing Stein</a></li>
+<li class=""><a href="/stein/intro/rules/">Writing Stein rules</a></li>
+<li class=""><a href="/stein/intro/run/">Running Stein</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/stein/commands/">Commands (CLI)</a>
+<ul class="">
+<li class=""><a href="/stein/commands/apply/">apply</a></li>
+<li class=""><a href="/stein/commands/fmt/">fmt</a></li>
 </ul>
   
 </li>

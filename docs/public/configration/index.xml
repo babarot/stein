@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Configration on Stein Documentations</title>
+    <link>https://b4b4r07.github.io/stein/configration/</link>
+    <description>Recent content in Configration on Stein Documentations</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 17 Oct 2017 15:26:15 +0000</lastBuildDate>
+    
+	<atom:link href="https://b4b4r07.github.io/stein/configration/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Load Order</title>
+      <link>https://b4b4r07.github.io/stein/configration/load/</link>
+      <pubDate>Tue, 17 Oct 2017 15:26:15 +0000</pubDate>
+      
+      <guid>https://b4b4r07.github.io/stein/configration/load/</guid>
+      <description>How policies are loaded by Stein To understand how stein loads policy files and recognizes them is very important for writing and applying policies to the files effectively. stein apply requires always one or more arguments only. It assumes the config file paths such as YAML, JSON and so on.
+The path may have a hierarchical structure. In Stein, when a path with a hierarchical structure is given as arguments, stein recognizes the HCL file in .</description>
+    </item>
+    
+  </channel>
+</rss>

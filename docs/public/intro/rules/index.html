@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Writing Stein rules - Stein Documentations</title>
+<meta name="description" content="A linter for config files with a customizable rule set">
+<meta name="generator" content="Hugo 0.46" />
+<link href="https://b4b4r07.github.io/stein/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://b4b4r07.github.io/stein/intro/rules/">
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://b4b4r07.github.io/stein/js/functions.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://b4b4r07.github.io/stein/js/jquery.backtothetop/jquery.backtothetop.min.js"></script></head>
+<body>
+<div class="container"><header>
+<h1>Stein Documentations</h1>
+<a href="https://github.com/b4b4r07/stein" class="github"><i class="fab fa-github"></i></a>
+<p class="description">A linter for config files with a customizable rule set</p>
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein//css/style.css">
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein//css/custom.css">
+</header>
+<div class="menu">
+<nav>
+<ul>
+<li><a href="/stein/">Home</a></li>
+<li><a href="https://github.com/b4b4r07/stein/issues/new">Issues</a></li>
+<li><a href="https://github.com/b4b4r07/stein/releases">Releases</a></li>
+<li><a href="https://github.com/b4b4r07/stein/blob/master/CHANGELOG.md">Changelog</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>Writing Stein rules</h1><p>Let&rsquo;s say you want to create a lint policy for the next YAML file.</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">apiVersion<span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>my-service<span class="w">
+</span><span class="w">  </span><span class="c"># namespace: echo</span><span class="w">
+</span><span class="w"></span>spec<span class="p">:</span><span class="w">
+</span><span class="w">  </span>selector<span class="p">:</span><span class="w">
+</span><span class="w">    </span>app<span class="p">:</span><span class="w"> </span>MyApp<span class="w">
+</span><span class="w">  </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span>protocol<span class="p">:</span><span class="w"> </span>TCP<span class="w">
+</span><span class="w">    </span>port<span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w">    </span>targetPort<span class="p">:</span><span class="w"> </span><span class="m">9376</span></code></pre></div>
+<p>This is Kubernetes YAML of <a href="https://kubernetes.io/docs/concepts/services-networking/service/">Service</a> manifest.
+The field <code>metadata.namespace</code> in Service can be omitted.
+However, let&rsquo;s say you want to define it explicitly and force the owner to specify this.
+In such a case, <a href="https://b4b4r07.github.io/stein/configration/policy/rules/">Stein&rsquo;s Rule</a> is useful.
+A rule is simple block which can be represented by simple DSL schema by using HCL.</p>
+
+<p>The rule suitable for this case is as follows.</p>
+<div class="highlight"><pre class="chroma"><code class="language-hcl" data-lang="hcl">rule &#34;namespace_specification&#34; {
+  description = &#34;Check namespace name is not empty&#34;
+
+  conditions = [
+    &#34;${jsonpath(&#34;metadata.namespace&#34;) != &#34;&#34;}&#34;,
+  ]
+
+  report {
+    level   = &#34;ERROR&#34;
+    message = &#34;Namespace is not specified&#34;
+  }
+}</code></pre></div>
+<p>The most important attributes in rule block is <code>conditions</code> list.</p>
+
+<p>This list is a collections of boolean values.
+If this list contains one or more <strong><em>false</em></strong> values, this rule will fail.
+The failed rule will output an error message according to the report block.</p>
+
+<p>By the way, <code>jsonpath</code> is provided as a built-in function.
+The available functions are here: <a href="https://b4b4r07.github.io/stein/configration/syntax/interpolation/">Interpolation Syntax</a>.</p>
+<div class="edit-meta">Last updated on 17 Oct 2017 / Published on 17 Oct 2017<br><a href="https://github.com/b4b4r07/stein/edit/master/content/intro/rules.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="/stein/intro/install/" title="Installing Stein"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Installing Stein</a>
+<a class="nav nav-next" href="/stein/intro/run/" title="Running Stein">Next - Running Stein <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+<nav>
+<ul>
+<li class=""><a href="https://b4b4r07.github.io/stein/">Home</a></li>
+
+<li class=""><a href="/stein/concepts/">Concepts</a>
+<ul class="">
+<li class=""><a href="/stein/concepts/policy/">Policy</a></li>
+<li class=""><a href="/stein/concepts/policy-as-code/">Policy as Code</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/stein/configration/">Configration</a>
+<ul class="">
+
+<li class=""><a href="/stein/configration/policy/">Policy</a>
+<ul class="">
+<li class=""><a href="/stein/configration/policy/rules/">Rule</a></li>
+<li class=""><a href="/stein/configration/policy/variables/">Variable</a></li>
+<li class=""><a href="/stein/configration/policy/functions/">Function</a></li>
+<li class=""><a href="/stein/configration/policy/config/">Config</a></li>
+</ul>
+  
+</li>
+<li class=""><a href="/stein/configration/load/">Load Order</a></li>
+
+<li class=""><a href="/stein/configration/syntax/">Syntax</a>
+<ul class="">
+<li class=""><a href="/stein/configration/syntax/interpolation/">Interpolation</a></li>
+<li class=""><a href="/stein/configration/syntax/custom-functions/">Custom Functions</a></li>
+</ul>
+  
+</li>
+</ul>
+  
+</li>
+
+<li class="parent"><a href="/stein/intro/">Getting Started</a>
+<ul class="sub-menu">
+<li class=""><a href="/stein/intro/install/">Installing Stein</a></li>
+<li class="active"><a href="/stein/intro/rules/">Writing Stein rules</a></li>
+<li class=""><a href="/stein/intro/run/">Running Stein</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/stein/commands/">Commands (CLI)</a>
+<ul class="">
+<li class=""><a href="/stein/commands/apply/">apply</a></li>
+<li class=""><a href="/stein/commands/fmt/">fmt</a></li>
+</ul>
+  
+</li>
+</ul>
+</nav>
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>
