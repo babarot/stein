@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Installing Stein - Stein Documentations</title>
+<meta name="description" content="A linter for config files with a customizable rule set">
+<meta name="generator" content="Hugo 0.46" />
+<link href="https://b4b4r07.github.io/stein/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://b4b4r07.github.io/stein/intro/install/">
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://b4b4r07.github.io/stein/js/functions.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://b4b4r07.github.io/stein/js/jquery.backtothetop/jquery.backtothetop.min.js"></script></head>
+<body>
+<div class="container"><header>
+<h1>Stein Documentations</h1>
+<a href="https://github.com/b4b4r07/stein" class="github"><i class="fab fa-github"></i></a>
+<p class="description">A linter for config files with a customizable rule set</p>
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein//css/style.css">
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein//css/custom.css">
+</header>
+<div class="menu">
+<nav>
+<ul>
+<li><a href="/stein/">Home</a></li>
+<li><a href="https://github.com/b4b4r07/stein/issues/new">Issues</a></li>
+<li><a href="https://github.com/b4b4r07/stein/releases">Releases</a></li>
+<li><a href="https://github.com/b4b4r07/stein/blob/master/CHANGELOG.md">Changelog</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>Installing Stein</h1>
+
+<p>Installing Stein is simple. There are two approaches to installing Stein:</p>
+
+<ol>
+<li>Using a precompiled binary</li>
+<li>Installing from source</li>
+</ol>
+
+<p>Downloading a precompiled binary is easiest, and we provide downloads over TLS along with SHA256 sums to verify the binary. We also distribute a PGP signature with the SHA256 sums that can be verified.</p>
+
+<h2 id="precompiled-binaries">Precompiled Binaries</h2>
+
+<p>To install the precompiled binary, download the appropriate package for your system. Stein is currently packaged as a zip file. We do not have any near term plans to provide system packages.</p>
+
+<p>Once the zip is downloaded, unzip it into any directory. The stein binary inside is all that is necessary to run Stein (or stein.exe for Windows). Any additional files, if any, aren&rsquo;t required to run Stein.</p>
+
+<p>Copy the binary to anywhere on your system. If you intend to access it from the command-line, make sure to place it somewhere on your PATH.</p>
+
+<h2 id="compiling-from-source">Compiling from Source</h2>
+
+<p>To compile from source, you will need <a href="https://golang.org/">Go</a> installed and configured properly (including a <code>GOPATH</code> environment variable set), as well as a copy of <a href="https://www.git-scm.com/">git</a> in your <code>PATH</code>.</p>
+
+<ol>
+<li><p>Clone the Stein repository from GitHub into your <code>GOPATH</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-console" data-lang="console">$ mkdir -p $GOPATH/src/github.com/b4b4r07 &amp;&amp; cd $_
+$ git clone https://github.com/b4b4r07/stein.git
+$ cd stein</code></pre></div></li>
+
+<li><p>Bootstrap the project. This will download and compile libraries and tools needed to compile Stein:</p>
+<div class="highlight"><pre class="chroma"><code class="language-console" data-lang="console">$ make build</code></pre></div></li>
+
+<li><p>Build Stein for your current system and put the binary in ./bin/ (relative to the git checkout). The make dev target is just a shortcut that builds stein for only your local build environment (no cross-compiled targets).</p>
+<div class="highlight"><pre class="chroma"><code class="language-console" data-lang="console">$ make build</code></pre></div></li>
+</ol>
+
+<h2 id="verifying-the-installation">Verifying the Installation</h2>
+
+<p>To verify Stein is properly installed, run <code>stein -h</code> on your system. You should see help output. If you are executing it from the command line, make sure it is on your <code>PATH</code> or you may get an error about Stein not being found.</p>
+<div class="highlight"><pre class="chroma"><code class="language-console" data-lang="console">$ stein -h</code></pre></div><div class="edit-meta">Last updated on 17 Oct 2017 / Published on 17 Oct 2017<br><a href="https://github.com/b4b4r07/stein/edit/master/content/intro/install.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="/stein/intro/" title="Getting Started"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Getting Started</a>
+<a class="nav nav-next" href="/stein/intro/rules/" title="Writing Stein rules">Next - Writing Stein rules <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+<nav>
+<ul>
+<li class=""><a href="https://b4b4r07.github.io/stein/">Home</a></li>
+
+<li class=""><a href="/stein/concepts/">Concepts</a>
+<ul class="">
+<li class=""><a href="/stein/concepts/policy/">Policy</a></li>
+<li class=""><a href="/stein/concepts/policy-as-code/">Policy as Code</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/stein/configration/">Configration</a>
+<ul class="">
+
+<li class=""><a href="/stein/configration/policy/">Policy</a>
+<ul class="">
+<li class=""><a href="/stein/configration/policy/rules/">Rule</a></li>
+<li class=""><a href="/stein/configration/policy/variables/">Variable</a></li>
+<li class=""><a href="/stein/configration/policy/functions/">Function</a></li>
+<li class=""><a href="/stein/configration/policy/config/">Config</a></li>
+</ul>
+  
+</li>
+<li class=""><a href="/stein/configration/load/">Load Order</a></li>
+
+<li class=""><a href="/stein/configration/syntax/">Syntax</a>
+<ul class="">
+<li class=""><a href="/stein/configration/syntax/interpolation/">Interpolation</a></li>
+<li class=""><a href="/stein/configration/syntax/custom-functions/">Custom Functions</a></li>
+</ul>
+  
+</li>
+</ul>
+  
+</li>
+
+<li class="parent"><a href="/stein/intro/">Getting Started</a>
+<ul class="sub-menu">
+<li class="active"><a href="/stein/intro/install/">Installing Stein</a></li>
+<li class=""><a href="/stein/intro/rules/">Writing Stein rules</a></li>
+<li class=""><a href="/stein/intro/run/">Running Stein</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/stein/commands/">Commands (CLI)</a>
+<ul class="">
+<li class=""><a href="/stein/commands/apply/">apply</a></li>
+<li class=""><a href="/stein/commands/fmt/">fmt</a></li>
+</ul>
+  
+</li>
+</ul>
+</nav>
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

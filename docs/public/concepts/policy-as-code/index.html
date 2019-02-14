@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Policy as Code - Stein Documentations</title>
+<meta name="description" content="A linter for config files with a customizable rule set">
+<meta name="generator" content="Hugo 0.46" />
+<link href="https://b4b4r07.github.io/stein/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://b4b4r07.github.io/stein/concepts/policy-as-code/">
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://b4b4r07.github.io/stein/js/functions.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://b4b4r07.github.io/stein/js/jquery.backtothetop/jquery.backtothetop.min.js"></script></head>
+<body>
+<div class="container"><header>
+<h1>Stein Documentations</h1>
+<a href="https://github.com/b4b4r07/stein" class="github"><i class="fab fa-github"></i></a>
+<p class="description">A linter for config files with a customizable rule set</p>
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein//css/style.css">
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein//css/custom.css">
+</header>
+<div class="menu">
+<nav>
+<ul>
+<li><a href="/stein/">Home</a></li>
+<li><a href="https://github.com/b4b4r07/stein/issues/new">Issues</a></li>
+<li><a href="https://github.com/b4b4r07/stein/releases">Releases</a></li>
+<li><a href="https://github.com/b4b4r07/stein/blob/master/CHANGELOG.md">Changelog</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>Policy as Code</h1><p>Policy as code is the idea of writing code in a high-level language to manage and automate policies. By representing policies as code in text files, proven software development best practices can be adopted such as version control, automated testing, and automated deployment.</p>
+
+<p>Many existing policy or ACL systems do not practice policy as code. Many policies are set by clicking in a GUI, which isn&rsquo;t easily repeatable nor versionable. They usually don&rsquo;t provide any system for testing policies other than testing an action that would violate the policy. This makes it difficult for automated testing. And the policy language itself varies by product.</p>
+
+<p>Stein is built around the idea and provides all the benefits of policy as code.</p>
+
+<div class="notices info" ><p>The idea of &ldquo;Policy as Code&rdquo; is proposed by HashiCorp and HashiCorp Sentinel.
+<br>
+<a href="https://docs.hashicorp.com/sentinel/concepts/policy-as-code">Policy as Code - Sentinel by HashiCorp</a></p>
+</div>
+
+<div class="edit-meta">Last updated on 17 Oct 2017 / Published on 17 Oct 2017<br><a href="https://github.com/b4b4r07/stein/edit/master/content/concepts/policy-as-code.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="/stein/concepts/policy/" title="Policy"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Policy</a>
+<a class="nav nav-next" href="/stein/configration/" title="Configration">Next - Configration <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+<nav>
+<ul>
+<li class=""><a href="https://b4b4r07.github.io/stein/">Home</a></li>
+
+<li class="parent"><a href="/stein/concepts/">Concepts</a>
+<ul class="sub-menu">
+<li class=""><a href="/stein/concepts/policy/">Policy</a></li>
+<li class="active"><a href="/stein/concepts/policy-as-code/">Policy as Code</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/stein/configration/">Configration</a>
+<ul class="">
+
+<li class=""><a href="/stein/configration/policy/">Policy</a>
+<ul class="">
+<li class=""><a href="/stein/configration/policy/rules/">Rule</a></li>
+<li class=""><a href="/stein/configration/policy/variables/">Variable</a></li>
+<li class=""><a href="/stein/configration/policy/functions/">Function</a></li>
+<li class=""><a href="/stein/configration/policy/config/">Config</a></li>
+</ul>
+  
+</li>
+<li class=""><a href="/stein/configration/load/">Load Order</a></li>
+
+<li class=""><a href="/stein/configration/syntax/">Syntax</a>
+<ul class="">
+<li class=""><a href="/stein/configration/syntax/interpolation/">Interpolation</a></li>
+<li class=""><a href="/stein/configration/syntax/custom-functions/">Custom Functions</a></li>
+</ul>
+  
+</li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/stein/intro/">Getting Started</a>
+<ul class="">
+<li class=""><a href="/stein/intro/install/">Installing Stein</a></li>
+<li class=""><a href="/stein/intro/rules/">Writing Stein rules</a></li>
+<li class=""><a href="/stein/intro/run/">Running Stein</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/stein/commands/">Commands (CLI)</a>
+<ul class="">
+<li class=""><a href="/stein/commands/apply/">apply</a></li>
+<li class=""><a href="/stein/commands/fmt/">fmt</a></li>
+</ul>
+  
+</li>
+</ul>
+</nav>
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>
