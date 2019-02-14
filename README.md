@@ -40,7 +40,7 @@ unzip -n "stein_${OS}_amd64.zip"
 
 ## Try to use!
 
-Example is here: [`test.sh`](./scripts/test.sh) (`make run`). It also responds to `-h` and `--help` as you'd expect.
+Example is here: `run` target in [`Makefile`](./Makefile) (`make run`). It also responds to `-h` and `--help` as you'd expect.
 To view a list of the available commands at any time, just run `stein` with no arguments.
 
 ```console
