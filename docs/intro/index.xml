@@ -6,7 +6,7 @@
     <description>Recent content in Getting Started on Stein Documentations</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 17 Oct 2017 15:26:15 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 17 Jan 2019 15:26:15 +0000</lastBuildDate>
     
 	<atom:link href="https://b4b4r07.github.io/stein/intro/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Installing Stein</title>
       <link>https://b4b4r07.github.io/stein/intro/install/</link>
-      <pubDate>Tue, 17 Oct 2017 15:26:15 +0000</pubDate>
+      <pubDate>Thu, 17 Jan 2019 15:26:15 +0000</pubDate>
       
       <guid>https://b4b4r07.github.io/stein/intro/install/</guid>
       <description>Installing Stein is simple. There are two approaches to installing Stein:
@@ -25,7 +25,7 @@ Precompiled Binaries To install the precompiled binary, download the appropriate
     <item>
       <title>Writing Stein rules</title>
       <link>https://b4b4r07.github.io/stein/intro/rules/</link>
-      <pubDate>Tue, 17 Oct 2017 15:26:15 +0000</pubDate>
+      <pubDate>Thu, 17 Jan 2019 15:26:15 +0000</pubDate>
       
       <guid>https://b4b4r07.github.io/stein/intro/rules/</guid>
       <description>Let&amp;rsquo;s say you want to create a lint policy for the next YAML file.
@@ -35,7 +35,7 @@ apiVersion:v1metadata:name:my-service# namespace: echospec:selector:app:MyApppor
     <item>
       <title>Running Stein</title>
       <link>https://b4b4r07.github.io/stein/intro/run/</link>
-      <pubDate>Tue, 17 Oct 2017 15:26:15 +0000</pubDate>
+      <pubDate>Thu, 17 Jan 2019 15:26:15 +0000</pubDate>
       
       <guid>https://b4b4r07.github.io/stein/intro/run/</guid>
       <description>Apply stein rules After writing up your rules, let&amp;rsquo;s run stein command.

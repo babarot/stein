@@ -1,6 +1,6 @@
 ---
 title: "Writing Stein rules"
-date: 2017-10-17T15:26:15Z
+date: 2019-01-17T15:26:15Z
 draft: false
 weight: 52
 
@@ -25,7 +25,7 @@ spec:
 This is Kubernetes YAML of [Service](https://kubernetes.io/docs/concepts/services-networking/service/) manifest.
 The field `metadata.namespace` in Service can be omitted.
 However, let's say you want to define it explicitly and force the owner to specify this.
-In such a case, [Stein's Rule]({{< ref "/configration/policy/rules" >}}) is useful.
+In such a case, [Stein's Rule]({{< ref "/configuration/policy/rules" >}}) is useful.
 A rule is simple block which can be represented by simple DSL schema by using HCL.
 
 The rule suitable for this case is as follows.
@@ -52,4 +52,4 @@ If this list contains one or more ***false*** values, this rule will fail.
 The failed rule will output an error message according to the report block.
 
 By the way, `jsonpath` is provided as a built-in function.
-The available functions are here: [Interpolation Syntax]({{< ref "/configration/syntax/interpolation" >}}).
+The available functions are here: [Interpolation Syntax]({{< ref "/configuration/syntax/interpolation" >}}).

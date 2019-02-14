@@ -3,7 +3,7 @@
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Stein Documentations - Stein Documentations</title>
+<title>Stein Documentations</title>
 <meta name="description" content="A linter for config files with a customizable rule set">
 <meta name="generator" content="Hugo 0.46" />
 <link href="https://b4b4r07.github.io/stein/index.xml" rel="alternate" type="application/rss+xml">
@@ -36,13 +36,28 @@
 </nav>
 </div>
 <div class="content-container">
-<main><h1>Customize your own home page</h1>
-<p>The site is working. Don't forget to customize this homepage with your own. You typically have 2 choices :</p>
-<ol>
-<li>Create an _index.md document in <b>content</b> folder and fill it with Markdown content</li>
-<li>Create an <b>index.html</b> file in the <b>static</b> folder and fill the file with HTML content</li>
-<li>Configure your server to automatically redirect home page to one your documentation page</li>
-</ol><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+<main>
+
+<h1 id="stein">stein</h1>
+
+<p><a href="https://github.com/b4b4r07/stein/releases"><img src="https://img.shields.io/github/release/b4b4r07/stein.svg?style=popout" alt="" /></a> <a href="./LICENSE"><img src="https://img.shields.io/github/license/b4b4r07/stein.svg?style=popout" alt="" /></a></p>
+
+<p>Stein is a linter for config files with a customizable rule set.
+Supported config file types are JSON, YAML and HCL for now.</p>
+
+<p>The basic design of this tool are heavily inspired by <a href="https://www.hashicorp.com/sentinel">HashiCorp Sentinel</a> and its lots of implementations come from <a href="https://www.terraform.io/">Terraform</a>.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>As the motivation of this tool, the factor which accounts for the most of them is the <a href="https://b4b4r07.github.io/stein/concepts/policy-as-code/">Policy as Code</a>.</p>
+
+<p>Thanks to <a href="https://en.wikipedia.org/wiki/Infrastructure_as_code">Infrastructure as Code</a>, the number of cases that the configurations of its infrastructure are described as code is increasing day by day.
+Then, it became necessary to set the lint or policy for the config files.
+As an example: the namespace of Kubernetes to be deployed, the number of replicas of Pods, the naming convention of a namespace, etc.</p>
+
+<p>This tool makes it possible to describe those requests as code (called as the <a href="https://b4b4r07.github.io/stein/configuration/policy/rules/">rules</a>).</p>
+<nav class="pagination"><a class="nav nav-next" href="/stein/concepts/" title="Concepts">Next - Concepts <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><div class="edit-meta">Last updated on 17 Jan 2019 / Published on 1 Jan 0001<br><a href="https://github.com/b4b4r07/stein/edit/master/content/_index.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
 </footer>
 </main><div class="sidebar">
 <nav>
@@ -57,24 +72,24 @@
   
 </li>
 
-<li class=""><a href="/stein/configration/">Configration</a>
+<li class=""><a href="/stein/configuration/">Configuration</a>
 <ul class="">
 
-<li class=""><a href="/stein/configration/policy/">Policy</a>
+<li class=""><a href="/stein/configuration/policy/">Policy</a>
 <ul class="">
-<li class=""><a href="/stein/configration/policy/rules/">Rule</a></li>
-<li class=""><a href="/stein/configration/policy/variables/">Variable</a></li>
-<li class=""><a href="/stein/configration/policy/functions/">Function</a></li>
-<li class=""><a href="/stein/configration/policy/config/">Config</a></li>
+<li class=""><a href="/stein/configuration/policy/rules/">Rule</a></li>
+<li class=""><a href="/stein/configuration/policy/variables/">Variable</a></li>
+<li class=""><a href="/stein/configuration/policy/functions/">Function</a></li>
+<li class=""><a href="/stein/configuration/policy/config/">Config</a></li>
 </ul>
   
 </li>
-<li class=""><a href="/stein/configration/load/">Load Order</a></li>
+<li class=""><a href="/stein/configuration/load/">Load Order</a></li>
 
-<li class=""><a href="/stein/configration/syntax/">Syntax</a>
+<li class=""><a href="/stein/configuration/syntax/">Syntax</a>
 <ul class="">
-<li class=""><a href="/stein/configration/syntax/interpolation/">Interpolation</a></li>
-<li class=""><a href="/stein/configration/syntax/custom-functions/">Custom Functions</a></li>
+<li class=""><a href="/stein/configuration/syntax/interpolation/">Interpolation</a></li>
+<li class=""><a href="/stein/configuration/syntax/custom-functions/">Custom Functions</a></li>
 </ul>
   
 </li>

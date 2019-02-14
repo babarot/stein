@@ -6,7 +6,7 @@
     <description>Recent content in Stein CLI Commands on Stein Documentations</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 17 Oct 2017 15:26:15 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 17 Jan 2019 15:26:15 +0000</lastBuildDate>
     
 	<atom:link href="https://b4b4r07.github.io/stein/commands/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Command: apply</title>
       <link>https://b4b4r07.github.io/stein/commands/apply/</link>
-      <pubDate>Tue, 17 Oct 2017 15:26:15 +0000</pubDate>
+      <pubDate>Thu, 17 Jan 2019 15:26:15 +0000</pubDate>
       
       <guid>https://b4b4r07.github.io/stein/commands/apply/</guid>
       <description>The stein apply command is used to execute a policy locally for development purposes.
@@ -25,7 +25,7 @@ The output will indicate whether the policy passed or failed. The exit code also
     <item>
       <title>Command: fmt</title>
       <link>https://b4b4r07.github.io/stein/commands/fmt/</link>
-      <pubDate>Tue, 17 Oct 2017 15:26:15 +0000</pubDate>
+      <pubDate>Thu, 17 Jan 2019 15:26:15 +0000</pubDate>
       
       <guid>https://b4b4r07.github.io/stein/commands/fmt/</guid>
       <description>The stein fmt command formats a policy source to a canonical format.

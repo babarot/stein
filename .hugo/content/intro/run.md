@@ -1,6 +1,6 @@
 ---
 title: "Running Stein"
-date: 2017-10-17T15:26:15Z
+date: 2019-01-17T15:26:15Z
 draft: false
 weight: 53
 
@@ -41,7 +41,7 @@ service.yaml
 `-- rules.hcl
 ```
 
-For more details about this behavior, see also [How policies are loaded by Stein]({{< ref "/configration/load" >}}).
+For more details about this behavior, see also [How policies are loaded by Stein]({{< ref "/configuration/load" >}}).
 
 ## Debug stein
 

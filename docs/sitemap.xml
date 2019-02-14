@@ -4,112 +4,111 @@
   
   <url>
     <loc>https://b4b4r07.github.io/stein/concepts/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+    <lastmod>2019-01-17T15:26:15+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://b4b4r07.github.io/stein/concepts/policy/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+    <lastmod>2019-01-17T15:26:15+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://b4b4r07.github.io/stein/concepts/policy-as-code/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+    <lastmod>2019-01-17T15:26:15+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://b4b4r07.github.io/stein/configration/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+    <loc>https://b4b4r07.github.io/stein/configuration/</loc>
+    <lastmod>2019-01-17T15:26:15+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://b4b4r07.github.io/stein/configration/policy/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+    <loc>https://b4b4r07.github.io/stein/configuration/policy/</loc>
+    <lastmod>2019-01-17T15:26:15+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://b4b4r07.github.io/stein/configration/policy/rules/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+    <loc>https://b4b4r07.github.io/stein/configuration/policy/rules/</loc>
+    <lastmod>2019-01-17T15:26:15+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://b4b4r07.github.io/stein/configration/policy/variables/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+    <loc>https://b4b4r07.github.io/stein/configuration/policy/variables/</loc>
+    <lastmod>2019-01-17T15:26:15+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://b4b4r07.github.io/stein/configration/policy/functions/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+    <loc>https://b4b4r07.github.io/stein/configuration/policy/functions/</loc>
+    <lastmod>2019-01-17T15:26:15+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://b4b4r07.github.io/stein/configration/policy/config/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+    <loc>https://b4b4r07.github.io/stein/configuration/policy/config/</loc>
+    <lastmod>2019-01-17T15:26:15+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://b4b4r07.github.io/stein/configration/load/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+    <loc>https://b4b4r07.github.io/stein/configuration/load/</loc>
+    <lastmod>2019-01-17T15:26:15+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://b4b4r07.github.io/stein/intro/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+    <lastmod>2019-01-17T15:26:15+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://b4b4r07.github.io/stein/configration/syntax/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+    <loc>https://b4b4r07.github.io/stein/configuration/syntax/</loc>
+    <lastmod>2019-01-17T15:26:15+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://b4b4r07.github.io/stein/intro/install/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+    <lastmod>2019-01-17T15:26:15+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://b4b4r07.github.io/stein/configration/syntax/interpolation/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+    <loc>https://b4b4r07.github.io/stein/configuration/syntax/interpolation/</loc>
+    <lastmod>2019-01-17T15:26:15+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://b4b4r07.github.io/stein/configration/syntax/custom-functions/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+    <loc>https://b4b4r07.github.io/stein/configuration/syntax/custom-functions/</loc>
+    <lastmod>2019-01-17T15:26:15+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://b4b4r07.github.io/stein/intro/rules/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+    <lastmod>2019-01-17T15:26:15+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://b4b4r07.github.io/stein/intro/run/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+    <lastmod>2019-01-17T15:26:15+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://b4b4r07.github.io/stein/commands/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+    <lastmod>2019-01-17T15:26:15+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://b4b4r07.github.io/stein/commands/apply/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+    <lastmod>2019-01-17T15:26:15+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://b4b4r07.github.io/stein/commands/fmt/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://b4b4r07.github.io/stein/categories/</loc>
-    <priority>0</priority>
+    <lastmod>2019-01-17T15:26:15+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://b4b4r07.github.io/stein/</loc>
-    <lastmod>2017-10-17T15:26:15+00:00</lastmod>
+    <lastmod>2019-01-17T15:26:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://b4b4r07.github.io/stein/categories/</loc>
     <priority>0</priority>
   </url>
   

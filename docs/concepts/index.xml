@@ -6,7 +6,7 @@
     <description>Recent content in Concepts on Stein Documentations</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 17 Oct 2017 15:26:15 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 17 Jan 2019 15:26:15 +0000</lastBuildDate>
     
 	<atom:link href="https://b4b4r07.github.io/stein/concepts/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Policy</title>
       <link>https://b4b4r07.github.io/stein/concepts/policy/</link>
-      <pubDate>Tue, 17 Oct 2017 15:26:15 +0000</pubDate>
+      <pubDate>Thu, 17 Jan 2019 15:26:15 +0000</pubDate>
       
       <guid>https://b4b4r07.github.io/stein/concepts/policy/</guid>
       <description>What&amp;rsquo;s a policy? Why needs policies? Nowadays, thanks to the infiltration of the concept of &amp;ldquo;Infrastructure as Code&amp;rdquo;, many infrastructure settings are coded in a configuration file language such as YAML.
@@ -24,7 +24,7 @@ For YAML files that we have to maintain like Kubernetes manifest files, as we co
     <item>
       <title>Policy as Code</title>
       <link>https://b4b4r07.github.io/stein/concepts/policy-as-code/</link>
-      <pubDate>Tue, 17 Oct 2017 15:26:15 +0000</pubDate>
+      <pubDate>Thu, 17 Jan 2019 15:26:15 +0000</pubDate>
       
       <guid>https://b4b4r07.github.io/stein/concepts/policy-as-code/</guid>
       <description>Policy as code is the idea of writing code in a high-level language to manage and automate policies. By representing policies as code in text files, proven software development best practices can be adopted such as version control, automated testing, and automated deployment.

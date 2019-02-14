@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Load Order - Stein Documentations</title>
+<meta name="description" content="A linter for config files with a customizable rule set">
+<meta name="generator" content="Hugo 0.46" />
+<link href="https://b4b4r07.github.io/stein/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://b4b4r07.github.io/stein/configuration/load/">
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://b4b4r07.github.io/stein/js/functions.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://b4b4r07.github.io/stein/js/jquery.backtothetop/jquery.backtothetop.min.js"></script></head>
+<body>
+<div class="container"><header>
+<h1>Stein Documentations</h1>
+<a href="https://github.com/b4b4r07/stein" class="github"><i class="fab fa-github"></i></a>
+<p class="description">A linter for config files with a customizable rule set</p>
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein//css/style.css">
+<link rel="stylesheet" href="https://b4b4r07.github.io/stein//css/custom.css">
+</header>
+<div class="menu">
+<nav>
+<ul>
+<li><a href="/stein/">Home</a></li>
+<li><a href="https://github.com/b4b4r07/stein/issues/new">Issues</a></li>
+<li><a href="https://github.com/b4b4r07/stein/releases">Releases</a></li>
+<li><a href="https://github.com/b4b4r07/stein/blob/master/CHANGELOG.md">Changelog</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>Load Order</h1>
+
+<h2 id="how-policies-are-loaded-by-stein">How policies are loaded by Stein</h2>
+
+<p>To understand how <code>stein</code> loads policy files and recognizes them is very important for writing and applying policies to the files effectively.
+<code>stein apply</code> requires always one or more arguments only.
+It assumes the config file paths such as YAML, JSON and so on.</p>
+
+<p>The path may have a hierarchical structure.
+In Stein, when a path with a hierarchical structure is given as arguments, <code>stein</code> recognizes the HCL file in <code>.policy</code> directory placed in the path included in that path as a policy to be applied.</p>
+
+<p>Let&rsquo;s see a concrete example.</p>
+<div class="highlight"><pre class="chroma"><code class="language-console" data-lang="console">_examples
+|-- .policy/
+|   |-- config.hcl
+|   |-- functions.hcl
+|   |-- rules.hcl
+|   `-- variables.hcl
+|-- manifests/
+|   |-- .policy/
+|   |   |-- functions.hcl
+|   |   `-- rules.hcl
+|   `-- microservices/
+|       |-- x-echo-jp/
+|       |   `-- development/
+|       |       |-- Deployment/
+|       |       |   |-- redis-master.yaml
+|       |       |   |-- test.yaml
+|       |       |   `-- test.yml
+|       |       |-- PodDisruptionBudget/
+|       |       |   `-- pdb.yaml
+|       |       `-- Service/
+|       |           `-- service.yaml
+|       `-- x-gateway-jp/
+|           `-- development/
+|               `-- Deployment/
+|                   `-- test.yaml
+`-- spinnaker/
+    |-- .policy/
+    |   `-- functions.hcl
+    `-- x-echo-jp/
+        `-- development/
+            `-- deploy-to-dev-v2.yaml</code></pre></div>
+<p>There are some Kubernetes YAML with hierarchical structure and some policies here.</p>
+
+<p>In this case, <code>stein</code> recognizes these HCL files as the policy to be applied to the arguments if <code>_examples/manifests/microservices/x-echo-jp/development/Deployment/test.yaml</code> is given as arguments of <code>stein</code>:</p>
+
+<ul>
+<li><code>_examples/.policy/*.hcl</code></li>
+<li><code>_examples/manifests/.policy/*.hcl</code></li>
+</ul>
+
+<p>This is because given argument file contains <code>_examples/</code> and <code>_examples/manifests</code>.</p>
+
+<p>That is, all YAML files located in <code>_examples/manifests/</code> is applied with <code>_examples/.policy/*.hcl</code> and <code>_examples/manifests/.policy/*.hcl</code>.</p>
+
+<p>On the other hand, all YAML files located in <code>_examples/spinnaker/</code> is applied with <code>_examples/.policy/*.hcl</code> and <code>_examples/spinnaker/.policy/*.hcl</code>.</p>
+
+<p>So, you can control the policy to apply by appropriately creating the directory and placing the YAML files and <code>.policy</code> directory there.</p>
+
+<p>In addition, if you want to apply policies placed in places that have no relation to given arguments, you can control by environment variable or <code>apply</code> flag.</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">export</span> <span class="nv">STEIN_POLICY</span><span class="o">=</span>/path/to/policy
+stein apply deployment.yaml
+
+<span class="c1"># or
+</span><span class="c1"></span>
+stein apply -policy /path/to/policy deployment.yaml</code></pre></div>
+<p>Also <code>STEIN_POLICY</code> (<code>-policy</code>) can take multiple values separated by a comma, also can take directories and files:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">STEIN_POLICY</span><span class="o">=</span>root-policy/,another-policy/special.hcl
+<span class="c1"># -&gt; these files are applied, besides &#34;.policy/*.hcl&#34; included in given arguments
+</span><span class="c1">#    root-policy/*.hcl
+</span><span class="c1"></span>#    another-policy/special.hcl</code></pre></div>
+<h2 id="what-s-next">What&rsquo;s next</h2>
+
+<ul>
+<li><a href="rules.md">Rules</a></li>
+<li><a href="variables.md">Variables</a></li>
+<li><a href="functions.md">Functions</a></li>
+<li><a href="config.md">Config</a></li>
+</ul>
+<div class="edit-meta">Last updated on 17 Jan 2019 / Published on 17 Jan 2019<br><a href="https://github.com/b4b4r07/stein/edit/master/content/configuration/load.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="/stein/configuration/policy/config/" title="Config Configuration"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Config Configuration</a>
+<a class="nav nav-next" href="/stein/configuration/syntax/" title="Syntax">Next - Syntax <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+<nav>
+<ul>
+<li class=""><a href="https://b4b4r07.github.io/stein/">Home</a></li>
+
+<li class=""><a href="/stein/concepts/">Concepts</a>
+<ul class="">
+<li class=""><a href="/stein/concepts/policy/">Policy</a></li>
+<li class=""><a href="/stein/concepts/policy-as-code/">Policy as Code</a></li>
+</ul>
+  
+</li>
+
+<li class="parent"><a href="/stein/configuration/">Configuration</a>
+<ul class="sub-menu">
+
+<li class=""><a href="/stein/configuration/policy/">Policy</a>
+<ul class="">
+<li class=""><a href="/stein/configuration/policy/rules/">Rule</a></li>
+<li class=""><a href="/stein/configuration/policy/variables/">Variable</a></li>
+<li class=""><a href="/stein/configuration/policy/functions/">Function</a></li>
+<li class=""><a href="/stein/configuration/policy/config/">Config</a></li>
+</ul>
+  
+</li>
+<li class="active"><a href="/stein/configuration/load/">Load Order</a></li>
+
+<li class=""><a href="/stein/configuration/syntax/">Syntax</a>
+<ul class="">
+<li class=""><a href="/stein/configuration/syntax/interpolation/">Interpolation</a></li>
+<li class=""><a href="/stein/configuration/syntax/custom-functions/">Custom Functions</a></li>
+</ul>
+  
+</li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/stein/intro/">Getting Started</a>
+<ul class="">
+<li class=""><a href="/stein/intro/install/">Installing Stein</a></li>
+<li class=""><a href="/stein/intro/rules/">Writing Stein rules</a></li>
+<li class=""><a href="/stein/intro/run/">Running Stein</a></li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/stein/commands/">Commands (CLI)</a>
+<ul class="">
+<li class=""><a href="/stein/commands/apply/">apply</a></li>
+<li class=""><a href="/stein/commands/fmt/">fmt</a></li>
+</ul>
+  
+</li>
+</ul>
+</nav>
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

@@ -1,7 +1,7 @@
 ---
 title: "Command: apply"
 item: "apply"
-date: 2017-10-17T15:26:15Z
+date: 2019-01-17T15:26:15Z
 draft: false
 weight: 61
 
@@ -23,4 +23,4 @@ The command-line flags are all optional. The list of available flags are:
 
 - [`-policy=file[,file,dir,...]`](#policy-file) - Path to HCL file path or a directory path located in HCL files. You can specify multiple paths (directory or just HCL file) with a comma. The `STEIN_POLICY` variable is the environment variable version of this flag.
 
-See also [How policies are loaded by Stein]({{< ref "/configration/load" >}}).
+See also [How policies are loaded by Stein]({{< ref "/configuration/load" >}}).
