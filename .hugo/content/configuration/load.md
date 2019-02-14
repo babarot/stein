@@ -86,10 +86,3 @@ STEIN_POLICY=root-policy/,another-policy/special.hcl
 #    root-policy/*.hcl
 #    another-policy/special.hcl
 ```
-
-## What's next
-
-- [Rules](rules.md)
-- [Variables](variables.md)
-- [Functions](functions.md)
-- [Config](config.md)
