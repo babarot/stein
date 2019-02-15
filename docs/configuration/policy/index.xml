@@ -18,7 +18,7 @@
       
       <guid>https://b4b4r07.github.io/stein/configuration/policy/rules/</guid>
       <description>The most important thing you&amp;rsquo;ll configure with Stein are rules. Rules are a component of your policies. It might be some rule set such as a region to be deployed, naming convention, or some linting. Or it can be a higher level component such as an email provider, DNS record, or database provider.
-This page assumes you&amp;rsquo;re familiar with the [configuration syntax]() already.
+This page assumes you&amp;rsquo;re familiar with the configuration syntax already.
 Example A rule configuration looks like the following:</description>
     </item>
     
@@ -31,7 +31,7 @@ Example A rule configuration looks like the following:</description>
       <description>Input variables serve as parameters for a Terraform module.
 When used in the root module of a configuration, variables can be set from CLI arguments and environment variables. For [child modules](), they allow values to pass from parent to child.
 Input variable usage is introduced in the Getting Started guide section [Input Variables]().
-This page assumes you&amp;rsquo;re familiar with the [configuration syntax]() already.
+This page assumes you&amp;rsquo;re familiar with the configuration syntax already.
 Example Input variables can be defined as follows:</description>
     </item>
     
@@ -42,8 +42,8 @@ Example Input variables can be defined as follows:</description>
       
       <guid>https://b4b4r07.github.io/stein/configuration/policy/functions/</guid>
       <description>It is recommended that you read the Custom Functions page prior to reading this section of the documentation. The page will explain what the custom functions are and how to use them. On the other hands, this documentation will guide you the basics of writing custom functions and introducing it into your policies efficiently.
-Example A function configuration looks like the following:
-function &amp;#34;get_service_name&amp;#34; { params = [file] result = basename(dirname(dirname(dirname(file)))) } function &amp;#34;get_env&amp;#34; { params = [file] result = basename(dirname(dirname(file))) } function &amp;#34;get_service_id_with_env&amp;#34; { params = [file] result = format(&amp;#34;%s-%s&amp;#34;, get_service_name(file), lookup(var.</description>
+This page assumes you&amp;rsquo;re familiar with the configuration syntax already.
+Example A function configuration looks like the following:</description>
     </item>
     
     <item>

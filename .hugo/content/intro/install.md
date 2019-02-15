@@ -17,9 +17,11 @@ Downloading a precompiled binary is easiest, and we provide downloads over TLS a
 
 To install the precompiled binary, download the appropriate package for your system. Stein is currently packaged as a zip file. We do not have any near term plans to provide system packages.
 
-Once the zip is downloaded, unzip it into any directory. The stein binary inside is all that is necessary to run Stein (or stein.exe for Windows). Any additional files, if any, aren't required to run Stein.
+[Releases · b4b4r07/stein](https://github.com/b4b4r07/stein/releases)
 
-Copy the binary to anywhere on your system. If you intend to access it from the command-line, make sure to place it somewhere on your PATH.
+Once the zip is downloaded, unzip it into any directory. The stein binary inside is all that is necessary to run Stein (or `stein.exe` for Windows). Any additional files, if any, aren't required to run Stein.
+
+Copy the binary to anywhere on your system. If you intend to access it from the command-line, make sure to place it somewhere on your `PATH`.
 
 ## Compiling from Source
 
@@ -33,13 +35,7 @@ To compile from source, you will need [Go](https://golang.org/) installed and co
     $ cd stein
     ```
 
-2. Bootstrap the project. This will download and compile libraries and tools needed to compile Stein:
-
-    ```console
-    $ make build
-    ```
-
-3. Build Stein for your current system and put the binary in ./bin/ (relative to the git checkout). The make dev target is just a shortcut that builds stein for only your local build environment (no cross-compiled targets).
+2. Build Stein for your current system and put the binary in ./bin/ (relative to the git checkout). The make dev target is just a shortcut that builds stein for only your local build environment (no cross-compiled targets).
 
     ```console
     $ make build
@@ -48,7 +44,6 @@ To compile from source, you will need [Go](https://golang.org/) installed and co
 ## Verifying the Installation
 
 To verify Stein is properly installed, run `stein -h` on your system. You should see help output. If you are executing it from the command line, make sure it is on your `PATH` or you may get an error about Stein not being found.
-
 
 ```console
 $ stein -h

@@ -9,7 +9,7 @@ weight: 41
 
 The most important thing you'll configure with Stein are rules. Rules are a component of your policies. It might be some rule set such as a region to be deployed, naming convention, or some linting. Or it can be a higher level component such as an email provider, DNS record, or database provider.
 
-This page assumes you're familiar with the [configuration syntax]() already.
+This page assumes you're familiar with the [configuration syntax]({{< ref "/configuration/syntax" >}}) already.
 
 ## Example
 

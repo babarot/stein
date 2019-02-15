@@ -17,8 +17,8 @@
       <pubDate>Thu, 17 Jan 2019 15:26:15 +0000</pubDate>
       
       <guid>https://b4b4r07.github.io/stein/concepts/policy/</guid>
-      <description>What&amp;rsquo;s a policy? Why needs policies? Nowadays, thanks to the infiltration of the concept of &amp;ldquo;Infrastructure as Code&amp;rdquo;, many infrastructure settings are coded in a configuration file language such as YAML.
-For YAML files that we have to maintain like Kubernetes manifest files, as we continue to maintain them in the meantime, we will want to unify the writing style with policies like a style guide.</description>
+      <description>What&amp;rsquo;s a policy? The policy describes the rule &amp;ldquo;The configuration file should be written like this&amp;rdquo;. How the configuration file should be written depends on the company and team. Stein respects and embraces the approaches adopted by Terraform and HashiCorp Sentinel so that it can be defined flexibly.
+Stein can test against the configuration file based on those policies. Therefore, by combining with CI etc., you can enforce rules on the configuration file.</description>
     </item>
     
     <item>
@@ -38,7 +38,7 @@ Many existing policy or ACL systems do not practice policy as code. Many policie
       
       <guid>https://b4b4r07.github.io/stein/configuration/policy/rules/</guid>
       <description>The most important thing you&amp;rsquo;ll configure with Stein are rules. Rules are a component of your policies. It might be some rule set such as a region to be deployed, naming convention, or some linting. Or it can be a higher level component such as an email provider, DNS record, or database provider.
-This page assumes you&amp;rsquo;re familiar with the [configuration syntax]() already.
+This page assumes you&amp;rsquo;re familiar with the configuration syntax already.
 Example A rule configuration looks like the following:</description>
     </item>
     
@@ -51,7 +51,7 @@ Example A rule configuration looks like the following:</description>
       <description>Input variables serve as parameters for a Terraform module.
 When used in the root module of a configuration, variables can be set from CLI arguments and environment variables. For [child modules](), they allow values to pass from parent to child.
 Input variable usage is introduced in the Getting Started guide section [Input Variables]().
-This page assumes you&amp;rsquo;re familiar with the [configuration syntax]() already.
+This page assumes you&amp;rsquo;re familiar with the configuration syntax already.
 Example Input variables can be defined as follows:</description>
     </item>
     
@@ -62,8 +62,8 @@ Example Input variables can be defined as follows:</description>
       
       <guid>https://b4b4r07.github.io/stein/configuration/policy/functions/</guid>
       <description>It is recommended that you read the Custom Functions page prior to reading this section of the documentation. The page will explain what the custom functions are and how to use them. On the other hands, this documentation will guide you the basics of writing custom functions and introducing it into your policies efficiently.
-Example A function configuration looks like the following:
-function &amp;#34;get_service_name&amp;#34; { params = [file] result = basename(dirname(dirname(dirname(file)))) } function &amp;#34;get_env&amp;#34; { params = [file] result = basename(dirname(dirname(file))) } function &amp;#34;get_service_id_with_env&amp;#34; { params = [file] result = format(&amp;#34;%s-%s&amp;#34;, get_service_name(file), lookup(var.</description>
+This page assumes you&amp;rsquo;re familiar with the configuration syntax already.
+Example A function configuration looks like the following:</description>
     </item>
     
     <item>
@@ -113,8 +113,8 @@ You can perform simple math in interpolations, allowing you to write conditions 
       <pubDate>Thu, 17 Jan 2019 15:26:15 +0000</pubDate>
       
       <guid>https://b4b4r07.github.io/stein/configuration/syntax/custom-functions/</guid>
-      <description>Notes: This idea basically comes from https://github.com/hashicorp/hcl2/tree/master/ext/userfunc
-What&amp;rsquo;s custom functions? The custom function feature is like an user-defined functions. You can freely define functions that Stein doesn&amp;rsquo;t provide as a built-in function.
+      <description>Notes: This idea basically comes from hcl2/ext/userfunc at master · hashicorp/hcl2
+ What&amp;rsquo;s custom functions? The custom function feature is like an user-defined functions. You can freely define functions that Stein doesn&amp;rsquo;t provide as a built-in function.
 Of course you can define it freely, so you can customize it by wrapping a built-in function, or you can use it like an alias.
 Why need custom functions? Stein functions as a versatile testing framework for configuration files such as YAML.</description>
     </item>

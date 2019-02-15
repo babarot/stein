@@ -13,7 +13,7 @@ When used in the root module of a configuration, variables can be set from CLI a
 
 Input variable usage is introduced in the Getting Started guide section [Input Variables]().
 
-This page assumes you're familiar with the [configuration syntax]() already.
+This page assumes you're familiar with the [configuration syntax]({{< ref "/configuration/syntax" >}}) already.
 
 ## Example
 

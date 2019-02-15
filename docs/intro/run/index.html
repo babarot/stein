@@ -66,16 +66,6 @@ service.yaml
 .policy/
 `-- rules.hcl</code></pre></div>
 <p>For more details about this behavior, see also <a href="https://b4b4r07.github.io/stein/configuration/load/">How policies are loaded by Stein</a>.</p>
-
-<h2 id="debug-stein">Debug stein</h2>
-
-<p>Stein has detailed logs which can be enabled by setting the <code>STEIN_LOG</code> environment variable to any value. This will cause detailed logs to appear on stderr.</p>
-
-<p>You can set <code>STEIN_LOG</code> to one of the log levels <code>TRACE</code>, <code>DEBUG</code>, <code>INFO</code>, <code>WARN</code> or <code>ERROR</code> to change the verbosity of the logs. <code>TRACE</code> is the most verbose and it is the default if <code>STEIN_LOG</code> is set to something other than a log level name.</p>
-
-<p>To persist logged output you can set <code>STEIN_LOG_PATH</code> in order to force the log to always be appended to a specific file when logging is enabled. Note that even when <code>STEIN_LOG_PATH</code> is set, <code>STEIN_LOG</code> must be set in order for any logging to be enabled.</p>
-
-<p>If you find a bug with Stein, please include the detailed log by using a service such as gist.</p>
 <div class="edit-meta">Last updated on 17 Jan 2019 / Published on 17 Jan 2019<br><a href="https://github.com/b4b4r07/stein/edit/master/content/intro/run.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="/stein/intro/rules/" title="Writing Stein rules"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Writing Stein rules</a>
 <a class="nav nav-next" href="/stein/commands/" title="Stein CLI Commands">Next - Stein CLI Commands <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
@@ -129,6 +119,8 @@ service.yaml
 
 <li class=""><a href="/stein/commands/">Commands (CLI)</a>
 <ul class="">
+<li class=""><a href="/stein/commands/apply/">apply</a></li>
+<li class=""><a href="/stein/commands/fmt/">fmt</a></li>
 </ul>
   
 </li>

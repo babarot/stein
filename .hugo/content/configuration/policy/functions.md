@@ -7,7 +7,9 @@ weight: 42
 
 ---
 
-It is recommended that you read the [Custom Functions](../syntax/custom-functions.md) page prior to reading this section of the documentation. The page will explain what the custom functions are and how to use them. On the other hands, this documentation will guide you the basics of writing custom functions and introducing it into your policies efficiently.
+It is recommended that you read the [Custom Functions]({{< ref "/configuration/syntax/custom-functions" >}}) page prior to reading this section of the documentation. The page will explain what the custom functions are and how to use them. On the other hands, this documentation will guide you the basics of writing custom functions and introducing it into your policies efficiently.
+
+This page assumes you're familiar with the [configuration syntax]({{< ref "/configuration/syntax" >}}) already.
 
 ## Example
 

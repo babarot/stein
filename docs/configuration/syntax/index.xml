@@ -28,8 +28,8 @@ You can perform simple math in interpolations, allowing you to write conditions 
       <pubDate>Thu, 17 Jan 2019 15:26:15 +0000</pubDate>
       
       <guid>https://b4b4r07.github.io/stein/configuration/syntax/custom-functions/</guid>
-      <description>Notes: This idea basically comes from https://github.com/hashicorp/hcl2/tree/master/ext/userfunc
-What&amp;rsquo;s custom functions? The custom function feature is like an user-defined functions. You can freely define functions that Stein doesn&amp;rsquo;t provide as a built-in function.
+      <description>Notes: This idea basically comes from hcl2/ext/userfunc at master · hashicorp/hcl2
+ What&amp;rsquo;s custom functions? The custom function feature is like an user-defined functions. You can freely define functions that Stein doesn&amp;rsquo;t provide as a built-in function.
 Of course you can define it freely, so you can customize it by wrapping a built-in function, or you can use it like an alias.
 Why need custom functions? Stein functions as a versatile testing framework for configuration files such as YAML.</description>
     </item>

@@ -40,11 +40,22 @@
 
 <h2 id="what-s-a-policy">What&rsquo;s a policy?</h2>
 
+<p>The policy describes the rule &ldquo;The configuration file should be written like this&rdquo;. How the configuration file should be written depends on the company and team. Stein respects and embraces the approaches adopted by Terraform and <a href="https://docs.hashicorp.com/sentinel/intro/">HashiCorp Sentinel</a> so that it can be defined flexibly.</p>
+
+<p>Stein can test against the configuration file based on those policies. Therefore, by combining with CI etc., you can enforce rules on the configuration file.</p>
+
 <h2 id="why-needs-policies">Why needs policies?</h2>
 
 <p>Nowadays, thanks to the infiltration of the concept of &ldquo;Infrastructure as Code&rdquo;, many infrastructure settings are coded in a configuration file language such as YAML.</p>
 
 <p>For YAML files that we have to maintain like Kubernetes manifest files, as we continue to maintain them in the meantime, we will want to unify the writing style with policies like a style guide.</p>
+
+<p>Let&rsquo;s say reviewing Kubernetes YAML. In many cases, you will find points to point out repeatedly in repeated reviews. For example, explicitly specifying namespace, label, and so on. The things that humans point out every time should be checked mechanically beforehand. It&rsquo;s important for reviewers as well as for reviewees.</p>
+
+<p>Besides, there are points that can not be pointed out in the review, and a lot of difficult points to comment. For example, it&rsquo;s whether the specified namespace name is correct or not. In addition, let&rsquo;s say Terraform use-case.
+As an example: before infrastructure as code and autoscaling, if an order came through for 5,000 new machines, a human would likely respond to the ticket verifying that the user really intended to order 5,000 new machines. Today, automation can almost always freely order 5,000 new compute instances without any hesitation, which can result in unintended expense or system instability (<a href="https://docs.hashicorp.com/sentinel/intro/why">HashiCorp Sentinel</a> has basically the same intention and Stein&rsquo;s one also comes from that).</p>
+
+<p>In order to avoid these accidents in advance, it is very important to define policies as codes and warn them based on them.</p>
 <div class="edit-meta">Last updated on 17 Jan 2019 / Published on 17 Jan 2019<br><a href="https://github.com/b4b4r07/stein/edit/master/content/concepts/policy.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="/stein/concepts/" title="Concepts"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Concepts</a>
 <a class="nav nav-next" href="/stein/concepts/policy-as-code/" title="Policy as Code">Next - Policy as Code <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>

@@ -9,6 +9,8 @@ weight: 43
 
 The `config` is a block that can describe settings related to stein lint. Basically stein configuration is based on "Smart default" concept. It means that it has been set up sufficiently from the beginning. Moreover, this means that you can use it without having to define this block and no need to change the setting. However, depending on the item, you may want to customize it. Therefore, you can change the setting according to the `config` block accordingly.
 
+This page assumes you're familiar with the [configuration syntax]({{< ref "/configuration/syntax" >}}) already.
+
 ## Example
 
 A `config` configuration looks like the following:

@@ -6,7 +6,9 @@ weight: 52
 
 ---
 
-*Notes:* This idea basically comes from https://github.com/hashicorp/hcl2/tree/master/ext/userfunc
+{{% notice info %}}
+**Notes:** This idea basically comes from [hcl2/ext/userfunc at master · hashicorp/hcl2](https://github.com/hashicorp/hcl2/tree/master/ext/userfunc)
+{{% /notice %}}
 
 ## What's custom functions?
 
