@@ -2,17 +2,14 @@ package lint
 
 import (
 	"bytes"
-	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
 	"os"
-	"path/filepath"
 
 	"github.com/b4b4r07/stein/lint/internal/policy"
 	"github.com/b4b4r07/stein/lint/internal/policy/loader"
-	"github.com/hashicorp/hcl"
 	hcl2 "github.com/hashicorp/hcl2/hcl"
 
 	"k8s.io/apimachinery/pkg/util/yaml"
@@ -61,53 +58,17 @@ func filesFromArgs(args []string, additionals ...string) (files []File, err erro
 
 		loadedPolicy.Data = data
 
-		ext := filepath.Ext(arg)
-		switch ext {
-		case ".yaml", ".yml":
-			yamlFiles, err := handleYAML(arg)
-			if err != nil {
-				return files, err
-			}
-			log.Printf("[TRACE] %d block(s) found in YAML: %s\n", len(yamlFiles), arg)
-			for _, file := range yamlFiles {
-				file.Policy = loadedPolicy
-				file.Diagnostics = diags
-				files = append(files, file)
-			}
-		case ".json":
-			data, err := ioutil.ReadFile(arg)
-			if err != nil {
-				return files, err
-			}
-			files = append(files, File{
-				Path:        arg,
-				Data:        data,
-				Policy:      loadedPolicy,
-				Diagnostics: diags,
-			})
-		case ".hcl", ".tf":
-			contents, err := ioutil.ReadFile(arg)
-			if err != nil {
-				return files, err
-			}
-			var v interface{}
-			err = hcl.Unmarshal(contents, &v)
-			if err != nil {
-				return files, fmt.Errorf("unable to parse HCL: %s", err)
-			}
-			data, err := json.MarshalIndent(v, "", "  ")
-			if err != nil {
-				return files, fmt.Errorf("unable to marshal json: %s", err)
-			}
-			files = append(files, File{
-				Path:        arg,
-				Data:        data,
-				Policy:      loadedPolicy,
-				Diagnostics: diags,
-			})
-		default:
-			return files, fmt.Errorf("%q (%s): unsupported file type", arg, ext)
+		d, err := ioutil.ReadFile(arg)
+		if err != nil {
+			return files, err
 		}
+
+		files = append(files, File{
+			Path:        arg,
+			Data:        d,
+			Policy:      loadedPolicy,
+			Diagnostics: diags,
+		})
 	}
 
 	return files, nil

@@ -6,8 +6,10 @@ import (
 	"fmt"
 	tt "html/template"
 	"io"
+	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
 	"regexp"
 	"strings"
 
@@ -171,6 +173,45 @@ func (l *Linter) Files() []File {
 func (l *Linter) Run(file File) (Result, error) {
 	log.Printf("[INFO] run lint.Run with arg %q\n", file.Path)
 	log.Printf("[TRACE] start to run lint.Run with file %v\n", logging.Dump(file))
+
+	ext := filepath.Ext(file.Path)
+	switch ext {
+	case ".yaml", ".yml":
+		yamlFiles, err := handleYAML(file.Path)
+		if err != nil {
+			return Result{}, err
+		}
+		log.Printf("[TRACE] %d block(s) found in YAML: %s\n", len(yamlFiles), file.Path)
+		// for _, file := range yamlFiles {
+		// 	file.Policy = loadedPolicy
+		// 	file.Diagnostics = diags
+		// 	files = append(files, file)
+		// }
+		file.Data = yamlFiles[0].Data
+	case ".json":
+		data, err := ioutil.ReadFile(file.Path)
+		if err != nil {
+			return Result{}, err
+		}
+		file.Data = data
+	// case ".hcl", ".tf":
+	// 	contents, err := ioutil.ReadFile(file.Path)
+	// 	if err != nil {
+	// 		return Result{}, err
+	// 	}
+	// 	var v interface{}
+	// 	err = hcl.Unmarshal(contents, &v)
+	// 	if err != nil {
+	// 		return Result{}, fmt.Errorf("unable to parse HCL: %s", err)
+	// 	}
+	// 	data, err := json.MarshalIndent(v, "", "  ")
+	// 	if err != nil {
+	// 		return Result{}, fmt.Errorf("unable to marshal json: %s", err)
+	// 	}
+	// 	file.Data = data
+	default:
+		return Result{}, fmt.Errorf("%q (%s): unsupported file type", file.Path, ext)
+	}
 
 	if file.Diagnostics.HasErrors() {
 		log.Printf("[ERROR] file.Diagnostics found %v\n", logging.Dump(file.Diagnostics))
