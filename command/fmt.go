@@ -1,4 +1,4 @@
-package main
+package command
 
 import (
 	"bytes"
@@ -73,7 +73,7 @@ func (c *FmtCommand) fmt(files []string) error {
 			return errors.New("cannot use -w without source files")
 		}
 
-		return c.processFile("<stdin>", os.Stdin, os.Stdout)
+		return c.processFile("<stdin>", c.Stdin, c.Stdout)
 	}
 
 	for _, file := range files {
@@ -88,7 +88,7 @@ func (c *FmtCommand) fmt(files []string) error {
 			// return fmt.Errorf("can't format directory %s", file)
 			c.walkDir(file)
 		default:
-			if err := c.processFile(file, nil, os.Stdout); err != nil {
+			if err := c.processFile(file, nil, c.Stdout); err != nil {
 				return err
 			}
 		}
@@ -142,7 +142,7 @@ func (c *FmtCommand) walkDir(path string) {
 
 func (c *FmtCommand) visitFile(path string, f os.FileInfo, err error) error {
 	if err == nil && isHCL(f) {
-		err = c.processFile(path, nil, os.Stdout)
+		err = c.processFile(path, nil, c.Stdout)
 	}
 
 	return err

@@ -2,29 +2,14 @@ package main
 
 import (
 	"fmt"
-	"io"
 	"log"
 	"os"
 	"runtime"
 
+	"github.com/b4b4r07/stein/command"
 	"github.com/b4b4r07/stein/pkg/logging"
 	"github.com/mitchellh/cli"
 )
-
-const (
-	// AppName is the application name
-	AppName = "stein"
-	// Version is the application version
-	Version = "0.2.4"
-
-	envEnvPrefix = "STEIN_"
-)
-
-// CLI represents the command-line interface
-type CLI struct {
-	Stdout io.Writer
-	Stderr io.Writer
-}
 
 func main() {
 	logWriter, err := logging.LogOutput()
@@ -33,45 +18,50 @@ func main() {
 	}
 	log.SetOutput(logWriter)
 
-	log.Printf("[INFO] Stein version: %s", Version)
+	log.Printf("[INFO] Stein version: %s", command.Version)
 	log.Printf("[INFO] Go runtime version: %s", runtime.Version())
 	log.Printf("[INFO] CLI args: %#v", os.Args)
 
-	stein := CLI{
+	stein := command.CLI{
+		Stdin:  os.Stdin,
 		Stdout: os.Stdout,
 		Stderr: os.Stderr,
+		Meta: &command.Meta{
+			UI: &cli.ColoredUi{
+				InfoColor:  cli.UiColorBlue,
+				ErrorColor: cli.UiColorRed,
+				WarnColor:  cli.UiColorYellow,
+				Ui: &cli.BasicUi{
+					Reader:      os.Stdin,
+					Writer:      os.Stdout,
+					ErrorWriter: os.Stderr,
+				},
+			},
+		},
 	}
 
-	app := cli.NewCLI(AppName, Version)
-	app.Args = os.Args[1:]
-	app.Commands = map[string]cli.CommandFactory{
-		"apply": func() (cli.Command, error) {
-			return &ApplyCommand{CLI: stein}, nil
-		},
-		"fmt": func() (cli.Command, error) {
-			return &FmtCommand{CLI: stein}, nil
+	app := &cli.CLI{
+		Name:       command.Name,
+		Version:    command.Version,
+		Args:       os.Args[1:],
+		HelpWriter: os.Stdout,
+		HelpFunc:   cli.BasicHelpFunc(command.Name),
+		Commands: map[string]cli.CommandFactory{
+			"apply": func() (cli.Command, error) {
+				return &command.ApplyCommand{
+					CLI: stein,
+				}, nil
+			},
+			"fmt": func() (cli.Command, error) {
+				return &command.FmtCommand{
+					CLI: stein,
+				}, nil
+			},
 		},
 	}
 	exitStatus, err := app.Run()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "[ERROR] %s: %v\n", AppName, err)
+		fmt.Fprintf(os.Stderr, "[ERROR] %s: %v\n", command.Name, err)
 	}
 	os.Exit(exitStatus)
-}
-
-func (c CLI) exit(msg interface{}) int {
-	switch m := msg.(type) {
-	case int:
-		return m
-	case nil:
-		return 0
-	case string:
-		fmt.Fprintf(c.Stdout, "%s\n", m)
-		return 0
-	case error:
-		fmt.Fprintf(c.Stderr, "[ERROR] %s: %s\n", AppName, m.Error())
-		return 1
-	default:
-		panic(msg)
-	}
 }

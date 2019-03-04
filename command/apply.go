@@ -1,4 +1,4 @@
-package main
+package command
 
 import (
 	"bytes"
@@ -46,7 +46,7 @@ func (c *ApplyCommand) Run(args []string) int {
 	args = flags.Args()
 
 	if len(args) == 0 {
-		return c.exit(errors.New("No config files given as arguments"))
+		return c.exit(errors.New("Not enough arguments"))
 	}
 
 	linter, err := lint.NewLinter(args, strings.Split(c.Option.PolicyPath, ",")...)
@@ -98,8 +98,9 @@ func (c *ApplyCommand) exit(msg interface{}) int {
 	)
 	switch m := msg.(type) {
 	case error:
-		// TODO
-		color.New(color.Underline).Fprintln(c.Stderr, c.runningFile.Path)
+		if c.runningFile.Path != "" {
+			color.New(color.Underline).Fprintln(c.Stderr, c.runningFile.Path)
+		}
 		switch diags := m.(type) {
 		case hcl.Diagnostics:
 			if len(diags) == 0 {
