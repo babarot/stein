@@ -34,6 +34,12 @@ type File struct {
 	Diagnostics hcl2.Diagnostics
 }
 
+type p struct {
+	Files       []string
+	Scheme      loader.Policy
+	Diagnostics hcl2.Diagnostics
+}
+
 // filesFromArgs converts from given arguments to the collection of File object
 func filesFromArgs(args []string, additionals ...string) (files []File, err error) {
 	log.Printf("[TRACE] converting from args to lint.Files\n")

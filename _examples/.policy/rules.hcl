@@ -11,7 +11,8 @@ rule "namespace_specification" {
   }
 }
 
-rule "namespace_name" {
+# rule "namespace_name" {
+rule "namespace_specification" {
   description = "Check namespace name is valid"
 
   depends_on = ["rule.namespace_specification"]
