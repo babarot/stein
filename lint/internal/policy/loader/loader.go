@@ -89,27 +89,43 @@ func getPolicyFiles(path string) ([]string, error) {
 	return files, err
 }
 
-// SearchPolicyDir searchs the hierarchy of the given path step by step and find the default directory
-func SearchPolicyDir(path string) []string {
-	origin := path
-	log.Printf("[TRACE] search .policy dir in each path steps of %q\n", path)
-	var dirs []string
+func splitStepsBySeparator(path, sep string) []string {
+	var paths []string
+	fi, err := os.Stat(path)
+	if err != nil {
+		return paths
+	}
+	if !fi.IsDir() {
+		path = filepath.Dir(path)
+	}
 	for {
-		if !strings.Contains(path, "/") {
+		paths = append(paths, path)
+		if path == "." {
 			break
 		}
-		// search parent dir nextly
+		if !strings.Contains(path, sep) {
+			path = "."
+		}
 		path = filepath.Dir(path)
-		policyDirPath := filepath.Join(path, ".policy")
-		log.Printf("[TRACE] check existence: %s\n", policyDirPath)
-		_, err := os.Stat(policyDirPath)
+	}
+	return paths
+}
+
+// SearchPolicyDir searchs the hierarchy of the given path step by step and find the default directory
+func SearchPolicyDir(path string) []string {
+	log.Printf("[TRACE] search .policy dir in each path steps of %q\n", path)
+	paths := splitStepsBySeparator(path, string(os.PathSeparator))
+	var dirs []string
+	for _, path := range paths {
+		dir := filepath.Join(path, ".policy")
+		_, err := os.Stat(dir)
 		if err != nil {
 			// skip if policy dir doesn't exist
 			continue
 		}
-		dirs = append(dirs, policyDirPath)
+		dirs = append(dirs, dir)
 	}
-	log.Printf("[TRACE] recognized %#v as policy dirs for %s\n", dirs, origin)
+	log.Printf("[TRACE] recognized %#v as policy dirs for %s\n", dirs, path)
 	return dirs
 }
 
