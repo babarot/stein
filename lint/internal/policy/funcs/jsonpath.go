@@ -12,6 +12,7 @@ import (
 
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/function"
+	ctyjson "github.com/zclconf/go-cty/cty/json"
 )
 
 // JSONPathFunc is
@@ -116,15 +117,42 @@ func GJSONFunc(file string, data []byte) function.Function {
 			Type: cty.DynamicPseudoType,
 		},
 		Type: func(args []cty.Value) (cty.Type, error) {
-			return cty.String, nil
+			query := args[0].AsString()
+			defaultVal := cty.StringVal("")
+			if len(args) > 1 {
+				defaultVal = args[1]
+			}
+			res, err := getJSON(query, file, data)
+			if err != nil {
+				return defaultVal.Type(), nil
+			}
+			ty, err := ctyjson.ImpliedType(res)
+			if err != nil {
+				// When the result from getJSON can not be converted to JSON (that is, array or map),
+				// treat the return value as a string
+				return defaultVal.Type(), nil
+			}
+			return ty, nil
 		},
 		Impl: func(args []cty.Value, retType cty.Type) (cty.Value, error) {
 			query := args[0].AsString()
-			result := gjson.GetBytes(data, query)
-			if !result.Exists() {
-				return cty.StringVal(""), nil
+			defaultVal := cty.StringVal("")
+			if len(args) > 1 {
+				defaultVal = args[1]
 			}
-			return cty.StringVal(result.String()), nil
+			res, err := getJSON(query, file, data)
+			if err != nil {
+				return defaultVal, nil
+			}
+			switch res[0] {
+			case '{', '[':
+				val, err := ctyjson.Unmarshal(res, retType)
+				if err != nil {
+					return cty.StringVal(string(res)), nil
+				}
+				return val, nil
+			}
+			return cty.StringVal(string(res)), nil
 		},
 	})
 }
