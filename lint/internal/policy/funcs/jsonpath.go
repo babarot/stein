@@ -144,11 +144,15 @@ func GJSONFunc(file string, data []byte) function.Function {
 			if err != nil {
 				return defaultVal, nil
 			}
-			val, err := ctyjson.Unmarshal(res, retType)
-			if err != nil {
-				return cty.StringVal(string(res)), nil
+			switch res[0] {
+			case '{', '[':
+				val, err := ctyjson.Unmarshal(res, retType)
+				if err != nil {
+					return cty.StringVal(string(res)), nil
+				}
+				return val, nil
 			}
-			return val, nil
+			return cty.StringVal(string(res)), nil
 		},
 	})
 }
