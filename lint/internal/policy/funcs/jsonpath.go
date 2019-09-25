@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"math/big"
+	"strconv"
 
 	"github.com/tidwall/gjson"
 	"k8s.io/client-go/kubernetes/scheme"
@@ -75,8 +77,8 @@ func JSONPathFunc(file string) function.Function {
 			if err != nil {
 				return cty.NilVal, err
 			}
-			// res, _ := j.FindResults(data)
-			// pp.Println(res)
+			// b, _ := j.FindResults(data)
+			// pp.Println(b)
 			return cty.StringVal(buf.String()), nil
 		},
 	})
@@ -122,11 +124,11 @@ func GJSONFunc(file string, data []byte) function.Function {
 			if len(args) > 1 {
 				defaultVal = args[1]
 			}
-			res, err := getJSON(query, file, data)
+			b, err := getJSON(query, file, data)
 			if err != nil {
 				return defaultVal.Type(), nil
 			}
-			ty, err := ctyjson.ImpliedType(res)
+			ty, err := ctyjson.ImpliedType(b)
 			if err != nil {
 				// When the result from getJSON can not be converted to JSON (that is, array or map),
 				// treat the return value as a string
@@ -140,20 +142,24 @@ func GJSONFunc(file string, data []byte) function.Function {
 			if len(args) > 1 {
 				defaultVal = args[1]
 			}
-			res, err := getJSON(query, file, data)
+			b, err := getJSON(query, file, data)
 			if err != nil {
 				return defaultVal, nil
 			}
-			// switch res[0] {
-			// case '{', '[':
-			// 	val, err := ctyjson.Unmarshal(res, retType)
-			// 	if err != nil {
-			// 		return cty.StringVal(string(res)), nil
-			// 	}
-			// 	return val, nil
-			// }
-			// return cty.StringVal(string(res)), nil
-			return ctyjson.Unmarshal(res, retType)
+			switch b[0] {
+			case '{', '[':
+				val, err := ctyjson.Unmarshal(b, retType)
+				if err != nil {
+					return cty.StringVal(string(b)), nil
+				}
+				return val, nil
+			}
+			if '0' <= b[0] && b[0] <= '9' {
+				f64, _ := strconv.ParseFloat(string(b), 64)
+				val := big.NewFloat(f64)
+				return cty.NumberVal(val), nil
+			}
+			return cty.StringVal(string(b)), nil
 		},
 	})
 }
