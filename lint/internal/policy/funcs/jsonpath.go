@@ -1,89 +1,16 @@
 package funcs
 
 import (
-	"bytes"
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"math/big"
 	"strconv"
 
 	"github.com/tidwall/gjson"
-	"k8s.io/client-go/kubernetes/scheme"
-	"k8s.io/client-go/util/jsonpath"
 
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/function"
 	ctyjson "github.com/zclconf/go-cty/cty/json"
 )
-
-// JSONPathFunc is
-func JSONPathFunc(file string) function.Function {
-	return function.New(&function.Spec{
-		Params: []function.Parameter{
-			{
-				Name:             "query",
-				Type:             cty.String,
-				AllowDynamicType: true,
-			},
-		},
-		// Type: function.StaticReturnType(cty.String),
-		Type: function.StaticReturnType(cty.DynamicPseudoType),
-		Impl: func(args []cty.Value, retType cty.Type) (ret cty.Value, err error) {
-			query := "{" + args[0].AsString() + "}"
-
-			filecontent, err := ioutil.ReadFile(file)
-			if err != nil {
-				return cty.NilVal, err
-			}
-
-			// []byte(filecontent)
-			decode := scheme.Codecs.UniversalDeserializer().Decode
-			obj, _, _ := decode(filecontent, nil, nil)
-			// o := obj.(type)
-
-			resourceJSON, err := json.Marshal(obj)
-			if err != nil {
-				return cty.NilVal, err
-			}
-			j := jsonpath.New("test")
-			j.AllowMissingKeys(true)
-			err = j.Parse(query)
-			if err != nil {
-				return cty.NilVal, err
-			}
-			buf := new(bytes.Buffer)
-			var data interface{}
-			err = json.Unmarshal(resourceJSON, &data)
-			if err != nil {
-				return cty.NilVal, err
-			}
-			// // pp.Println(data)
-			// fullResults, _ := j.FindResults(data)
-			// for ix := range fullResults {
-			// 	results := fullResults[ix]
-			// 	for i, r := range results {
-			// 		text, err := j.EvalToText(r)
-			// 		if err != nil {
-			// 		}
-			// 		if i != len(results)-1 {
-			// 			text = append(text, ' ')
-			// 		}
-			// 		pp.Println(string(text))
-			// 	}
-			// }
-
-			err = j.Execute(buf, data)
-			if err != nil {
-				return cty.NilVal, err
-			}
-			// b, _ := j.FindResults(data)
-			// pp.Println(b)
-			return cty.StringVal(buf.String()), nil
-		},
-	})
-
-}
 
 func getJSON(query string, file string, data []byte) ([]byte, error) {
 	result := gjson.GetBytes(data, query)
@@ -103,6 +30,16 @@ func getJSON(query string, file string, data []byte) ([]byte, error) {
 		return []byte{}, fmt.Errorf("%q: not found in %q", query, file)
 	}
 	return []byte(result.String()), nil
+}
+
+// GJSON determines whether a file exists at the given path.
+//
+// The underlying function implementation works relative to a input file
+// and its contents, so this wrapper takes a input file string, etc
+// and uses it to onstruct the underlying function before calling it.
+func GJSON(file string, data []byte, query cty.Value) (cty.Value, error) {
+	fn := GJSONFunc(file, data)
+	return fn.Call([]cty.Value{query})
 }
 
 // GJSONFunc is
