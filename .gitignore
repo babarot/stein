@@ -1,4 +1,5 @@
 stein
 dist/
+site/
 vendor/
 *.swp

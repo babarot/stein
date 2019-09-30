@@ -1,0 +1,70 @@
+# Project information
+site_name: 'Stein Documentation'
+site_description: 'A linter for config files with a customizable rule set'
+site_author: 'Masaki ISHIYAMA'
+site_url: 'https://b4b4r07.github.io/stein/'
+
+theme:
+  name: 'material'
+  palette:
+    primary: 'blue grey'
+    accent: 'blue grey'
+  logo:
+    icon: 'security'
+  favicon: 'assets/images/favicon.png'
+  # feature:
+  #   tabs: true
+
+
+markdown_extensions:
+  - meta
+  - codehilite
+  - admonition
+  - toc:
+      permalink: "#"
+
+# Customization
+extra:
+  social:
+    - type: globe
+      link: https://tellme.tokyo
+    - type: github
+      link: https://github.com/b4b4r07
+    - type: twitter
+      link: https://twitter.com/b4b4r07
+
+# Repository
+repo_name: b4b4r07/stein
+repo_url: https://github.com/b4b4r07/stein
+edit_uri: ""
+
+# Copyright
+copyright: 'Copyright &copy; 2019 Masaki ISHIYAMA'
+
+# Pages and navigation pane
+nav:
+  - Concepts:
+    - Policy as Code: concepts/policy-as-code.md
+    - Policy: concepts/policy.md
+  - Configuration:
+    - Introduction: configuration/_index.md
+    - configuration/load.md
+    - Policy:
+      - Introduction: configuration/policy/_index.md
+      - configuration/policy/config.md
+      - configuration/policy/functions.md
+      - configuration/policy/rules.md
+      - configuration/policy/variables.md
+    - Syntax:
+      - Introduction: configuration/syntax/_index.md
+      - configuration/syntax/custom-functions.md
+      - configuration/syntax/interpolation.md
+  - Getting Started:
+    - intro/install.md
+    - intro/rules.md
+    - intro/run.md
+  - Commands (CLI):
+    - commands/_index.md
+    - commands/apply.md
+    - commands/fmt.md
+
