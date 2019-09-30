@@ -706,16 +706,16 @@
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">#</a></h2>
 <p>This HCL extension allows a calling application to support user-defined functions.</p>
 <p>Functions are defined via a specific block type, like this:</p>
-<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="ss">&quot;add&quot;</span> <span class="err">{</span>
-  <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">]</span>
-  <span class="k">result</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-<span class="err">}</span>
+<div class="codehilite"><pre><span></span><span class="kd">function</span> <span class="s2">&quot;add&quot;</span> <span class="p">{</span>
+  <span class="nx">params</span> <span class="o">=</span> <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">]</span>
+  <span class="nx">result</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span>
+<span class="p">}</span>
 
-<span class="k">function</span> <span class="ss">&quot;list&quot;</span> <span class="err">{</span>
-  <span class="n">params</span>         <span class="o">=</span> <span class="p">[]</span>
-  <span class="n">variadic_param</span> <span class="o">=</span> <span class="n">items</span>
-  <span class="k">result</span>         <span class="o">=</span> <span class="n">items</span>
-<span class="err">}</span>
+<span class="kd">function</span> <span class="s2">&quot;list&quot;</span> <span class="p">{</span>
+  <span class="nx">params</span>         <span class="o">=</span> <span class="p">[]</span>
+  <span class="nx">variadic_param</span> <span class="o">=</span> <span class="nx">items</span>
+  <span class="nx">result</span>         <span class="o">=</span> <span class="nx">items</span>
+<span class="p">}</span>
 </pre></div>
 
 
@@ -726,32 +726,32 @@
 <li><code>result</code>: Return value. It can take not only just string but also other functions, variables, etc.</li>
 </ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">#</a></h2>
-<div class="codehilite"><pre><span></span><span class="nv">function</span> <span class="s2">&quot;</span><span class="s">remove_ext</span><span class="s2">&quot;</span> {
-  <span class="nb">params</span> <span class="o">=</span> [<span class="nv">file</span>]
-  <span class="nb">result</span> <span class="o">=</span> <span class="nv">replace</span><span class="ss">(</span><span class="k">basename</span><span class="ss">(</span><span class="nv">file</span><span class="ss">)</span>, <span class="nv">ext</span><span class="ss">(</span><span class="nv">file</span><span class="ss">)</span>, <span class="s2">&quot;&quot;</span><span class="ss">)</span>
-}
+<div class="codehilite"><pre><span></span><span class="kd">function</span> <span class="s2">&quot;remove_ext&quot;</span> <span class="p">{</span>
+  <span class="nx">params</span> <span class="o">=</span> <span class="p">[</span><span class="nx">file</span><span class="p">]</span>
+  <span class="nx">result</span> <span class="o">=</span> <span class="nx">replace</span><span class="p">(</span><span class="nx">basename</span><span class="p">(</span><span class="nx">file</span><span class="p">),</span> <span class="nx">ext</span><span class="p">(</span><span class="nx">file</span><span class="p">),</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="p">}</span>
 
-# <span class="s2">&quot;</span><span class="s">${remove_ext(</span><span class="s2">&quot;</span><span class="o">/</span><span class="nv">path</span><span class="o">/</span><span class="nv">to</span><span class="o">/</span><span class="nv">secret</span>.<span class="nv">txt</span><span class="s2">&quot;</span><span class="s">)}</span><span class="s2">&quot;</span> <span class="o">=&gt;</span> <span class="nv">secret</span>
+<span class="err">#</span> <span class="s2">&quot;${remove_ext(&quot;</span><span class="o">/</span><span class="nx">path</span><span class="o">/</span><span class="nx">to</span><span class="o">/</span><span class="nx">secret</span><span class="p">.</span><span class="nx">txt</span><span class="s2">&quot;)}&quot;</span> <span class="o">=&gt;</span> <span class="nx">secret</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="k">variable</span><span class="w"> </span><span class="ss">&quot;shortened_environment&quot;</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
-<span class="w">  </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;Shortened environment, such as prod, dev&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="n">type</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;map&quot;</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><span class="nx">variable</span> <span class="s2">&quot;shortened_environment&quot;</span> <span class="p">{</span>
+  <span class="nx">description</span> <span class="o">=</span> <span class="s2">&quot;Shortened environment, such as prod, dev&quot;</span>
+  <span class="nx">type</span>        <span class="o">=</span> <span class="s2">&quot;map&quot;</span>
 
-<span class="w">  </span><span class="k">default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">production</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;prod&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">development</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;dev&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">laboratory</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;lab&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="err">}</span><span class="w"></span>
-<span class="err">}</span><span class="w"></span>
+  <span class="k">default</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">production</span>  <span class="o">=</span> <span class="s2">&quot;prod&quot;</span>
+    <span class="nx">development</span> <span class="o">=</span> <span class="s2">&quot;dev&quot;</span>
+    <span class="nx">laboratory</span>  <span class="o">=</span> <span class="s2">&quot;lab&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-<span class="k">function</span><span class="w"> </span><span class="ss">&quot;shorten_env&quot;</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
-<span class="w">  </span><span class="n">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">env</span><span class="o">]</span><span class="w"></span>
-<span class="w">  </span><span class="k">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lookup</span><span class="p">(</span><span class="nf">var</span><span class="p">.</span><span class="n">shortened_environment</span><span class="p">,</span><span class="w"> </span><span class="n">env</span><span class="p">)</span><span class="w"></span>
-<span class="err">}</span><span class="w"></span>
+<span class="kd">function</span> <span class="s2">&quot;shorten_env&quot;</span> <span class="p">{</span>
+  <span class="nx">params</span> <span class="o">=</span> <span class="p">[</span><span class="nx">env</span><span class="p">]</span>
+  <span class="nx">result</span> <span class="o">=</span> <span class="nx">lookup</span><span class="p">(</span><span class="kd">var</span><span class="p">.</span><span class="nx">shortened_environment</span><span class="p">,</span> <span class="nx">env</span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="err">#</span><span class="w"> </span><span class="err">${</span><span class="n">shorten_env</span><span class="p">(</span><span class="ss">&quot;development&quot;</span><span class="p">)</span><span class="err">}</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">dev</span><span class="w"></span>
+<span class="err">#</span> <span class="nx">$</span><span class="p">{</span><span class="nx">shorten_env</span><span class="p">(</span><span class="s2">&quot;development&quot;</span><span class="p">)}</span> <span class="o">=&gt;</span> <span class="nx">dev</span>
 </pre></div>
                 
                   

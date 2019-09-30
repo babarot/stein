@@ -997,15 +997,15 @@
 
 <h2 id="conditionals">Conditionals<a class="headerlink" href="#conditionals" title="Permanent link">#</a></h2>
 <p>Interpolations may contain conditionals to branch on the final value.</p>
-<div class="codehilite"><pre><span></span><span class="s2">&quot;</span><span class="s">${var.user == </span><span class="s2">&quot;</span><span class="nv">john</span><span class="s2">&quot;</span><span class="s"> ? var.member : env.anonymous}</span><span class="s2">&quot;</span>
+<div class="codehilite"><pre><span></span>&quot;<span class="cp">${</span><span class="n">var</span><span class="o">.</span><span class="n">user</span> <span class="o">==</span> <span class="s2">&quot;john&quot;</span> <span class="err">?</span> <span class="n">var</span><span class="o">.</span><span class="n">member</span> <span class="p">:</span> <span class="n">env</span><span class="o">.</span><span class="n">anonymous</span><span class="cp">}</span>&quot;
 
-# <span class="o">=&gt;</span> <span class="nv">var</span>.<span class="nv">member</span> <span class="ss">(</span><span class="k">if</span> <span class="nv">var</span>.<span class="nv">user</span> <span class="nv">is</span> <span class="nv">john</span><span class="ss">)</span>
-# <span class="o">=&gt;</span> <span class="nv">var</span>.<span class="nv">anonymous</span> <span class="ss">(</span><span class="k">if</span> <span class="nv">var</span>.<span class="nv">user</span> <span class="nv">is</span> <span class="nv">not</span> <span class="nv">john</span><span class="ss">)</span>
+# =&gt; var.member (if var.user is john)
+# =&gt; var.anonymous (if var.user is not john)
 </pre></div>
 
 
 <p>The conditional syntax is the well-known ternary operation:</p>
-<div class="codehilite"><pre><span></span><span class="n">CONDITION</span> <span class="o">?</span> <span class="n">TRUEVAL</span> <span class="p">:</span> <span class="n">FALSEVAL</span>
+<div class="codehilite"><pre><span></span>CONDITION ? TRUEVAL : FALSEVAL
 </pre></div>
 
 
@@ -1086,9 +1086,9 @@
 <li>return values: <code>string</code></li>
 </ul>
 <p>Usage:</p>
-<div class="codehilite"><pre><span></span><span class="n">My</span> <span class="n">life</span> <span class="n">didn</span><span class="err">&#39;</span><span class="n">t</span> <span class="n">please</span> <span class="n">me</span><span class="p">,</span>
-<span class="n">so</span> <span class="n">I</span> <span class="n">created</span> <span class="n">my</span> <span class="n">life</span><span class="p">.</span>
-<span class="o">-</span> <span class="n">Coco</span> <span class="n">Chanel</span>
+<div class="codehilite"><pre><span></span>My life didn&#39;t please me,
+so I created my life.
+- Coco Chanel
 </pre></div>
 
 
@@ -1106,22 +1106,22 @@
 <li>return values: <code>list of string</code></li>
 </ul>
 <p>Usage:</p>
-<div class="codehilite"><pre><span></span><span class="k">variable</span> <span class="ss">&quot;colors&quot;</span> <span class="err">{</span>
-  <span class="k">type</span> <span class="o">=</span> <span class="ss">&quot;map&quot;</span>
+<div class="codehilite"><pre><span></span>variable &quot;colors&quot; {
+  type = &quot;map&quot;
 
-  <span class="k">default</span> <span class="o">=</span> <span class="err">{</span>
-    <span class="ss">&quot;red&quot;</span> <span class="o">=</span> <span class="p">[</span>
-      <span class="ss">&quot;burgundy&quot;</span><span class="p">,</span>
-      <span class="ss">&quot;terracotta&quot;</span><span class="p">,</span>
-      <span class="ss">&quot;scarlet&quot;</span><span class="p">,</span>
-    <span class="p">]</span>
-    <span class="ss">&quot;blue&quot;</span> <span class="o">=</span> <span class="p">[</span>
-      <span class="ss">&quot;heliotrope&quot;</span><span class="p">,</span>
-      <span class="ss">&quot;cerulean blue&quot;</span><span class="p">,</span>
-      <span class="ss">&quot;turquoise blue&quot;</span><span class="p">,</span>
-    <span class="p">]</span>
-  <span class="err">}</span>
-<span class="err">}</span>
+  default = {
+    &quot;red&quot; = [
+      &quot;burgundy&quot;,
+      &quot;terracotta&quot;,
+      &quot;scarlet&quot;,
+    ]
+    &quot;blue&quot; = [
+      &quot;heliotrope&quot;,
+      &quot;cerulean blue&quot;,
+      &quot;turquoise blue&quot;,
+    ]
+  }
+}
 </pre></div>
 
 
@@ -1170,8 +1170,8 @@
 <li>return values: <code>boolean</code></li>
 </ul>
 <p>Usage:</p>
-<div class="codehilite"><pre><span></span><span class="s2">&quot;</span><span class="s">${exist(</span><span class="s2">&quot;</span><span class="o">/</span><span class="nv">path</span><span class="o">/</span><span class="nv">to</span><span class="o">/</span><span class="nv">whatever</span><span class="s2">&quot;</span><span class="s">)}</span><span class="s2">&quot;</span>
-# <span class="o">=&gt;</span> <span class="nv">true</span> <span class="ss">(</span><span class="k">if</span> <span class="nv">exists</span><span class="ss">)</span>
+<div class="codehilite"><pre><span></span>&quot;<span class="cp">${</span><span class="n">exist</span><span class="p">(</span><span class="s2">&quot;/path/to/whatever&quot;</span><span class="p">)</span><span class="cp">}</span>&quot;
+# =&gt; true (if exists)
 </pre></div>
 
 
@@ -1179,10 +1179,10 @@
 <p>WIP</p>
 <h2 id="custom-functions">Custom Functions<a class="headerlink" href="#custom-functions" title="Permanent link">#</a></h2>
 <p>While supporting some useful built-in functions, Stein allows to create user-defined functions.</p>
-<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="ss">&quot;add&quot;</span> <span class="err">{</span>
-  <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">]</span>
-  <span class="k">result</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-<span class="err">}</span>
+<div class="codehilite"><pre><span></span><span class="kd">function</span> <span class="s2">&quot;add&quot;</span> <span class="p">{</span>
+  <span class="nx">params</span> <span class="o">=</span> <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">]</span>
+  <span class="nx">result</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span>
+<span class="p">}</span>
 </pre></div>
 
 

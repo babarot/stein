@@ -710,20 +710,20 @@
 <p>This page assumes you're familiar with the <a href="../../syntax/_index/">configuration syntax</a> already.</p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">#</a></h2>
 <p>A <code>function</code> configuration looks like the following:</p>
-<div class="codehilite"><pre><span></span><span class="nv">function</span> <span class="s2">&quot;</span><span class="s">get_service_name</span><span class="s2">&quot;</span> {
-  <span class="nb">params</span> <span class="o">=</span> [<span class="nv">file</span>]
-  <span class="nb">result</span> <span class="o">=</span> <span class="k">basename</span><span class="ss">(</span><span class="k">dirname</span><span class="ss">(</span><span class="k">dirname</span><span class="ss">(</span><span class="k">dirname</span><span class="ss">(</span><span class="nv">file</span><span class="ss">))))</span>
-}
+<div class="codehilite"><pre><span></span><span class="kd">function</span> <span class="s2">&quot;get_service_name&quot;</span> <span class="p">{</span>
+  <span class="nx">params</span> <span class="o">=</span> <span class="p">[</span><span class="nx">file</span><span class="p">]</span>
+  <span class="nx">result</span> <span class="o">=</span> <span class="nx">basename</span><span class="p">(</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">file</span><span class="p">))))</span>
+<span class="p">}</span>
 
-<span class="nv">function</span> <span class="s2">&quot;</span><span class="s">get_env</span><span class="s2">&quot;</span> {
-  <span class="nb">params</span> <span class="o">=</span> [<span class="nv">file</span>]
-  <span class="nb">result</span> <span class="o">=</span> <span class="k">basename</span><span class="ss">(</span><span class="k">dirname</span><span class="ss">(</span><span class="k">dirname</span><span class="ss">(</span><span class="nv">file</span><span class="ss">)))</span>
-}
+<span class="kd">function</span> <span class="s2">&quot;get_env&quot;</span> <span class="p">{</span>
+  <span class="nx">params</span> <span class="o">=</span> <span class="p">[</span><span class="nx">file</span><span class="p">]</span>
+  <span class="nx">result</span> <span class="o">=</span> <span class="nx">basename</span><span class="p">(</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">file</span><span class="p">)))</span>
+<span class="p">}</span>
 
-<span class="nv">function</span> <span class="s2">&quot;</span><span class="s">get_service_id_with_env</span><span class="s2">&quot;</span> {
-  <span class="nb">params</span> <span class="o">=</span> [<span class="nv">file</span>]
-  <span class="nb">result</span> <span class="o">=</span> <span class="nv">format</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">%s-%s</span><span class="s2">&quot;</span>, <span class="nv">get_service_name</span><span class="ss">(</span><span class="nv">file</span><span class="ss">)</span>, <span class="nv">lookup</span><span class="ss">(</span><span class="nv">var</span>.<span class="nv">shortened_environment</span>, <span class="nv">get_env</span><span class="ss">(</span><span class="nv">file</span><span class="ss">)))</span>
-}
+<span class="kd">function</span> <span class="s2">&quot;get_service_id_with_env&quot;</span> <span class="p">{</span>
+  <span class="nx">params</span> <span class="o">=</span> <span class="p">[</span><span class="nx">file</span><span class="p">]</span>
+  <span class="nx">result</span> <span class="o">=</span> <span class="nx">format</span><span class="p">(</span><span class="s2">&quot;%s-%s&quot;</span><span class="p">,</span> <span class="nx">get_service_name</span><span class="p">(</span><span class="nx">file</span><span class="p">),</span> <span class="nx">lookup</span><span class="p">(</span><span class="kd">var</span><span class="p">.</span><span class="nx">shortened_environment</span><span class="p">,</span> <span class="nx">get_env</span><span class="p">(</span><span class="nx">file</span><span class="p">)))</span>
+<span class="p">}</span>
 </pre></div>
 
 
@@ -739,12 +739,12 @@
 </ul>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">#</a></h2>
 <p>The full syntax is:</p>
-<div class="codehilite"><pre><span></span><span class="nv">rule</span> <span class="nv">NAME</span> {
-  <span class="nb">params</span> <span class="o">=</span> [<span class="nv">ARG</span>, ...]
+<div class="codehilite"><pre><span></span>rule NAME {
+  params = [ARG, ...]
 
-  [<span class="nv">variadic_param</span> <span class="o">=</span> [<span class="nv">ARG</span>, ...]]
+  [variadic_param = [ARG, ...]]
 
-  <span class="nb">result</span> <span class="o">=</span> <span class="k">RETURN</span><span class="o">-</span><span class="nv">VALUE</span>
+  result = RETURN-VALUE
 }
 </pre></div>
                 

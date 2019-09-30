@@ -657,37 +657,37 @@ It assumes the config file paths such as YAML, JSON and so on.</p>
 <p>The path may have a hierarchical structure.
 In Stein, when a path with a hierarchical structure is given as arguments, stein recognizes the HCL file in <code>.policy</code> directory placed in the path included in that path as a policy to be applied.</p>
 <p>Let's see a concrete example.</p>
-<div class="codehilite"><pre><span></span><span class="n">_examples</span>
-<span class="o">|</span><span class="c1">-- .policy/</span>
-<span class="o">|</span>   <span class="o">|</span><span class="c1">-- config.hcl</span>
-<span class="o">|</span>   <span class="o">|</span><span class="c1">-- functions.hcl</span>
-<span class="o">|</span>   <span class="o">|</span><span class="c1">-- rules.hcl</span>
-<span class="o">|</span>   <span class="o">`</span><span class="c1">-- variables.hcl</span>
-<span class="o">|</span><span class="c1">-- manifests/</span>
-<span class="o">|</span>   <span class="o">|</span><span class="c1">-- .policy/</span>
-<span class="o">|</span>   <span class="o">|</span>   <span class="o">|</span><span class="c1">-- functions.hcl</span>
-<span class="o">|</span>   <span class="o">|</span>   <span class="o">`</span><span class="c1">-- rules.hcl</span>
-<span class="o">|</span>   <span class="o">`</span><span class="c1">-- microservices/</span>
-<span class="o">|</span>       <span class="o">|</span><span class="c1">-- x-echo-jp/</span>
-<span class="o">|</span>       <span class="o">|</span>   <span class="o">`</span><span class="c1">-- development/</span>
-<span class="o">|</span>       <span class="o">|</span>       <span class="o">|</span><span class="c1">-- Deployment/</span>
-<span class="o">|</span>       <span class="o">|</span>       <span class="o">|</span>   <span class="o">|</span><span class="c1">-- redis-master.yaml</span>
-<span class="o">|</span>       <span class="o">|</span>       <span class="o">|</span>   <span class="o">|</span><span class="c1">-- test.yaml</span>
-<span class="o">|</span>       <span class="o">|</span>       <span class="o">|</span>   <span class="o">`</span><span class="c1">-- test.yml</span>
-<span class="o">|</span>       <span class="o">|</span>       <span class="o">|</span><span class="c1">-- PodDisruptionBudget/</span>
-<span class="o">|</span>       <span class="o">|</span>       <span class="o">|</span>   <span class="o">`</span><span class="c1">-- pdb.yaml</span>
-<span class="o">|</span>       <span class="o">|</span>       <span class="o">`</span><span class="c1">-- Service/</span>
-<span class="o">|</span>       <span class="o">|</span>           <span class="o">`</span><span class="c1">-- service.yaml</span>
-<span class="o">|</span>       <span class="o">`</span><span class="c1">-- x-gateway-jp/</span>
-<span class="o">|</span>           <span class="o">`</span><span class="c1">-- development/</span>
-<span class="o">|</span>               <span class="o">`</span><span class="c1">-- Deployment/</span>
-<span class="o">|</span>                   <span class="o">`</span><span class="c1">-- test.yaml</span>
-<span class="o">`</span><span class="c1">-- spinnaker/</span>
-    <span class="o">|</span><span class="c1">-- .policy/</span>
-    <span class="o">|</span>   <span class="o">`</span><span class="c1">-- functions.hcl</span>
-    <span class="o">`</span><span class="c1">-- x-echo-jp/</span>
-        <span class="o">`</span><span class="c1">-- development/</span>
-            <span class="o">`</span><span class="c1">-- deploy-to-dev-v2.yaml</span>
+<div class="codehilite"><pre><span></span>_examples
+|-- .policy/
+|   |-- config.hcl
+|   |-- functions.hcl
+|   |-- rules.hcl
+|   `-- variables.hcl
+|-- manifests/
+|   |-- .policy/
+|   |   |-- functions.hcl
+|   |   `-- rules.hcl
+|   `-- microservices/
+|       |-- x-echo-jp/
+|       |   `-- development/
+|       |       |-- Deployment/
+|       |       |   |-- redis-master.yaml
+|       |       |   |-- test.yaml
+|       |       |   `-- test.yml
+|       |       |-- PodDisruptionBudget/
+|       |       |   `-- pdb.yaml
+|       |       `-- Service/
+|       |           `-- service.yaml
+|       `-- x-gateway-jp/
+|           `-- development/
+|               `-- Deployment/
+|                   `-- test.yaml
+`-- spinnaker/
+    |-- .policy/
+    |   `-- functions.hcl
+    `-- x-echo-jp/
+        `-- development/
+            `-- deploy-to-dev-v2.yaml
 </pre></div>
 
 

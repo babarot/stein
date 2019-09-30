@@ -746,32 +746,32 @@
 </ul>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">#</a></h2>
 <p>The full syntax is:</p>
-<div class="codehilite"><pre><span></span><span class="k">rule</span><span class="w"> </span><span class="n">NAME</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
-<span class="w">  </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DESCRIPTION</span><span class="w"></span>
+<div class="codehilite"><pre><span></span>rule NAME {
+  description = DESCRIPTION
 
-<span class="w">  </span><span class="o">[</span><span class="n">depends_on = [NAME, ...</span><span class="o">]</span><span class="err">]</span><span class="w"></span>
+  [depends_on = [NAME, ...]]
 
-<span class="w">  </span><span class="o">[</span><span class="n">PRECONDITION</span><span class="o">]</span><span class="w"></span>
+  [PRECONDITION]
 
-<span class="w">  </span><span class="n">conditions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">CONDITION, ...</span><span class="o">]</span><span class="w"></span>
+  conditions = [CONDITION, ...]
 
-<span class="w">  </span><span class="n">REPORT</span><span class="w"></span>
-<span class="err">}</span><span class="w"></span>
+  REPORT
+}
 </pre></div>
 
 
 <p>where PRECONDITION is:</p>
-<div class="codehilite"><pre><span></span><span class="n">precondition</span> <span class="err">{</span>
-  <span class="n">cases</span> <span class="o">=</span> <span class="p">[</span><span class="n">CONDITION</span><span class="p">,</span> <span class="p">...]</span>
-<span class="err">}</span>
+<div class="codehilite"><pre><span></span>precondition {
+  cases = [CONDITION, ...]
+}
 </pre></div>
 
 
 <p>where REPORT is:</p>
-<div class="codehilite"><pre><span></span><span class="n">report</span> <span class="err">{</span>
-  <span class="k">level</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="o">|</span><span class="n">WARN</span><span class="p">]</span>
-  <span class="n">message</span> <span class="o">=</span> <span class="n">MESSAGE</span>
-<span class="err">}</span>
+<div class="codehilite"><pre><span></span>report {
+  level = [ERROR|WARN]
+  message = MESSAGE
+}
 </pre></div>
                 
                   
