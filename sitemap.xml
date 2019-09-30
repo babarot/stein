@@ -21,7 +21,7 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://b4b4r07.github.io/stein/configuration/policy/_index/</loc>
+     <loc>https://b4b4r07.github.io/stein/configuration/policy/rules/</loc>
      <lastmod>2019-09-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -31,17 +31,12 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://b4b4r07.github.io/stein/configuration/policy/functions/</loc>
-     <lastmod>2019-09-30</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://b4b4r07.github.io/stein/configuration/policy/rules/</loc>
-     <lastmod>2019-09-30</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
      <loc>https://b4b4r07.github.io/stein/configuration/policy/variables/</loc>
+     <lastmod>2019-09-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://b4b4r07.github.io/stein/configuration/policy/functions/</loc>
      <lastmod>2019-09-30</lastmod>
      <changefreq>daily</changefreq>
     </url>

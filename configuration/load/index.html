@@ -102,7 +102,7 @@
       <div class="md-flex__cell md-flex__cell--shrink">
         <a href="https://b4b4r07.github.io/stein/" title="Stein Documentation" class="md-header-nav__button md-logo">
           
-            <i class="md-icon">security</i>
+            <i class="md-icon">school</i>
           
         </a>
       </div>
@@ -194,7 +194,7 @@
   <label class="md-nav__title md-nav__title--site" for="__drawer">
     <a href="https://b4b4r07.github.io/stein/" title="Stein Documentation" class="md-nav__button md-logo">
       
-        <i class="md-icon">security</i>
+        <i class="md-icon">school</i>
       
     </a>
     Stein Documentation
@@ -374,8 +374,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../policy/_index/" title="Introduction" class="md-nav__link">
-      Introduction
+    <a href="../policy/rules/" title="Rules" class="md-nav__link">
+      Rules
     </a>
   </li>
 
@@ -386,8 +386,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../policy/config/" title="Config Configuration" class="md-nav__link">
-      Config Configuration
+    <a href="../policy/config/" title="Config" class="md-nav__link">
+      Config
     </a>
   </li>
 
@@ -398,8 +398,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../policy/functions/" title="Function Configuration" class="md-nav__link">
-      Function Configuration
+    <a href="../policy/variables/" title="Variables" class="md-nav__link">
+      Variables
     </a>
   </li>
 
@@ -410,20 +410,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../policy/rules/" title="Rule Configuration" class="md-nav__link">
-      Rule Configuration
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../policy/variables/" title="Variable Configuration" class="md-nav__link">
-      Variable Configuration
+    <a href="../policy/functions/" title="Functions" class="md-nav__link">
+      Functions
     </a>
   </li>
 
@@ -663,43 +651,43 @@
                   <h1>Load Order</h1>
                 
                 <h2 id="how-policies-are-loaded-by-stein">How policies are loaded by Stein<a class="headerlink" href="#how-policies-are-loaded-by-stein" title="Permanent link">#</a></h2>
-<p>To understand how <code>stein</code> loads policy files and recognizes them is very important for writing and applying policies to the files effectively.
+<p>To understand how stein loads policy files and recognizes them is very important for writing and applying policies to the files effectively.
 <code>stein apply</code> requires always one or more arguments only.
 It assumes the config file paths such as YAML, JSON and so on.</p>
 <p>The path may have a hierarchical structure.
-In Stein, when a path with a hierarchical structure is given as arguments, <code>stein</code> recognizes the HCL file in <code>.policy</code> directory placed in the path included in that path as a policy to be applied.</p>
+In Stein, when a path with a hierarchical structure is given as arguments, stein recognizes the HCL file in <code>.policy</code> directory placed in the path included in that path as a policy to be applied.</p>
 <p>Let's see a concrete example.</p>
-<div class="codehilite"><pre><span></span><span class="go">_examples</span>
-<span class="go">|-- .policy/</span>
-<span class="go">|   |-- config.hcl</span>
-<span class="go">|   |-- functions.hcl</span>
-<span class="go">|   |-- rules.hcl</span>
-<span class="go">|   `-- variables.hcl</span>
-<span class="go">|-- manifests/</span>
-<span class="go">|   |-- .policy/</span>
-<span class="go">|   |   |-- functions.hcl</span>
-<span class="go">|   |   `-- rules.hcl</span>
-<span class="go">|   `-- microservices/</span>
-<span class="go">|       |-- x-echo-jp/</span>
-<span class="go">|       |   `-- development/</span>
-<span class="go">|       |       |-- Deployment/</span>
-<span class="go">|       |       |   |-- redis-master.yaml</span>
-<span class="go">|       |       |   |-- test.yaml</span>
-<span class="go">|       |       |   `-- test.yml</span>
-<span class="go">|       |       |-- PodDisruptionBudget/</span>
-<span class="go">|       |       |   `-- pdb.yaml</span>
-<span class="go">|       |       `-- Service/</span>
-<span class="go">|       |           `-- service.yaml</span>
-<span class="go">|       `-- x-gateway-jp/</span>
-<span class="go">|           `-- development/</span>
-<span class="go">|               `-- Deployment/</span>
-<span class="go">|                   `-- test.yaml</span>
-<span class="go">`-- spinnaker/</span>
-<span class="go">    |-- .policy/</span>
-<span class="go">    |   `-- functions.hcl</span>
-<span class="go">    `-- x-echo-jp/</span>
-<span class="go">        `-- development/</span>
-<span class="go">            `-- deploy-to-dev-v2.yaml</span>
+<div class="codehilite"><pre><span></span><span class="n">_examples</span>
+<span class="o">|</span><span class="c1">-- .policy/</span>
+<span class="o">|</span>   <span class="o">|</span><span class="c1">-- config.hcl</span>
+<span class="o">|</span>   <span class="o">|</span><span class="c1">-- functions.hcl</span>
+<span class="o">|</span>   <span class="o">|</span><span class="c1">-- rules.hcl</span>
+<span class="o">|</span>   <span class="o">`</span><span class="c1">-- variables.hcl</span>
+<span class="o">|</span><span class="c1">-- manifests/</span>
+<span class="o">|</span>   <span class="o">|</span><span class="c1">-- .policy/</span>
+<span class="o">|</span>   <span class="o">|</span>   <span class="o">|</span><span class="c1">-- functions.hcl</span>
+<span class="o">|</span>   <span class="o">|</span>   <span class="o">`</span><span class="c1">-- rules.hcl</span>
+<span class="o">|</span>   <span class="o">`</span><span class="c1">-- microservices/</span>
+<span class="o">|</span>       <span class="o">|</span><span class="c1">-- x-echo-jp/</span>
+<span class="o">|</span>       <span class="o">|</span>   <span class="o">`</span><span class="c1">-- development/</span>
+<span class="o">|</span>       <span class="o">|</span>       <span class="o">|</span><span class="c1">-- Deployment/</span>
+<span class="o">|</span>       <span class="o">|</span>       <span class="o">|</span>   <span class="o">|</span><span class="c1">-- redis-master.yaml</span>
+<span class="o">|</span>       <span class="o">|</span>       <span class="o">|</span>   <span class="o">|</span><span class="c1">-- test.yaml</span>
+<span class="o">|</span>       <span class="o">|</span>       <span class="o">|</span>   <span class="o">`</span><span class="c1">-- test.yml</span>
+<span class="o">|</span>       <span class="o">|</span>       <span class="o">|</span><span class="c1">-- PodDisruptionBudget/</span>
+<span class="o">|</span>       <span class="o">|</span>       <span class="o">|</span>   <span class="o">`</span><span class="c1">-- pdb.yaml</span>
+<span class="o">|</span>       <span class="o">|</span>       <span class="o">`</span><span class="c1">-- Service/</span>
+<span class="o">|</span>       <span class="o">|</span>           <span class="o">`</span><span class="c1">-- service.yaml</span>
+<span class="o">|</span>       <span class="o">`</span><span class="c1">-- x-gateway-jp/</span>
+<span class="o">|</span>           <span class="o">`</span><span class="c1">-- development/</span>
+<span class="o">|</span>               <span class="o">`</span><span class="c1">-- Deployment/</span>
+<span class="o">|</span>                   <span class="o">`</span><span class="c1">-- test.yaml</span>
+<span class="o">`</span><span class="c1">-- spinnaker/</span>
+    <span class="o">|</span><span class="c1">-- .policy/</span>
+    <span class="o">|</span>   <span class="o">`</span><span class="c1">-- functions.hcl</span>
+    <span class="o">`</span><span class="c1">-- x-echo-jp/</span>
+        <span class="o">`</span><span class="c1">-- development/</span>
+            <span class="o">`</span><span class="c1">-- deploy-to-dev-v2.yaml</span>
 </pre></div>
 
 
@@ -764,13 +752,13 @@ stein apply -policy /path/to/policy deployment.yaml
           </a>
         
         
-          <a href="../policy/_index/" title="Introduction" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../policy/rules/" title="Rules" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Introduction
+                Rules
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

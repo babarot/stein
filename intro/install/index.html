@@ -102,7 +102,7 @@
       <div class="md-flex__cell md-flex__cell--shrink">
         <a href="https://b4b4r07.github.io/stein/" title="Stein Documentation" class="md-header-nav__button md-logo">
           
-            <i class="md-icon">security</i>
+            <i class="md-icon">school</i>
           
         </a>
       </div>
@@ -194,7 +194,7 @@
   <label class="md-nav__title md-nav__title--site" for="__drawer">
     <a href="https://b4b4r07.github.io/stein/" title="Stein Documentation" class="md-nav__button md-logo">
       
-        <i class="md-icon">security</i>
+        <i class="md-icon">school</i>
       
     </a>
     Stein Documentation
@@ -338,8 +338,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../configuration/policy/_index/" title="Introduction" class="md-nav__link">
-      Introduction
+    <a href="../../configuration/policy/rules/" title="Rules" class="md-nav__link">
+      Rules
     </a>
   </li>
 
@@ -350,8 +350,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../configuration/policy/config/" title="Config Configuration" class="md-nav__link">
-      Config Configuration
+    <a href="../../configuration/policy/config/" title="Config" class="md-nav__link">
+      Config
     </a>
   </li>
 
@@ -362,8 +362,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../configuration/policy/functions/" title="Function Configuration" class="md-nav__link">
-      Function Configuration
+    <a href="../../configuration/policy/variables/" title="Variables" class="md-nav__link">
+      Variables
     </a>
   </li>
 
@@ -374,20 +374,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../configuration/policy/rules/" title="Rule Configuration" class="md-nav__link">
-      Rule Configuration
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../configuration/policy/variables/" title="Variable Configuration" class="md-nav__link">
-      Variable Configuration
+    <a href="../../configuration/policy/functions/" title="Functions" class="md-nav__link">
+      Functions
     </a>
   </li>
 
@@ -703,20 +691,18 @@
 <p>Copy the binary to anywhere on your system. If you intend to access it from the command-line, make sure to place it somewhere on your <code>PATH</code>.</p>
 <h2 id="compiling-from-source">Compiling from Source<a class="headerlink" href="#compiling-from-source" title="Permanent link">#</a></h2>
 <p>To compile from source, you will need <a href="https://golang.org/">Go</a> installed and configured properly (including a <code>GOPATH</code> environment variable set), as well as a copy of <a href="https://www.git-scm.com/">git</a> in your <code>PATH</code>.</p>
-<ol>
-<li>
-<p>Clone the Stein repository from GitHub into your <code>GOPATH</code>:</p>
-<p><code>console
-$ mkdir -p $GOPATH/src/github.com/b4b4r07 &amp;&amp; cd $_
-$ git clone https://github.com/b4b4r07/stein.git
-$ cd stein</code></p>
-</li>
-<li>
-<p>Build Stein for your current system and put the binary in ./bin/ (relative to the git checkout). The make dev target is just a shortcut that builds stein for only your local build environment (no cross-compiled targets).</p>
-<p><code>console
-$ make build</code></p>
-</li>
-</ol>
+<p>First, clone the Stein repository from GitHub into your <code>GOPATH</code>:</p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> mkdir -p <span class="nv">$GOPATH</span>/src/github.com/b4b4r07 <span class="o">&amp;&amp;</span> <span class="nb">cd</span> <span class="nv">$_</span>
+<span class="gp">$</span> git clone https://github.com/b4b4r07/stein.git
+<span class="gp">$</span> <span class="nb">cd</span> stein
+</pre></div>
+
+
+<p>Then, build Stein for your current system and put the binary in <code>./bin/</code> (relative to the git checkout). The make dev target is just a shortcut that builds stein for only your local build environment (no cross-compiled targets).</p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> make build
+</pre></div>
+
+
 <h2 id="verifying-the-installation">Verifying the Installation<a class="headerlink" href="#verifying-the-installation" title="Permanent link">#</a></h2>
 <p>To verify Stein is properly installed, run <code>stein -h</code> on your system. You should see help output. If you are executing it from the command line, make sure it is on your <code>PATH</code> or you may get an error about Stein not being found.</p>
 <div class="codehilite"><pre><span></span><span class="gp">$</span> stein -h

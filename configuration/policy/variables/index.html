@@ -102,7 +102,7 @@
       <div class="md-flex__cell md-flex__cell--shrink">
         <a href="https://b4b4r07.github.io/stein/" title="Stein Documentation" class="md-header-nav__button md-logo">
           
-            <i class="md-icon">security</i>
+            <i class="md-icon">school</i>
           
         </a>
       </div>
@@ -194,7 +194,7 @@
   <label class="md-nav__title md-nav__title--site" for="__drawer">
     <a href="https://b4b4r07.github.io/stein/" title="Stein Documentation" class="md-nav__button md-logo">
       
-        <i class="md-icon">security</i>
+        <i class="md-icon">school</i>
       
     </a>
     Stein Documentation
@@ -342,8 +342,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../_index/" title="Introduction" class="md-nav__link">
-      Introduction
+    <a href="../rules/" title="Rules" class="md-nav__link">
+      Rules
     </a>
   </li>
 
@@ -354,32 +354,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../config/" title="Config Configuration" class="md-nav__link">
-      Config Configuration
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../functions/" title="Function Configuration" class="md-nav__link">
-      Function Configuration
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../rules/" title="Rule Configuration" class="md-nav__link">
-      Rule Configuration
+    <a href="../config/" title="Config" class="md-nav__link">
+      Config
     </a>
   </li>
 
@@ -397,11 +373,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Variable Configuration
+        Variables
       </label>
     
-    <a href="./" title="Variable Configuration" class="md-nav__link md-nav__link--active">
-      Variable Configuration
+    <a href="./" title="Variables" class="md-nav__link md-nav__link--active">
+      Variables
     </a>
     
       
@@ -434,6 +410,18 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../functions/" title="Functions" class="md-nav__link">
+      Functions
+    </a>
   </li>
 
         
@@ -676,7 +664,7 @@
               
                 
                 
-                  <h1>Variable Configuration</h1>
+                  <h1>Variables</h1>
                 
                 <p>Input variables serve as parameters for a Terraform module.</p>
 <p>When used in the root module of a configuration, variables can be set from CLI arguments and environment variables. For <a href="">child modules</a>, they allow values to pass from parent to child.</p>
@@ -684,22 +672,22 @@
 <p>This page assumes you're familiar with the <a href="../../syntax/_index/">configuration syntax</a> already.</p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">#</a></h2>
 <p>Input variables can be defined as follows:</p>
-<div class="codehilite"><pre><span></span><span class="k">variable</span> <span class="ss">&quot;key&quot;</span> <span class="err">{</span>
-  <span class="k">type</span> <span class="o">=</span> <span class="ss">&quot;string&quot;</span>
-<span class="err">}</span>
+<div class="codehilite"><pre><span></span><span class="kr">variable</span> <span class="s">&quot;key&quot;</span> <span class=" -Punctuation">{</span>
+<span class="na">  type</span> <span class="o">=</span> <span class="s2">&quot;string&quot;</span>
+<span class=" -Punctuation">}</span>
 
-<span class="k">variable</span> <span class="ss">&quot;images&quot;</span> <span class="err">{</span>
-  <span class="k">type</span> <span class="o">=</span> <span class="ss">&quot;map&quot;</span>
+<span class="kr">variable</span> <span class="s">&quot;images&quot;</span> <span class=" -Punctuation">{</span>
+<span class="na">  type</span> <span class="o">=</span> <span class="s2">&quot;map&quot;</span>
 
-  <span class="k">default</span> <span class="o">=</span> <span class="err">{</span>
-    <span class="n">us</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="mi">1</span> <span class="o">=</span> <span class="ss">&quot;image-1234&quot;</span>
-    <span class="n">us</span><span class="o">-</span><span class="n">west</span><span class="o">-</span><span class="mi">2</span> <span class="o">=</span> <span class="ss">&quot;image-4567&quot;</span>
-  <span class="err">}</span>
-<span class="err">}</span>
+<span class="na">  default</span> <span class="o">=</span> <span class=" -Punctuation">{</span>
+<span class="na">    us-east-1</span> <span class="o">=</span> <span class="s2">&quot;image-1234&quot;</span>
+<span class="na">    us-west-2</span> <span class="o">=</span> <span class="s2">&quot;image-4567&quot;</span>
+  <span class=" -Punctuation">}</span>
+<span class=" -Punctuation">}</span>
 
-<span class="k">variable</span> <span class="ss">&quot;zones&quot;</span> <span class="err">{</span>
-  <span class="k">default</span> <span class="o">=</span> <span class="p">[</span><span class="ss">&quot;us-east-1a&quot;</span><span class="p">,</span> <span class="ss">&quot;us-east-1b&quot;</span><span class="p">]</span>
-<span class="err">}</span>
+<span class="kr">variable</span> <span class="s">&quot;zones&quot;</span> <span class=" -Punctuation">{</span>
+<span class="na">  default</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;us-east-1a&quot;, &quot;us-east-1b&quot;</span><span class="p">]</span>
+<span class=" -Punctuation">}</span>
 </pre></div>
 
 
@@ -728,7 +716,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../rules/" title="Rule Configuration" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../config/" title="Config" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -737,19 +725,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Rule Configuration
+                Config
               </span>
             </div>
           </a>
         
         
-          <a href="../../syntax/_index/" title="Introduction" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../functions/" title="Functions" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Introduction
+                Functions
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
