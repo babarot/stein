@@ -10,7 +10,7 @@ theme:
     primary: 'blue grey'
     accent: 'blue grey'
   logo:
-    icon: 'security'
+    icon: 'school'
   favicon: 'assets/images/favicon.png'
   # feature:
   #   tabs: true
@@ -50,11 +50,10 @@ nav:
     - Introduction: configuration/_index.md
     - configuration/load.md
     - Policy:
-      - Introduction: configuration/policy/_index.md
-      - configuration/policy/config.md
-      - configuration/policy/functions.md
-      - configuration/policy/rules.md
-      - configuration/policy/variables.md
+      - Rules: configuration/policy/rules.md
+      - Config: configuration/policy/config.md
+      - Variables: configuration/policy/variables.md
+      - Functions: configuration/policy/functions.md
     - Syntax:
       - Introduction: configuration/syntax/_index.md
       - configuration/syntax/custom-functions.md
@@ -67,4 +66,3 @@ nav:
     - commands/_index.md
     - commands/apply.md
     - commands/fmt.md
-

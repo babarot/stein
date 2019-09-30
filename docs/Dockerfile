@@ -21,4 +21,4 @@ WORKDIR /docs
 
 EXPOSE 3000
 
-ENTRYPOINT ["mkdocs", "serve", "--dev-addr=0.0.0.0:3000", "--livereload"]
+CMD ["mkdocs", "serve", "--dev-addr=0.0.0.0:3000", "--livereload"]

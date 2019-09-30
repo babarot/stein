@@ -27,19 +27,19 @@ Copy the binary to anywhere on your system. If you intend to access it from the 
 
 To compile from source, you will need [Go](https://golang.org/) installed and configured properly (including a `GOPATH` environment variable set), as well as a copy of [git](https://www.git-scm.com/) in your `PATH`.
 
-1. Clone the Stein repository from GitHub into your `GOPATH`:
+First, clone the Stein repository from GitHub into your `GOPATH`:
 
-    ```console
-    $ mkdir -p $GOPATH/src/github.com/b4b4r07 && cd $_
-    $ git clone https://github.com/b4b4r07/stein.git
-    $ cd stein
-    ```
+```console
+$ mkdir -p $GOPATH/src/github.com/b4b4r07 && cd $_
+$ git clone https://github.com/b4b4r07/stein.git
+$ cd stein
+```
 
-2. Build Stein for your current system and put the binary in ./bin/ (relative to the git checkout). The make dev target is just a shortcut that builds stein for only your local build environment (no cross-compiled targets).
+Then, build Stein for your current system and put the binary in `./bin/` (relative to the git checkout). The make dev target is just a shortcut that builds stein for only your local build environment (no cross-compiled targets).
 
-    ```console
-    $ make build
-    ```
+```console
+$ make build
+```
 
 ## Verifying the Installation
 

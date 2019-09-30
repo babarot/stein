@@ -19,7 +19,7 @@ This page assumes you're familiar with the [configuration syntax](../syntax/_ind
 
 Input variables can be defined as follows:
 
-```hcl
+```terraform
 variable "key" {
   type = "string"
 }

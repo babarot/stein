@@ -38,7 +38,14 @@ help: ## Self-documented Makefile
 		| sort \
 		| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-.PHONY: docs
-docs:
+.PHONY: build-docs
+build-docs:
 	@docker build -t mkdocs docs
+
+.PHONY: live-docs
+live-docs: build-docs
 	@docker run --rm -it -p 3000:3000 -v ${PWD}:/docs mkdocs
+
+.PHONY: deploy-docs
+deploy-docs: build-docs
+	@docker run --rm -it -v ${PWD}:/docs -v ~/.ssh:/root/.ssh mkdocs mkdocs gh-deploy

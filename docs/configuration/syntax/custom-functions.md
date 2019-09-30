@@ -12,7 +12,7 @@ weight: 52
 
 ## What's custom functions?
 
-The custom function feature is like an user-defined functions. You can freely define functions that Stein doesn't provide as [a built-in function](./interpolation.md).
+The custom function feature is like an user-defined functions. You can freely define functions that Stein doesn't provide as [a built-in function](../syntax/interpolation.md#built-in-functions).
 
 Of course you can define it freely, so you can customize it by wrapping a built-in function, or you can use it like an alias.
 

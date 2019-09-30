@@ -9,16 +9,16 @@ weight: 44
 
 ## How policies are loaded by Stein
 
-To understand how `stein` loads policy files and recognizes them is very important for writing and applying policies to the files effectively.
+To understand how stein loads policy files and recognizes them is very important for writing and applying policies to the files effectively.
 `stein apply` requires always one or more arguments only.
 It assumes the config file paths such as YAML, JSON and so on.
 
 The path may have a hierarchical structure.
-In Stein, when a path with a hierarchical structure is given as arguments, `stein` recognizes the HCL file in `.policy` directory placed in the path included in that path as a policy to be applied.
+In Stein, when a path with a hierarchical structure is given as arguments, stein recognizes the HCL file in `.policy` directory placed in the path included in that path as a policy to be applied.
 
 Let's see a concrete example.
 
-```console
+```
 _examples
 |-- .policy/
 |   |-- config.hcl
