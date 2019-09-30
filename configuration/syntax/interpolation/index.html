@@ -1,0 +1,1299 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="A linter for config files with a customizable rule set">
+      
+      
+        <link rel="canonical" href="https://b4b4r07.github.io/stein/configuration/syntax/interpolation/">
+      
+      
+        <meta name="author" content="Masaki ISHIYAMA">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.2">
+    
+    
+      
+        <title>Interpolation Syntax</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.30686662.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.a8b3c06d.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#546e7a">
+      
+    
+    
+      <script src="../../../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="blue-grey" data-md-color-accent="blue-grey">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#available-variables" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://b4b4r07.github.io/stein/" title="Stein Documentation" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">security</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Stein Documentation
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Interpolation Syntax
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/b4b4r07/stein" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    b4b4r07/stein
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://b4b4r07.github.io/stein/" title="Stein Documentation" class="md-nav__button md-logo">
+      
+        <i class="md-icon">security</i>
+      
+    </a>
+    Stein Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/b4b4r07/stein" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    b4b4r07/stein
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      Concepts
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        Concepts
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../concepts/policy-as-code/" title="Policy as Code" class="md-nav__link">
+      Policy as Code
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../concepts/policy/" title="Policy" class="md-nav__link">
+      Policy
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Configuration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Configuration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../_index/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../load/" title="Load Order" class="md-nav__link">
+      Load Order
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-3" type="checkbox" id="nav-2-3">
+    
+    <label class="md-nav__link" for="nav-2-3">
+      Policy
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-3">
+        Policy
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../policy/_index/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../policy/config/" title="Config Configuration" class="md-nav__link">
+      Config Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../policy/functions/" title="Function Configuration" class="md-nav__link">
+      Function Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../policy/rules/" title="Rule Configuration" class="md-nav__link">
+      Rule Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../policy/variables/" title="Variable Configuration" class="md-nav__link">
+      Variable Configuration
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4" type="checkbox" id="nav-2-4" checked>
+    
+    <label class="md-nav__link" for="nav-2-4">
+      Syntax
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-4">
+        Syntax
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../_index/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../custom-functions/" title="Custom Functions" class="md-nav__link">
+      Custom Functions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Interpolation Syntax
+      </label>
+    
+    <a href="./" title="Interpolation Syntax" class="md-nav__link md-nav__link--active">
+      Interpolation Syntax
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#available-variables" class="md-nav__link">
+    Available Variables
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-string-variables" class="md-nav__link">
+    User string variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-map-variables" class="md-nav__link">
+    User map variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-list-variables" class="md-nav__link">
+    User list variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#path-information" class="md-nav__link">
+    Path information
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#predefined-variables" class="md-nav__link">
+    Predefined variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-variables-information" class="md-nav__link">
+    Environment variables information
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conditionals" class="md-nav__link">
+    Conditionals
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#built-in-functions" class="md-nav__link">
+    Built-in Functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#globpattern" class="md-nav__link">
+    glob(pattern)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pathshortenpath" class="md-nav__link">
+    pathshorten(path)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extpath" class="md-nav__link">
+    ext(path)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wctext-l-w-c" class="md-nav__link">
+    wc(text, ["l", "w", "c"])
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#greptext-pattern" class="md-nav__link">
+    grep(text, pattern)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lookuplistmap-key" class="md-nav__link">
+    lookuplist(map, key)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#matchpattern-text" class="md-nav__link">
+    match(pattern, text)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#colorstr-attrs" class="md-nav__link">
+    color(str, attrs...)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#existpath" class="md-nav__link">
+    exist(path)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jsonpathquery-default" class="md-nav__link">
+    jsonpath(query, default...)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-functions" class="md-nav__link">
+    Custom Functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#math" class="md-nav__link">
+    Math
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Getting Started
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../intro/install/" title="Installing Stein" class="md-nav__link">
+      Installing Stein
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../intro/rules/" title="Writing Stein rules" class="md-nav__link">
+      Writing Stein rules
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../intro/run/" title="Running Stein" class="md-nav__link">
+      Running Stein
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Commands (CLI)
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Commands (CLI)
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../commands/_index/" title="Stein CLI Commands" class="md-nav__link">
+      Stein CLI Commands
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../commands/apply/" title="Command: apply" class="md-nav__link">
+      Command: apply
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../commands/fmt/" title="Command: fmt" class="md-nav__link">
+      Command: fmt
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#available-variables" class="md-nav__link">
+    Available Variables
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-string-variables" class="md-nav__link">
+    User string variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-map-variables" class="md-nav__link">
+    User map variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-list-variables" class="md-nav__link">
+    User list variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#path-information" class="md-nav__link">
+    Path information
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#predefined-variables" class="md-nav__link">
+    Predefined variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-variables-information" class="md-nav__link">
+    Environment variables information
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conditionals" class="md-nav__link">
+    Conditionals
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#built-in-functions" class="md-nav__link">
+    Built-in Functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#globpattern" class="md-nav__link">
+    glob(pattern)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pathshortenpath" class="md-nav__link">
+    pathshorten(path)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extpath" class="md-nav__link">
+    ext(path)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wctext-l-w-c" class="md-nav__link">
+    wc(text, ["l", "w", "c"])
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#greptext-pattern" class="md-nav__link">
+    grep(text, pattern)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lookuplistmap-key" class="md-nav__link">
+    lookuplist(map, key)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#matchpattern-text" class="md-nav__link">
+    match(pattern, text)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#colorstr-attrs" class="md-nav__link">
+    color(str, attrs...)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#existpath" class="md-nav__link">
+    exist(path)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jsonpathquery-default" class="md-nav__link">
+    jsonpath(query, default...)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-functions" class="md-nav__link">
+    Custom Functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#math" class="md-nav__link">
+    Math
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>Interpolation Syntax</h1>
+                
+                <p>Embedded within strings in Terraform, whether you're using the Terraform syntax or JSON syntax, you can interpolate other values. These interpolations are wrapped in <code>${}</code>, such as <code>${var.foo}</code>.</p>
+<p>The interpolation syntax is powerful and allows you to reference variables, attributes of resources, call functions, etc.</p>
+<p>You can perform simple math in interpolations, allowing you to write conditions such as <code>${count.index + 1}</code>. And you can also use conditionals to determine a value based on some logic.</p>
+<p>You can escape interpolation with double dollar signs: <code>$${foo}</code> will be rendered as a literal <code>${foo}</code>.</p>
+<h2 id="available-variables">Available Variables<a class="headerlink" href="#available-variables" title="Permanent link">#</a></h2>
+<p>There are a variety of available variable references you can use.</p>
+<h3 id="user-string-variables">User string variables<a class="headerlink" href="#user-string-variables" title="Permanent link">#</a></h3>
+<p>Use the <code>var.prefix</code> followed by the variable name. For example, <code>${var.foo}</code> will interpolate the <code>foo</code> variable value.</p>
+<h3 id="user-map-variables">User map variables<a class="headerlink" href="#user-map-variables" title="Permanent link">#</a></h3>
+<p>The syntax is <code>var.MAP["KEY"]</code>. For example, <code>${var.amis["us-east-1"]}</code> would get the value of the <code>us-east-1</code> key within the amis map variable.</p>
+<h3 id="user-list-variables">User list variables<a class="headerlink" href="#user-list-variables" title="Permanent link">#</a></h3>
+<p>The syntax is <code>"${var.LIST}"</code>. For example, <code>"${var.subnets}"</code> would get the value of the subnets list, as a list. You can also return list elements by index: <code>${var.subnets[idx]}</code>.</p>
+<h3 id="path-information">Path information<a class="headerlink" href="#path-information" title="Permanent link">#</a></h3>
+<p><em>WIP</em></p>
+<p>The syntax is <code>path.TYPE</code>. <code>TYPE</code> can be <code>file</code>, <code>dir</code>, or <code>policies</code>. cwd will interpolate the current working directory. module will interpolate the path to the current module. root will interpolate the path of the root module. In general, you probably want the path.module variable.</p>
+<div class="codehilite"><pre><span></span>&quot;<span class="cp">${</span><span class="n">path</span><span class="o">.</span><span class="n">file</span><span class="cp">}</span>&quot;
+# =&gt; manifests/microservices/x-gateway-jp/development/Service/a.yaml
+# [Notes]
+#  this variable is an alias of `filename` variable
+
+&quot;<span class="cp">${</span><span class="n">path</span><span class="o">.</span><span class="n">dir</span><span class="cp">}</span>&quot;
+# =&gt; manifests/microservices/x-gateway-jp/development/Service
+</pre></div>
+
+
+<h3 id="predefined-variables">Predefined variables<a class="headerlink" href="#predefined-variables" title="Permanent link">#</a></h3>
+<ul>
+<li><code>filename</code>: Filename to be applied policy (alias of <code>path.policy</code>)</li>
+</ul>
+<h3 id="environment-variables-information">Environment variables information<a class="headerlink" href="#environment-variables-information" title="Permanent link">#</a></h3>
+<p>The syntax is <code>env.ENV</code>. <code>ENV</code> can be <code>USER</code>, <code>HOME</code>, etc. These values comes from <code>env</code> command output.</p>
+<div class="codehilite"><pre><span></span>&quot;<span class="cp">${</span><span class="n">env</span><span class="o">.</span><span class="n">HOME</span><span class="cp">}</span>&quot;
+# =&gt; /home/username
+
+&quot;<span class="cp">${</span><span class="n">env</span><span class="o">.</span><span class="n">EDITOR</span><span class="cp">}</span>&quot;
+# =&gt; vim
+</pre></div>
+
+
+<h2 id="conditionals">Conditionals<a class="headerlink" href="#conditionals" title="Permanent link">#</a></h2>
+<p>Interpolations may contain conditionals to branch on the final value.</p>
+<div class="codehilite"><pre><span></span><span class="s2">&quot;</span><span class="s">${var.user == </span><span class="s2">&quot;</span><span class="nv">john</span><span class="s2">&quot;</span><span class="s"> ? var.member : env.anonymous}</span><span class="s2">&quot;</span>
+
+# <span class="o">=&gt;</span> <span class="nv">var</span>.<span class="nv">member</span> <span class="ss">(</span><span class="k">if</span> <span class="nv">var</span>.<span class="nv">user</span> <span class="nv">is</span> <span class="nv">john</span><span class="ss">)</span>
+# <span class="o">=&gt;</span> <span class="nv">var</span>.<span class="nv">anonymous</span> <span class="ss">(</span><span class="k">if</span> <span class="nv">var</span>.<span class="nv">user</span> <span class="nv">is</span> <span class="nv">not</span> <span class="nv">john</span><span class="ss">)</span>
+</pre></div>
+
+
+<p>The conditional syntax is the well-known ternary operation:</p>
+<div class="codehilite"><pre><span></span><span class="n">CONDITION</span> <span class="o">?</span> <span class="n">TRUEVAL</span> <span class="p">:</span> <span class="n">FALSEVAL</span>
+</pre></div>
+
+
+<p>The condition can be any valid interpolation syntax, such as variable access, a function call, or even another conditional. The true and false value can also be any valid interpolation syntax. The returned types by the true and false side must be the same.</p>
+<p>The supported operators are:</p>
+<ul>
+<li>Equality: <code>==</code> and <code>!=</code></li>
+<li>Numerical comparison: <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code></li>
+<li>Boolean logic: <code>&amp;&amp;</code>, <code>||</code>, unary <code>!</code></li>
+</ul>
+<h2 id="built-in-functions">Built-in Functions<a class="headerlink" href="#built-in-functions" title="Permanent link">#</a></h2>
+<p>Stein ships with built-in functions. Functions are called with the syntax <code>name(arg, arg2, ...)</code>. For example, to read a file: <code>${file("path.txt")}</code>.</p>
+<p>Stein supports all Terraform's built-in functions listed in <a href="https://www.terraform.io/docs/configuration/interpolation.html#built-in-functions">this page</a>.</p>
+<p>In addition to these functions, it also comes with the original built-in functions to make it even easier to write rules.</p>
+<h3 id="globpattern"><code>glob(pattern)</code><a class="headerlink" href="#globpattern" title="Permanent link">#</a></h3>
+<p>Returns the files matched by given pattern</p>
+<p>Types:</p>
+<ul>
+<li>input args: <code>string</code></li>
+<li>return values: <code>list of string</code></li>
+</ul>
+<p>Usage:</p>
+<div class="codehilite"><pre><span></span>&quot;<span class="cp">${</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.txt&quot;</span><span class="p">)</span><span class="cp">}</span>&quot;
+# =&gt; [&quot;a.txt&quot;, &quot;b.txt&quot;, &quot;c.txt&quot;]
+</pre></div>
+
+
+<h3 id="pathshortenpath"><code>pathshorten(path)</code><a class="headerlink" href="#pathshortenpath" title="Permanent link">#</a></h3>
+<p>Returns the file path shortened like <a href="http://vimdoc.sourceforge.net/htmldoc/eval.html#pathshorten()">Vim's one</a>.</p>
+<p>Types:</p>
+<ul>
+<li>input args: <code>string</code></li>
+<li>return values: <code>string</code></li>
+</ul>
+<p>Usage:</p>
+<div class="codehilite"><pre><span></span>&quot;<span class="cp">${</span><span class="n">pathshorten</span><span class="p">(</span><span class="s2">&quot;manifests/microservices/x-gateway-jp/development/Service/a.yaml&quot;</span><span class="p">)</span><span class="cp">}</span>&quot;
+# =&gt; &quot;m/m/x/d/S/a.yaml&quot;
+</pre></div>
+
+
+<h3 id="extpath"><code>ext(path)</code><a class="headerlink" href="#extpath" title="Permanent link">#</a></h3>
+<p>Returns the file extensions.</p>
+<p>Types:</p>
+<ul>
+<li>input args: <code>string</code></li>
+<li>return values: <code>string</code></li>
+</ul>
+<p>Usage:</p>
+<div class="codehilite"><pre><span></span>&quot;<span class="cp">${</span><span class="n">ext</span><span class="p">(</span><span class="s2">&quot;a.txt&quot;</span><span class="p">)</span><span class="cp">}</span>&quot;
+# =&gt; &quot;.txt&quot;
+</pre></div>
+
+
+<h3 id="wctext-l-w-c"><code>wc(text, ["l", "w", "c"])</code><a class="headerlink" href="#wctext-l-w-c" title="Permanent link">#</a></h3>
+<p>Returns the counted number of text as options (<strong>l</strong>ines, <strong>w</strong>ords, <strong>c</strong>hars). Default option is <strong>l</strong>ines.</p>
+<p>Types:</p>
+<ul>
+<li>input args: <code>string</code>, <code>string</code>... (Optional)</li>
+<li>return values: <code>number</code></li>
+</ul>
+<p>Usage:</p>
+<div class="codehilite"><pre><span></span>&quot;<span class="cp">${</span><span class="n">wc</span><span class="p">(</span><span class="s2">&quot;foo</span><span class="se">\n</span><span class="s2">bar baz&quot;</span><span class="p">)</span><span class="cp">}</span>&quot;
+# =&gt; 2
+
+&quot;<span class="cp">${</span><span class="n">wc</span><span class="p">(</span><span class="s2">&quot;foo</span><span class="se">\n</span><span class="s2">bar baz&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">)</span><span class="cp">}</span>&quot;
+# =&gt; 9
+
+&quot;<span class="cp">${</span><span class="n">wc</span><span class="p">(</span><span class="s2">&quot;foo</span><span class="se">\n</span><span class="s2">bar baz&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span><span class="cp">}</span>&quot;
+# =&gt; 3
+</pre></div>
+
+
+<h3 id="greptext-pattern"><code>grep(text, pattern)</code><a class="headerlink" href="#greptext-pattern" title="Permanent link">#</a></h3>
+<p>Returns the text block matched with the given pattern.</p>
+<p>Types:</p>
+<ul>
+<li>input args: <code>string</code></li>
+<li>return values: <code>string</code></li>
+</ul>
+<p>Usage:</p>
+<div class="codehilite"><pre><span></span><span class="n">My</span> <span class="n">life</span> <span class="n">didn</span><span class="err">&#39;</span><span class="n">t</span> <span class="n">please</span> <span class="n">me</span><span class="p">,</span>
+<span class="n">so</span> <span class="n">I</span> <span class="n">created</span> <span class="n">my</span> <span class="n">life</span><span class="p">.</span>
+<span class="o">-</span> <span class="n">Coco</span> <span class="n">Chanel</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>&quot;<span class="cp">${</span><span class="n">grep</span><span class="p">(</span><span class="nb">file</span><span class="p">(</span><span class="s2">&quot;text.txt&quot;</span><span class="p">),</span> <span class="s2">&quot;life&quot;</span><span class="p">)</span><span class="cp">}</span>&quot;
+# =&gt; &quot;My life didn&#39;t please me,\nso I created my life.&quot;
+</pre></div>
+
+
+<h3 id="lookuplistmap-key"><code>lookuplist(map, key)</code><a class="headerlink" href="#lookuplistmap-key" title="Permanent link">#</a></h3>
+<p>Returns a list matched by the key in the given map.</p>
+<p>Like the Terraform's <a href="https://www.terraform.io/docs/configuration/interpolation.html#lookup-map-key-default-"><code>lookup</code></a> but this is only for returning a list.</p>
+<p>Types:</p>
+<ul>
+<li>input args: <code>map</code>, <code>string</code></li>
+<li>return values: <code>list of string</code></li>
+</ul>
+<p>Usage:</p>
+<div class="codehilite"><pre><span></span><span class="k">variable</span> <span class="ss">&quot;colors&quot;</span> <span class="err">{</span>
+  <span class="k">type</span> <span class="o">=</span> <span class="ss">&quot;map&quot;</span>
+
+  <span class="k">default</span> <span class="o">=</span> <span class="err">{</span>
+    <span class="ss">&quot;red&quot;</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="ss">&quot;burgundy&quot;</span><span class="p">,</span>
+      <span class="ss">&quot;terracotta&quot;</span><span class="p">,</span>
+      <span class="ss">&quot;scarlet&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="ss">&quot;blue&quot;</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="ss">&quot;heliotrope&quot;</span><span class="p">,</span>
+      <span class="ss">&quot;cerulean blue&quot;</span><span class="p">,</span>
+      <span class="ss">&quot;turquoise blue&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+  <span class="err">}</span>
+<span class="err">}</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>&quot;<span class="cp">${</span><span class="n">lookuplist</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">colors</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span><span class="cp">}</span>&quot;
+# =&gt; [&quot;burgundy&quot;, &quot;terracotta&quot;, &quot;scarlet&quot;]
+
+&quot;<span class="cp">${</span><span class="n">contains</span><span class="p">(</span><span class="n">lookuplist</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">colors</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">),</span> <span class="s2">&quot;scarlet&quot;</span><span class="p">)</span><span class="cp">}</span>&quot;
+# =&gt; true
+</pre></div>
+
+
+<h3 id="matchpattern-text"><code>match(pattern, text)</code><a class="headerlink" href="#matchpattern-text" title="Permanent link">#</a></h3>
+<p>Returns a true if the text is matched with the pattern.</p>
+<p>Types:</p>
+<ul>
+<li>input args: <code>string</code>, <code>string</code></li>
+<li>return values: <code>boolean</code></li>
+</ul>
+<p>Usage:</p>
+<div class="codehilite"><pre><span></span>&quot;<span class="cp">${</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;abcdef&quot;</span><span class="p">,</span> <span class="s2">&quot;^a&quot;</span><span class="p">)</span><span class="cp">}</span>&quot;
+# =&gt; true
+</pre></div>
+
+
+<h3 id="colorstr-attrs"><code>color(str, attrs...)</code><a class="headerlink" href="#colorstr-attrs" title="Permanent link">#</a></h3>
+<p>Returns a string colorized by the color name.</p>
+<p>Types:</p>
+<ul>
+<li>input args: <code>string</code>, <code>string</code>...</li>
+<li>return values: <code>string</code></li>
+</ul>
+<p>Usage:</p>
+<div class="codehilite"><pre><span></span>&quot;<span class="cp">${</span><span class="n">color</span><span class="p">(</span><span class="s2">&quot;hello!&quot;</span><span class="p">,</span> <span class="s2">&quot;white&quot;</span><span class="p">)</span><span class="cp">}</span>&quot;
+# =&gt; &quot;\x1b[37mhello!\x1b[0m&quot;
+
+&quot;<span class="cp">${</span><span class="n">color</span><span class="p">(</span><span class="s2">&quot;hello!&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;BgBlack&quot;</span><span class="p">)</span><span class="cp">}</span>&quot;
+# =&gt; &quot;\x1b[31m\x1b[40mhello!\x1b[0m&quot;
+</pre></div>
+
+
+<h3 id="existpath"><code>exist(path)</code><a class="headerlink" href="#existpath" title="Permanent link">#</a></h3>
+<p>Returns true if path exists</p>
+<p>Types:</p>
+<ul>
+<li>input args: <code>string</code></li>
+<li>return values: <code>boolean</code></li>
+</ul>
+<p>Usage:</p>
+<div class="codehilite"><pre><span></span><span class="s2">&quot;</span><span class="s">${exist(</span><span class="s2">&quot;</span><span class="o">/</span><span class="nv">path</span><span class="o">/</span><span class="nv">to</span><span class="o">/</span><span class="nv">whatever</span><span class="s2">&quot;</span><span class="s">)}</span><span class="s2">&quot;</span>
+# <span class="o">=&gt;</span> <span class="nv">true</span> <span class="ss">(</span><span class="k">if</span> <span class="nv">exists</span><span class="ss">)</span>
+</pre></div>
+
+
+<h3 id="jsonpathquery-default"><code>jsonpath(query, default...)</code><a class="headerlink" href="#jsonpathquery-default" title="Permanent link">#</a></h3>
+<p>WIP</p>
+<h2 id="custom-functions">Custom Functions<a class="headerlink" href="#custom-functions" title="Permanent link">#</a></h2>
+<p>While supporting some useful built-in functions, Stein allows to create user-defined functions.</p>
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="ss">&quot;add&quot;</span> <span class="err">{</span>
+  <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">]</span>
+  <span class="k">result</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="err">}</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>&quot;<span class="cp">${</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="cp">}</span>&quot;
+# =&gt; 4
+</pre></div>
+
+
+<p>For more details, please see also <a href="../custom-functions/">Custom Functions</a></p>
+<h2 id="math">Math<a class="headerlink" href="#math" title="Permanent link">#</a></h2>
+<p>Almost the same as <a href="https://www.terraform.io/docs/configuration/interpolation.html#math">Terraform Math</a> mechanism.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../custom-functions/" title="Custom Functions" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Custom Functions
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../../../intro/install/" title="Installing Stein" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Installing Stein
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 Masaki ISHIYAMA
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../../assets/fonts/font-awesome.css">
+    
+      <a href="https://tellme.tokyo" class="md-footer-social__link fa fa-globe"></a>
+    
+      <a href="https://github.com/b4b4r07" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/b4b4r07" class="md-footer-social__link fa fa-twitter"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/application.c648116f.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
+      
+    
+  </body>
+</html>
