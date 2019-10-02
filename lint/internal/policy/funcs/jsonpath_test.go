@@ -74,6 +74,12 @@ test:
 			cty.StringVal("test"),
 			cty.TupleVal([]cty.Value{cty.StringVal("a"), cty.StringVal("b")}),
 		},
+		{
+			"strict_string.json",
+			[]byte(`{"maxSurge": "100%"}`),
+			cty.StringVal("maxSurge"),
+			cty.StringVal("100%"),
+		},
 	}
 
 	for _, test := range tests {

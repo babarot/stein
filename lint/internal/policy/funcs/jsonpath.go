@@ -91,12 +91,22 @@ func GJSONFunc(file string, data []byte) function.Function {
 				}
 				return val, nil
 			}
-			if '0' <= b[0] && b[0] <= '9' {
+			isValidNumber := func(b byte) bool {
+				return '0' <= b && b <= '9'
+			}
+			var shouldReturnString bool
+			for _, char := range b {
+				if !isValidNumber(char) {
+					shouldReturnString = true
+				}
+			}
+			if shouldReturnString {
+				return cty.StringVal(string(b)), nil
+			} else {
 				f64, _ := strconv.ParseFloat(string(b), 64)
 				val := big.NewFloat(f64)
 				return cty.NumberVal(val), nil
 			}
-			return cty.StringVal(string(b)), nil
 		},
 	})
 }
