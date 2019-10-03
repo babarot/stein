@@ -17,6 +17,8 @@ Supported config file types are JSON, YAML and HCL for now.
 
 The basic design of this tool are heavily inspired by [HashiCorp Sentinel](https://www.hashicorp.com/sentinel) and its lots of implementations come from [Terraform](https://www.terraform.io/).
 
+![](https://user-images.githubusercontent.com/4442708/66107167-8a83f800-e5fa-11e9-9719-f7f03624ee46.png)
+
 ## Motivation
 
 As the motivation of this tool, the factor which accounts for the most of them is the [Policy as Code](https://b4b4r07.github.io/stein/concepts/policy-as-code/).
@@ -27,30 +29,6 @@ As an example: the namespace of Kubernetes to be deployed, the number of replica
 
 This tool makes it possible to describe those requests as code (called as the [rules](https://b4b4r07.github.io/stein/configuration/policy/rules/)).
 
-## Try to use!
-
-After [installing stein](https://b4b4r07.github.io/stein/intro/install/), run `make run` to quick start!
-
-```console
-$ stein apply _examples/spinnaker/*/*/*
-_examples/spinnaker/x-echo-jp/development/deploy-to-dev-v2.yaml (Block 1)
-  No violated rules
-
-_examples/spinnaker/x-echo-jp/development/deploy-to-dev-v2.yaml (Block 2)
-  [ERROR]  rule.namespace_name            Namespace name "x-echo-jp-prod" is invalid
-
-=====================
-1 error(s), 0 warn(s)
-```
-
 ## Documentations
 
 [Stein Documentations](https://b4b4r07.github.io/stein/)
-
-## License
-
-MIT
-
-## Author
-
-b4b4r07
