@@ -50,7 +50,7 @@ jobs:
 
       - run:
           name: Run GolangCI-Lint
-          command: ./bin/golangci-lint run --tests --disable-all --enable=goimports --enable=golint --enable=govet --enable=errcheck --enable=staticcheck
+          command: ./bin/golangci-lint run --tests --disable-all --enable=golint --enable=govet #--enable=errcheck --enable=staticcheck --enable=goimports
       - run:
           name: Run Tests
           command: go test -race -v ./...

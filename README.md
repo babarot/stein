@@ -1,12 +1,16 @@
 stein
 =====
 
-[![][release-badge]][release-link] [![][license-badge]][license-link]
+[![][circleci-badge]][circleci-link] [![][release-badge]][release-link] [![][license-badge]][license-link] [![][report-budge]][report-link]
 
+[circleci-link]:  https://circleci.com/gh/b4b4r07/stein/tree/master
+[circleci-badge]: https://circleci.com/gh/b4b4r07/stein/tree/master.svg?style=svg
 [release-badge]: https://img.shields.io/github/release/b4b4r07/stein.svg?style=popout
 [release-link]:  https://github.com/b4b4r07/stein/releases
 [license-badge]: https://img.shields.io/github/license/b4b4r07/stein.svg?style=popout
 [license-link]:  ./LICENSE
+[report-budge]: https://goreportcard.com/badge/github.com/b4b4r07/stein
+[report-link]:  https://goreportcard.com/report/github.com/b4b4r07/stein
 
 Stein is a linter for config files with a customizable rule set.
 Supported config file types are JSON, YAML and HCL for now.

@@ -102,11 +102,10 @@ func GJSONFunc(file string, data []byte) function.Function {
 			}
 			if shouldReturnString {
 				return cty.StringVal(string(b)), nil
-			} else {
-				f64, _ := strconv.ParseFloat(string(b), 64)
-				val := big.NewFloat(f64)
-				return cty.NumberVal(val), nil
 			}
+			f64, _ := strconv.ParseFloat(string(b), 64)
+			val := big.NewFloat(f64)
+			return cty.NumberVal(val), nil
 		},
 	})
 }
