@@ -15,13 +15,34 @@ theme:
   # feature:
   #   tabs: true
 
-
 markdown_extensions:
+  - fontawesome_markdown
   - meta
   - codehilite
   - admonition
   - toc:
       permalink: "#"
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink:
+      repo_url_shortener: true
+      repo_url_shorthand: true
+      social_url_shorthand: true
+      user: b4b4r07
+      repo: stein
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
 
 # Customization
 extra:
@@ -32,6 +53,9 @@ extra:
       link: https://github.com/b4b4r07
     - type: twitter
       link: https://twitter.com/b4b4r07
+
+extra_css:
+    - "https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"
 
 # Repository
 repo_name: b4b4r07/stein
@@ -56,8 +80,19 @@ nav:
       - Functions: configuration/policy/functions.md
     - Syntax:
       - Introduction: configuration/syntax/_index.md
+      - Interpolation: configuration/syntax/interpolation.md
+      - Built-in Funtions:
+          - color: configuration/syntax/functions/color.md
+          - exist: configuration/syntax/functions/exist.md
+          - ext: configuration/syntax/functions/ext.md
+          - glob: configuration/syntax/functions/glob.md
+          - grep: configuration/syntax/functions/grep.md
+          - jsonpath: configuration/syntax/functions/jsonpath.md
+          - lookuplist: configuration/syntax/functions/lookuplist.md
+          - match: configuration/syntax/functions/match.md
+          - pathshorten: configuration/syntax/functions/pathshorten.md
+          - wc: configuration/syntax/functions/wc.md
       - configuration/syntax/custom-functions.md
-      - configuration/syntax/interpolation.md
   - Getting Started:
     - intro/install.md
     - intro/rules.md

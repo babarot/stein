@@ -8,6 +8,8 @@ Stein
 [license-badge]: https://img.shields.io/github/license/b4b4r07/stein.svg?style=popout
 [license-link]:  https://github.com/b4b4r07/stein/blob/master/LICENSE
 
+![](https://user-images.githubusercontent.com/4442708/66107167-8a83f800-e5fa-11e9-9719-f7f03624ee46.png)
+
 Stein is a linter for config files with a customizable rule set.
 Supported config file types are JSON, YAML and HCL for now.
 
