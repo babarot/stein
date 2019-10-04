@@ -157,10 +157,10 @@ Usage:
 
 ```hcl
 "${wc("foo\nbar baz")}"
-# => 2
+# => 1
 
 "${wc("foo\nbar baz", "c")}"
-# => 9
+# => 11
 
 "${wc("foo\nbar baz", "w")}"
 # => 3
