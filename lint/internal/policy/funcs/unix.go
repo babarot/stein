@@ -79,3 +79,16 @@ var WcFunc = function.New(&function.Spec{
 		return cty.NumberIntVal(lines), nil
 	},
 })
+
+// Grep returns the matched line from given text by using regex
+func Grep(pattern cty.Value, text cty.Value) (cty.Value, error) {
+	return GrepFunc.Call([]cty.Value{pattern, text})
+}
+
+// Wc counts the characters, words, or lines from given text
+func Wc(text cty.Value, opts ...cty.Value) (cty.Value, error) {
+	args := make([]cty.Value, len(opts)+1)
+	args[0] = text
+	copy(args[1:], opts)
+	return WcFunc.Call(args)
+}
