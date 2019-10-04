@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.2">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
     
     
       
@@ -68,6 +68,8 @@
     
     <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
     
+    
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     
     
       
@@ -422,8 +424,39 @@
 
 
   <li class="md-nav__item">
-    <a href="../../configuration/syntax/custom-functions/" title="Custom Functions" class="md-nav__link">
-      Custom Functions
+    <a href="../../configuration/syntax/interpolation/" title="Interpolation" class="md-nav__link">
+      Interpolation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4-3" type="checkbox" id="nav-2-4-3">
+    
+    <label class="md-nav__link" for="nav-2-4-3">
+      Built-in Funtions
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-2-4-3">
+        Built-in Funtions
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/color/" title="color" class="md-nav__link">
+      color
     </a>
   </li>
 
@@ -434,8 +467,121 @@
 
 
   <li class="md-nav__item">
-    <a href="../../configuration/syntax/interpolation/" title="Interpolation Syntax" class="md-nav__link">
-      Interpolation Syntax
+    <a href="../../configuration/syntax/functions/exist/" title="exist" class="md-nav__link">
+      exist
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/ext/" title="ext" class="md-nav__link">
+      ext
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/glob/" title="glob" class="md-nav__link">
+      glob
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/grep/" title="grep" class="md-nav__link">
+      grep
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/jsonpath/" title="jsonpath" class="md-nav__link">
+      jsonpath
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/lookuplist/" title="lookuplist" class="md-nav__link">
+      lookuplist
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/match/" title="match" class="md-nav__link">
+      match
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/pathshorten/" title="pathshorten" class="md-nav__link">
+      pathshorten
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/wc/" title="wc" class="md-nav__link">
+      wc
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/custom-functions/" title="Custom Functions" class="md-nav__link">
+      Custom Functions
     </a>
   </li>
 
@@ -689,24 +835,22 @@
 <h2 id="precompiled-binaries">Precompiled Binaries<a class="headerlink" href="#precompiled-binaries" title="Permanent link">#</a></h2>
 <p>To install the precompiled binary, download the appropriate package for your system. Stein is currently packaged as a zip file. We do not have any near term plans to provide system packages.</p>
 <p><a href="https://github.com/b4b4r07/stein/releases">Releases · b4b4r07/stein</a></p>
-<p>Once the zip is downloaded, unzip it into any directory. The stein binary inside is all that is necessary to run Stein (or <code>stein.exe</code> for Windows). Any additional files, if any, aren't required to run Stein.</p>
-<p>Copy the binary to anywhere on your system. If you intend to access it from the command-line, make sure to place it somewhere on your <code>PATH</code>.</p>
+<p>Once the zip is downloaded, unzip it into any directory. The stein binary inside is all that is necessary to run Stein (or <code class="codehilite">stein.exe</code> for Windows). Any additional files, if any, aren't required to run Stein.</p>
+<p>Copy the binary to anywhere on your system. If you intend to access it from the command-line, make sure to place it somewhere on your <code class="codehilite">PATH</code>.</p>
 <h2 id="compiling-from-source">Compiling from Source<a class="headerlink" href="#compiling-from-source" title="Permanent link">#</a></h2>
-<p>To compile from source, you will need <a href="https://golang.org/">Go</a> installed and configured properly (including a <code>GOPATH</code> environment variable set), as well as a copy of <a href="https://www.git-scm.com/">git</a> in your <code>PATH</code>.</p>
-<p>First, clone the Stein repository from GitHub into your <code>GOPATH</code>:</p>
+<p>To compile from source, you will need <a href="https://golang.org/">Go</a> installed and configured properly (including a <code class="codehilite">GOPATH</code> environment variable set), as well as a copy of <a href="https://www.git-scm.com/">git</a> in your <code class="codehilite">PATH</code>.</p>
+<p>First, clone the Stein repository from GitHub into your <code class="codehilite">GOPATH</code>:</p>
 <div class="codehilite"><pre><span></span><span class="gp">$</span> mkdir -p <span class="nv">$GOPATH</span>/src/github.com/b4b4r07 <span class="o">&amp;&amp;</span> <span class="nb">cd</span> <span class="nv">$_</span>
 <span class="gp">$</span> git clone https://github.com/b4b4r07/stein.git
 <span class="gp">$</span> <span class="nb">cd</span> stein
 </pre></div>
 
-
-<p>Then, build Stein for your current system and put the binary in <code>./bin/</code> (relative to the git checkout). The make dev target is just a shortcut that builds stein for only your local build environment (no cross-compiled targets).</p>
+<p>Then, build Stein for your current system and put the binary in <code class="codehilite">./bin/</code> (relative to the git checkout). The make dev target is just a shortcut that builds stein for only your local build environment (no cross-compiled targets).</p>
 <div class="codehilite"><pre><span></span><span class="gp">$</span> make build
 </pre></div>
 
-
 <h2 id="verifying-the-installation">Verifying the Installation<a class="headerlink" href="#verifying-the-installation" title="Permanent link">#</a></h2>
-<p>To verify Stein is properly installed, run <code>stein -h</code> on your system. You should see help output. If you are executing it from the command line, make sure it is on your <code>PATH</code> or you may get an error about Stein not being found.</p>
+<p>To verify Stein is properly installed, run <code class="codehilite">stein -h</code> on your system. You should see help output. If you are executing it from the command line, make sure it is on your <code class="codehilite">PATH</code> or you may get an error about Stein not being found.</p>
 <div class="codehilite"><pre><span></span><span class="gp">$</span> stein -h
 </pre></div>
                 
@@ -729,7 +873,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../../configuration/syntax/interpolation/" title="Interpolation Syntax" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../../configuration/syntax/custom-functions/" title="Custom Functions" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -738,7 +882,7 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Interpolation Syntax
+                Custom Functions
               </span>
             </div>
           </a>
@@ -793,7 +937,7 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.c648116f.js"></script>
+      <script src="../../assets/javascripts/application.ac79c3b0.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
       

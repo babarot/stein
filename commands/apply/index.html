@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.2">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
     
     
       
@@ -68,6 +68,8 @@
     
     <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
     
+    
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     
     
       
@@ -418,8 +420,39 @@
 
 
   <li class="md-nav__item">
-    <a href="../../configuration/syntax/custom-functions/" title="Custom Functions" class="md-nav__link">
-      Custom Functions
+    <a href="../../configuration/syntax/interpolation/" title="Interpolation" class="md-nav__link">
+      Interpolation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4-3" type="checkbox" id="nav-2-4-3">
+    
+    <label class="md-nav__link" for="nav-2-4-3">
+      Built-in Funtions
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-2-4-3">
+        Built-in Funtions
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/color/" title="color" class="md-nav__link">
+      color
     </a>
   </li>
 
@@ -430,8 +463,121 @@
 
 
   <li class="md-nav__item">
-    <a href="../../configuration/syntax/interpolation/" title="Interpolation Syntax" class="md-nav__link">
-      Interpolation Syntax
+    <a href="../../configuration/syntax/functions/exist/" title="exist" class="md-nav__link">
+      exist
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/ext/" title="ext" class="md-nav__link">
+      ext
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/glob/" title="glob" class="md-nav__link">
+      glob
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/grep/" title="grep" class="md-nav__link">
+      grep
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/jsonpath/" title="jsonpath" class="md-nav__link">
+      jsonpath
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/lookuplist/" title="lookuplist" class="md-nav__link">
+      lookuplist
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/match/" title="match" class="md-nav__link">
+      match
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/pathshorten/" title="pathshorten" class="md-nav__link">
+      pathshorten
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/wc/" title="wc" class="md-nav__link">
+      wc
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/custom-functions/" title="Custom Functions" class="md-nav__link">
+      Custom Functions
     </a>
   </li>
 
@@ -592,17 +738,16 @@
                 
                   <h1>Command: apply</h1>
                 
-                <p>The <code>stein apply</code> command is used to execute a policy locally for development purposes.</p>
+                <p>The <code class="codehilite">stein apply</code> command is used to execute a policy locally for development purposes.</p>
 <div class="codehilite"><pre><span></span><span class="n">Usage</span><span class="o">:</span> <span class="n">stein</span> <span class="n">apply</span> <span class="o">[</span><span class="n">options</span><span class="o">]</span> <span class="n">POLICY</span>
 </pre></div>
 
-
 <p>This command executes the policy file at the path specified by POLICY.</p>
 <p>The output will indicate whether the policy passed or failed. The exit code also reflects the status of the policy: 0 is pass, 1 is fail, 2 is undefined (fail, but because the result was undefined), and 2 is a runtime error.</p>
-<p>A configuration file can be specified with <code>-policy</code> to define available import plugins, mock data, and global values. This is used to simulate a policy embedded within an application. The documentation for this configuration file is below.</p>
+<p>A configuration file can be specified with <code class="codehilite">-policy</code> to define available import plugins, mock data, and global values. This is used to simulate a policy embedded within an application. The documentation for this configuration file is below.</p>
 <p>The command-line flags are all optional. The list of available flags are:</p>
 <ul>
-<li><a href="#policy-file"><code>-policy=file[,file,dir,...]</code></a> - Path to HCL file path or a directory path located in HCL files. You can specify multiple paths (directory or just HCL file) with a comma. The <code>STEIN_POLICY</code> variable is the environment variable version of this flag.</li>
+<li><a href="#policy-file"><code class="codehilite">-policy=file[,file,dir,...]</code></a> - Path to HCL file path or a directory path located in HCL files. You can specify multiple paths (directory or just HCL file) with a comma. The <code class="codehilite">STEIN_POLICY</code> variable is the environment variable version of this flag.</li>
 </ul>
 <p>See also <a href="../../configuration/load/">How policies are loaded by Stein</a></p>
                 
@@ -689,7 +834,7 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.c648116f.js"></script>
+      <script src="../../assets/javascripts/application.ac79c3b0.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
       

@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.2">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
     
     
       
@@ -68,6 +68,8 @@
     
     <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
     
+    
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     
     
       
@@ -422,8 +424,39 @@
 
 
   <li class="md-nav__item">
-    <a href="../../configuration/syntax/custom-functions/" title="Custom Functions" class="md-nav__link">
-      Custom Functions
+    <a href="../../configuration/syntax/interpolation/" title="Interpolation" class="md-nav__link">
+      Interpolation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4-3" type="checkbox" id="nav-2-4-3">
+    
+    <label class="md-nav__link" for="nav-2-4-3">
+      Built-in Funtions
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-2-4-3">
+        Built-in Funtions
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/color/" title="color" class="md-nav__link">
+      color
     </a>
   </li>
 
@@ -434,8 +467,121 @@
 
 
   <li class="md-nav__item">
-    <a href="../../configuration/syntax/interpolation/" title="Interpolation Syntax" class="md-nav__link">
-      Interpolation Syntax
+    <a href="../../configuration/syntax/functions/exist/" title="exist" class="md-nav__link">
+      exist
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/ext/" title="ext" class="md-nav__link">
+      ext
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/glob/" title="glob" class="md-nav__link">
+      glob
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/grep/" title="grep" class="md-nav__link">
+      grep
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/jsonpath/" title="jsonpath" class="md-nav__link">
+      jsonpath
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/lookuplist/" title="lookuplist" class="md-nav__link">
+      lookuplist
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/match/" title="match" class="md-nav__link">
+      match
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/pathshorten/" title="pathshorten" class="md-nav__link">
+      pathshorten
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/functions/wc/" title="wc" class="md-nav__link">
+      wc
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/syntax/custom-functions/" title="Custom Functions" class="md-nav__link">
+      Custom Functions
     </a>
   </li>
 
@@ -666,8 +812,8 @@
                 
                   <h1>Stein CLI Commands</h1>
                 
-                <p>Stein is controlled via a very easy to use command-line interface (CLI). Stein is only a single command-line application: <code>stein</code>. This application then takes a subcommand such as "apply" or "plan". The complete list of subcommands is in the navigation to the left.</p>
-<p>The Stein CLI is a well-behaved command line application. In erroneous cases, a non-zero exit status will be returned. It also responds to <code>-h</code> and <code>--help</code> as you'd expect. To view a list of the available commands at any time, just run <code>stein</code> with no arguments.</p>
+                <p>Stein is controlled via a very easy to use command-line interface (CLI). Stein is only a single command-line application: <code class="codehilite">stein</code>. This application then takes a subcommand such as "apply" or "plan". The complete list of subcommands is in the navigation to the left.</p>
+<p>The Stein CLI is a well-behaved command line application. In erroneous cases, a non-zero exit status will be returned. It also responds to <code class="codehilite">-h</code> and <code class="codehilite">--help</code> as you'd expect. To view a list of the available commands at any time, just run <code class="codehilite">stein</code> with no arguments.</p>
 <p>To view a list of the available commands at any time, just run stein with no arguments:</p>
 <div class="codehilite"><pre><span></span><span class="gp">$</span> stein
 <span class="go">Usage: stein [--version] [--help] &lt;command&gt; [&lt;args&gt;]</span>
@@ -677,8 +823,7 @@
 <span class="go">    fmt      Formats a policy source to a canonical format.</span>
 </pre></div>
 
-
-<p>To get help for any specific command, pass the <code>-h</code> flag to the relevant subcommand. For example, to see help about the apply subcommand:</p>
+<p>To get help for any specific command, pass the <code class="codehilite">-h</code> flag to the relevant subcommand. For example, to see help about the apply subcommand:</p>
 <div class="codehilite"><pre><span></span><span class="gp">$</span> stein apply -h
 <span class="go">Usage of apply:</span>
 <span class="go">  Applies a policy to arbitrary config files.</span>
@@ -688,13 +833,12 @@
 <span class="go">        path to the policy files or the directory where policy files are located</span>
 </pre></div>
 
-
 <h2 id="shell-tab-completion">Shell Tab-completion<a class="headerlink" href="#shell-tab-completion" title="Permanent link">#</a></h2>
 <p>TBD</p>
 <h2 id="debug-stein">Debug stein<a class="headerlink" href="#debug-stein" title="Permanent link">#</a></h2>
-<p>Stein has detailed logs which can be enabled by setting the <code>STEIN_LOG</code> environment variable to any value. This will cause detailed logs to appear on stderr.</p>
-<p>You can set <code>STEIN_LOG</code> to one of the log levels <code>TRACE</code>, <code>DEBUG</code>, <code>INFO</code>, <code>WARN</code> or <code>ERROR</code> to change the verbosity of the logs. <code>TRACE</code> is the most verbose and it is the default if <code>STEIN_LOG</code> is set to something other than a log level name.</p>
-<p>To persist logged output you can set <code>STEIN_LOG_PATH</code> in order to force the log to always be appended to a specific file when logging is enabled. Note that even when <code>STEIN_LOG_PATH</code> is set, <code>STEIN_LOG</code> must be set in order for any logging to be enabled.</p>
+<p>Stein has detailed logs which can be enabled by setting the <code class="codehilite">STEIN_LOG</code> environment variable to any value. This will cause detailed logs to appear on stderr.</p>
+<p>You can set <code class="codehilite">STEIN_LOG</code> to one of the log levels <code class="codehilite">TRACE</code>, <code class="codehilite">DEBUG</code>, <code class="codehilite">INFO</code>, <code class="codehilite">WARN</code> or <code class="codehilite">ERROR</code> to change the verbosity of the logs. <code class="codehilite">TRACE</code> is the most verbose and it is the default if <code class="codehilite">STEIN_LOG</code> is set to something other than a log level name.</p>
+<p>To persist logged output you can set <code class="codehilite">STEIN_LOG_PATH</code> in order to force the log to always be appended to a specific file when logging is enabled. Note that even when <code class="codehilite">STEIN_LOG_PATH</code> is set, <code class="codehilite">STEIN_LOG</code> must be set in order for any logging to be enabled.</p>
 <p>If you find a bug with Stein, please include the detailed log by using a service such as gist.</p>
                 
                   
@@ -780,7 +924,7 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.c648116f.js"></script>
+      <script src="../../assets/javascripts/application.ac79c3b0.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
       

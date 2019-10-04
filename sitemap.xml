@@ -46,12 +46,62 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://b4b4r07.github.io/stein/configuration/syntax/custom-functions/</loc>
+     <loc>https://b4b4r07.github.io/stein/configuration/syntax/interpolation/</loc>
      <lastmod>2019-10-04</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://b4b4r07.github.io/stein/configuration/syntax/interpolation/</loc>
+     <loc>https://b4b4r07.github.io/stein/configuration/syntax/functions/color/</loc>
+     <lastmod>2019-10-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://b4b4r07.github.io/stein/configuration/syntax/functions/exist/</loc>
+     <lastmod>2019-10-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://b4b4r07.github.io/stein/configuration/syntax/functions/ext/</loc>
+     <lastmod>2019-10-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://b4b4r07.github.io/stein/configuration/syntax/functions/glob/</loc>
+     <lastmod>2019-10-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://b4b4r07.github.io/stein/configuration/syntax/functions/grep/</loc>
+     <lastmod>2019-10-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://b4b4r07.github.io/stein/configuration/syntax/functions/jsonpath/</loc>
+     <lastmod>2019-10-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://b4b4r07.github.io/stein/configuration/syntax/functions/lookuplist/</loc>
+     <lastmod>2019-10-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://b4b4r07.github.io/stein/configuration/syntax/functions/match/</loc>
+     <lastmod>2019-10-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://b4b4r07.github.io/stein/configuration/syntax/functions/pathshorten/</loc>
+     <lastmod>2019-10-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://b4b4r07.github.io/stein/configuration/syntax/functions/wc/</loc>
+     <lastmod>2019-10-04</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://b4b4r07.github.io/stein/configuration/syntax/custom-functions/</loc>
      <lastmod>2019-10-04</lastmod>
      <changefreq>daily</changefreq>
     </url>

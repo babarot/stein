@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.2">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
     
     
       
@@ -68,6 +68,8 @@
     
     <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
     
+    
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     
     
       
@@ -424,6 +426,162 @@
           
           
 
+
+  <li class="md-nav__item">
+    <a href="../interpolation/" title="Interpolation" class="md-nav__link">
+      Interpolation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4-3" type="checkbox" id="nav-2-4-3">
+    
+    <label class="md-nav__link" for="nav-2-4-3">
+      Built-in Funtions
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-2-4-3">
+        Built-in Funtions
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../functions/color/" title="color" class="md-nav__link">
+      color
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../functions/exist/" title="exist" class="md-nav__link">
+      exist
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../functions/ext/" title="ext" class="md-nav__link">
+      ext
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../functions/glob/" title="glob" class="md-nav__link">
+      glob
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../functions/grep/" title="grep" class="md-nav__link">
+      grep
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../functions/jsonpath/" title="jsonpath" class="md-nav__link">
+      jsonpath
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../functions/lookuplist/" title="lookuplist" class="md-nav__link">
+      lookuplist
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../functions/match/" title="match" class="md-nav__link">
+      match
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../functions/pathshorten/" title="pathshorten" class="md-nav__link">
+      pathshorten
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../functions/wc/" title="wc" class="md-nav__link">
+      wc
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
   
 
 
@@ -484,18 +642,6 @@
   
 </nav>
     
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../interpolation/" title="Interpolation Syntax" class="md-nav__link">
-      Interpolation Syntax
-    </a>
   </li>
 
         
@@ -720,12 +866,11 @@
 <span class="p">}</span>
 </pre></div>
 
-
-<p>Predefined keywords to be used in <code>function</code> block is:</p>
+<p>Predefined keywords to be used in <code class="codehilite">function</code> block is:</p>
 <ul>
-<li><code>params</code>: Arguments for the function.</li>
-<li><code>variadic_param</code>: Variable-length argument list. It can be omitted.</li>
-<li><code>result</code>: Return value. It can take not only just string but also other functions, variables, etc.</li>
+<li><code class="codehilite">params</code>: Arguments for the function.</li>
+<li><code class="codehilite">variadic_param</code>: Variable-length argument list. It can be omitted.</li>
+<li><code class="codehilite">result</code>: Return value. It can take not only just string but also other functions, variables, etc.</li>
 </ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">#</a></h2>
 <div class="codehilite"><pre><span></span><span class="kd">function</span> <span class="s2">&quot;remove_ext&quot;</span> <span class="p">{</span>
@@ -735,7 +880,6 @@
 
 <span class="err">#</span> <span class="s2">&quot;${remove_ext(&quot;</span><span class="o">/</span><span class="nx">path</span><span class="o">/</span><span class="nx">to</span><span class="o">/</span><span class="nx">secret</span><span class="p">.</span><span class="nx">txt</span><span class="s2">&quot;)}&quot;</span> <span class="o">=&gt;</span> <span class="nx">secret</span>
 </pre></div>
-
 
 <div class="codehilite"><pre><span></span><span class="nx">variable</span> <span class="s2">&quot;shortened_environment&quot;</span> <span class="p">{</span>
   <span class="nx">description</span> <span class="o">=</span> <span class="s2">&quot;Shortened environment, such as prod, dev&quot;</span>
@@ -775,7 +919,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../_index/" title="Introduction" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../functions/wc/" title="wc" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -784,19 +928,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Introduction
+                wc
               </span>
             </div>
           </a>
         
         
-          <a href="../interpolation/" title="Interpolation Syntax" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../../../intro/install/" title="Installing Stein" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Interpolation Syntax
+                Installing Stein
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -839,7 +983,7 @@
       
     </div>
     
-      <script src="../../../assets/javascripts/application.c648116f.js"></script>
+      <script src="../../../assets/javascripts/application.ac79c3b0.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
       
