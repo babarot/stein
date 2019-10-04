@@ -36,7 +36,7 @@ extra:
 # Repository
 repo_name: b4b4r07/stein
 repo_url: https://github.com/b4b4r07/stein
-edit_uri: ""
+edit_uri: edit/master/docs
 
 # Copyright
 copyright: 'Copyright &copy; 2019 Masaki ISHIYAMA'
