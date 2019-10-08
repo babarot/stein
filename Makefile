@@ -33,19 +33,23 @@ release: ## Build for multiple OSs, packaging it and upload to GitHub Release
 	@bash <(wget -o /dev/null -qO - https://git.io/release-go)
 
 .PHONY: help
-help: ## Self-documented Makefile
+help: ## Show help message for Makefile target
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
 		| sort \
 		| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-.PHONY: build-docs
-build-docs:
+.PHONY: docs-build
+docs-build: ## Build documentations with mkdocs
 	@docker build -t mkdocs docs
 
-.PHONY: live-docs
-live-docs: build-docs
+.PHONY: docs-live
+docs-live: build-docs ## Live viewing with mkdocs
 	@docker run --rm -it -p 3000:3000 -v ${PWD}:/docs mkdocs
 
-.PHONY: deploy-docs
-deploy-docs: build-docs
+.PHONY: docs-deploy
+docs-deploy: build-docs ## Deploy generated documentations to gh-pages
 	@docker run --rm -it -v ${PWD}:/docs -v ~/.ssh:/root/.ssh mkdocs mkdocs gh-deploy
+
+.PHONY: test
+test: ## Run test
+	@go test -v -race ./...
