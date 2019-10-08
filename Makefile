@@ -47,7 +47,7 @@ docs-live: build-docs ## Live viewing with mkdocs
 	@docker run --rm -it -p 3000:3000 -v ${PWD}:/docs mkdocs
 
 .PHONY: docs-deploy
-docs-deploy: build-docs ## Deploy generated documentations to gh-pages
+docs-deploy: docs-build ## Deploy generated documentations to gh-pages
 	@docker run --rm -it -v ${PWD}:/docs -v ~/.ssh:/root/.ssh mkdocs mkdocs gh-deploy
 
 .PHONY: test
