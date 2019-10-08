@@ -80,6 +80,24 @@ test:
 			cty.StringVal("maxSurge"),
 			cty.StringVal("100%"),
 		},
+		{
+			"strict_boolean.json",
+			[]byte(`{"ok": true}`),
+			cty.StringVal("ok"),
+			cty.BoolVal(true),
+		},
+		{
+			"strict_boolean.json",
+			[]byte(`{"ok": "true"}`),
+			cty.StringVal("ok"),
+			cty.BoolVal(true),
+		},
+		{
+			"strict_boolean.json",
+			[]byte(`{"ok": "false"}`),
+			cty.StringVal("ok"),
+			cty.BoolVal(false),
+		},
 	}
 
 	for _, test := range tests {
