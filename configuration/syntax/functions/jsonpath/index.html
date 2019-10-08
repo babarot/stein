@@ -93,7 +93,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#jsonpath" tabindex="1" class="md-skip">
+      <a href="#jsonpathquery" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -820,8 +820,8 @@
                   <a href="https://github.com/b4b4r07/stein/edit/master/docs/configuration/syntax/functions/jsonpath.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="jsonpath">jsonpath()<a class="headerlink" href="#jsonpath" title="Permanent link">#</a></h1>
-<p>Coming soon.</p>
+                <h1 id="jsonpathquery">jsonpath(query)<a class="headerlink" href="#jsonpathquery" title="Permanent link">#</a></h1>
+<p>This function returns the value corresponding to given query. The query should be followed JSONPATH. However, as of now, this jsonpath function uses <a href="https://github.com/tidwall/gjson">tidwall/gjson</a> package as JSONPATH internally. So basically for now, please refer to <a href="https://godoc.org/github.com/tidwall/gjson">its godoc page</a>.</p>
 <h2 id="type">Type<a class="headerlink" href="#type" title="Permanent link">#</a></h2>
 <table>
 <thead>
@@ -832,14 +832,106 @@
 </thead>
 <tbody>
 <tr>
-<td>-</td>
-<td>-</td>
+<td>string</td>
+<td>string / number / list / map</td>
 </tr>
 </tbody>
 </table>
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">#</a></h2>
-<div class="codehilite"><pre><span></span>
+<p>Let's say you run some queries with <code class="codehilite">jsonpath</code> function in your rule file against the following <a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/">Kubernetes Deployment</a> manifest file.</p>
+<div class="admonition info">
+<p class="admonition-title">A example manifest file for Kubernetes Deployment</p>
+<p>These config files listed with three format are the same. Technically Kubernetes allows to accept only JSON and YAML as manifest file. A HCL code listed here is just a example for explaining HCL is the compatible for JSON and YAML.</p>
+<div class="superfences-tabs">
+<input name="__tabs_1" type="radio" id="__tab_1_0" checked="checked" />
+<label for="__tab_1_0">JSON</label>
+<div class="superfences-content"><div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span> <span class="s2">&quot;extensions/v1beta1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;Deployment&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;nginx&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;spec&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;replicas&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;template&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;labels&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;run&quot;</span><span class="p">:</span> <span class="s2">&quot;nginx&quot;</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;spec&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;containers&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;nginx&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;image&quot;</span><span class="p">:</span> <span class="s2">&quot;nginx:1.11&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;ports&quot;</span><span class="p">:</span> <span class="p">[</span>
+              <span class="p">{</span>
+                <span class="nt">&quot;containerPort&quot;</span><span class="p">:</span> <span class="mi">80</span>
+              <span class="p">}</span>
+            <span class="p">]</span>
+          <span class="p">}</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></div>
+<input name="__tabs_1" type="radio" id="__tab_1_1" />
+<label for="__tab_1_1">YAML</label>
+<div class="superfences-content"><div class="codehilite"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">extensions/v1beta1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Deployment</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<span class="nt">spec</span><span class="p">:</span>
+  <span class="nt">replicas</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+  <span class="nt">template</span><span class="p">:</span>
+    <span class="nt">metadata</span><span class="p">:</span>
+      <span class="nt">labels</span><span class="p">:</span>
+        <span class="nt">run</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">nginx</span>
+    <span class="nt">spec</span><span class="p">:</span>
+      <span class="nt">containers</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">nginx</span>
+        <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">nginx:1.11</span>
+        <span class="nt">ports</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">containerPort</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
+</pre></div></div>
+<input name="__tabs_1" type="radio" id="__tab_1_2" />
+<label for="__tab_1_2">HCL</label>
+<div class="superfences-content"><div class="codehilite"><pre><span></span><span class="s2">&quot;apiVersion&quot; = &quot;extensions/v1beta1&quot;</span>
+
+<span class="s2">&quot;kind&quot; = &quot;Deployment&quot;</span>
+
+<span class="s2">&quot;metadata&quot;</span> <span class="o">=</span> <span class=" -Punctuation">{</span>
+<span class="na">  &quot;name&quot;</span> <span class="o">=</span> <span class="s2">&quot;nginx&quot;</span>
+<span class=" -Punctuation">}</span>
+
+<span class="s2">&quot;spec&quot;</span> <span class="o">=</span> <span class=" -Punctuation">{</span>
+<span class="na">  &quot;replicas&quot;</span> <span class="o">=</span> <span class="m">2</span>
+
+  <span class="s2">&quot;template&quot; &quot;metadata&quot; &quot;labels&quot;</span> <span class=" -Punctuation">{</span>
+<span class="na">    &quot;run&quot;</span> <span class="o">=</span> <span class="s2">&quot;nginx&quot;</span>
+  <span class=" -Punctuation">}</span>
+
+  <span class="s2">&quot;template&quot; &quot;spec&quot;</span> <span class=" -Punctuation">{</span>
+<span class="na">    &quot;containers&quot;</span> <span class="o">=</span> <span class=" -Punctuation">{</span>
+<span class="na">      &quot;image&quot;</span> <span class="o">=</span> <span class="s2">&quot;nginx:1.11&quot;</span>
+
+<span class="na">      &quot;name&quot;</span> <span class="o">=</span> <span class="s2">&quot;nginx&quot;</span>
+
+<span class="na">      &quot;ports&quot;</span> <span class="o">=</span> <span class=" -Punctuation">{</span>
+<span class="na">        &quot;containerPort&quot;</span> <span class="o">=</span> <span class="m">80</span>
+      <span class=" -Punctuation">}</span>
+    <span class=" -Punctuation">}</span>
+  <span class=" -Punctuation">}</span>
+<span class=" -Punctuation">}</span>
+</pre></div></div>
+</div>
+</div>
+<p>First, let's say to use this query against above manifest file.</p>
+<div class="codehilite"><pre><span></span>jsonpath(&quot;spec.replicas&quot;)
 </pre></div>
+
+<p>It will return <code class="codehilite">2</code> (type is number).</p>
                 
                   
                 
