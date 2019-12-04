@@ -80,7 +80,7 @@ func GJSONFunc(file string, data []byte) function.Function {
 				defaultVal = args[1]
 			}
 			b, err := getJSON(query, file, data)
-			if err != nil {
+			if err != nil || len(b) == 0 {
 				return defaultVal, nil
 			}
 			switch b[0] {
