@@ -98,6 +98,12 @@ test:
 			cty.StringVal("ok"),
 			cty.BoolVal(false),
 		},
+		{
+			"empty_string_value.json",
+			[]byte(`{"ok": ""}`),
+			cty.StringVal("ok"),
+			cty.StringVal(""),
+		},
 	}
 
 	for _, test := range tests {
