@@ -30,7 +30,7 @@ run: build ## Run example script
 
 .PHONY: release
 release: ## Build for multiple OSs, packaging it and upload to GitHub Release
-	@bash <(wget -o /dev/null -qO - https://git.io/release-go)
+	@bash ./scripts/release.sh
 
 .PHONY: help
 help: ## Show help message for Makefile target
