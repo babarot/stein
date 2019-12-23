@@ -99,7 +99,7 @@ func filesFromArgs(args []string, additionals ...string) (files []File, err erro
 
 			v, err := hclconvert.ConvertFile(f)
 			if err != nil {
-				return files, fmt.Errorf("unable to convert HCL: %s", d.Error())
+				return files, fmt.Errorf("unable to convert HCL: %s", err)
 			}
 
 			data, err := json.MarshalIndent(v, "", "  ")
