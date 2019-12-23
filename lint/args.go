@@ -10,12 +10,14 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/b4b4r07/stein/lint/internal/policy"
-	"github.com/b4b4r07/stein/lint/internal/policy/loader"
-	"github.com/hashicorp/hcl"
-	hcl2 "github.com/hashicorp/hcl2/hcl"
+	"github.com/hashicorp/hcl2/hcl"
+	"github.com/hashicorp/hcl2/hcl/hclsyntax"
 
 	"k8s.io/apimachinery/pkg/util/yaml"
+
+	"github.com/b4b4r07/stein/lint/hclconvert"
+	"github.com/b4b4r07/stein/lint/internal/policy"
+	"github.com/b4b4r07/stein/lint/internal/policy/loader"
 )
 
 // File represents the files to be linted
@@ -31,7 +33,7 @@ type File struct {
 	// because policy applied to the file should be determined by each file
 	Policy loader.Policy
 
-	Diagnostics hcl2.Diagnostics
+	Diagnostics hcl.Diagnostics
 }
 
 // filesFromArgs converts from given arguments to the collection of File object
@@ -39,7 +41,7 @@ func filesFromArgs(args []string, additionals ...string) (files []File, err erro
 	log.Printf("[TRACE] converting from args to lint.Files\n")
 
 	for _, arg := range args {
-		var diags hcl2.Diagnostics
+		var diags hcl.Diagnostics
 		log.Printf("[INFO] converting lint.File: %s\n", arg)
 		policies := loader.SearchPolicyDir(arg)
 		policies = append(policies, additionals...)
@@ -48,7 +50,7 @@ func filesFromArgs(args []string, additionals ...string) (files []File, err erro
 		loadedPolicy, err := loader.Load(policies...)
 		if err != nil {
 			switch e := err.(type) {
-			case hcl2.Diagnostics:
+			case hcl.Diagnostics:
 				log.Printf("[DEBUG] diags reported from loader.Load in fileFromArg\n")
 				diags = append(diags, e...)
 			case error:
@@ -90,15 +92,21 @@ func filesFromArgs(args []string, additionals ...string) (files []File, err erro
 			if err != nil {
 				return files, err
 			}
-			var v interface{}
-			err = hcl.Unmarshal(contents, &v)
-			if err != nil {
-				return files, fmt.Errorf("unable to parse HCL: %s", err)
+			f, d := hclsyntax.ParseConfig(contents, arg, hcl.Pos{Line: 1, Column: 1})
+			if d.HasErrors() {
+				return files, fmt.Errorf("unable to parse HCL: %s", d.Error())
 			}
+
+			v, err := hclconvert.ConvertFile(f)
+			if err != nil {
+				return files, fmt.Errorf("unable to convert HCL: %s", err)
+			}
+
 			data, err := json.MarshalIndent(v, "", "  ")
 			if err != nil {
 				return files, fmt.Errorf("unable to marshal json: %s", err)
 			}
+
 			files = append(files, File{
 				Path:        arg,
 				Data:        data,
