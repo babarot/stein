@@ -33,9 +33,7 @@ func (bt *blockTree) out() map[string][]interface{} {
 
 	} else if len(bt.values) > 0 {
 		out[bt.name] = make([]interface{}, len(bt.values))
-		for i, v := range bt.values {
-			out[bt.name][i] = v
-		}
+		copy(out[bt.name], bt.values)
 		return out
 	}
 	return nil
