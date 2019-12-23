@@ -73,7 +73,7 @@ func (c *converter) convertBlock(block *hclsyntax.Block, out jsonObj) error {
 	if _, ok := out[key]; ok {
 		tmp := map[string][]interface{}{}
 		tmp[key] = out[key].([]interface{})
-		result = mergeSliceMap(result, tmp)
+		result = mergeSliceMap(tmp, result)
 	}
 	out[key] = result[key]
 
