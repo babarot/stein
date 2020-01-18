@@ -2,137 +2,137 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
      <loc>https://b4b4r07.github.io/stein/concepts/policy-as-code/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/concepts/policy/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/configuration/_index/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/configuration/load/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/configuration/policy/rules/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/configuration/policy/config/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/configuration/policy/variables/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/configuration/policy/functions/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/configuration/syntax/_index/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/configuration/syntax/interpolation/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/configuration/syntax/functions/color/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/configuration/syntax/functions/exist/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/configuration/syntax/functions/ext/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/configuration/syntax/functions/glob/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/configuration/syntax/functions/grep/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/configuration/syntax/functions/jsonpath/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/configuration/syntax/functions/lookuplist/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/configuration/syntax/functions/match/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/configuration/syntax/functions/pathshorten/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/configuration/syntax/functions/wc/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/configuration/syntax/custom-functions/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/intro/install/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/intro/rules/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/intro/run/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/commands/_index/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/commands/apply/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://b4b4r07.github.io/stein/commands/fmt/</loc>
-     <lastmod>2019-10-08</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
