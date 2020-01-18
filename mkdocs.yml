@@ -15,6 +15,10 @@ theme:
   # feature:
   #   tabs: true
 
+google_analytics:
+  - 'UA-44183504-3'
+  - 'auto'
+
 markdown_extensions:
   - fontawesome_markdown
   - meta
