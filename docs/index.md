@@ -24,3 +24,5 @@ Then, it became necessary to set the lint or policy for the config files.
 As an example: the namespace of Kubernetes to be deployed, the number of replicas of Pods, the naming convention of a namespace, etc.
 
 This tool makes it possible to describe those requests as code (called as the [rules](./configuration/policy/rules.md)).
+
+Enjoy!
