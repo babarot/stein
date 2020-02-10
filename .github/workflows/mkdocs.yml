@@ -4,7 +4,8 @@ on:
     branches:
       - master
     paths:
-      - docs/**/*
+      - 'docs/*.md'
+      - 'docs/**/*.md'
 
 jobs:
   build:
@@ -13,7 +14,6 @@ jobs:
     steps:
       - name: Checkout master
         uses: actions/checkout@v1
-
       - name: Deploy docs
         uses: mhausenblas/mkdocs-deploy-gh-pages@master
         env:
