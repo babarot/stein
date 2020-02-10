@@ -3,15 +3,26 @@ stein
 
 ![test](https://github.com/b4b4r07/stein/workflows/test/badge.svg)
 ![release](https://github.com/b4b4r07/stein/workflows/release/badge.svg)
+[![docs](https://github.com/b4b4r07/stein/workflows/docs/badge.svg)][docs]
 
-[![][release-badge]][release-link] [![][license-badge]][license-link] [![][report-budge]][report-link]
+[docs]: https://babarot.me/stein
+
+[![][release-badge]][release-link] [![][license-badge]][license-link] [![][report-badge]][report-link] [![][go-version-badge]][go-version-link] [![][website-badge]][website-link]
 
 [release-badge]: https://img.shields.io/github/release/b4b4r07/stein.svg?style=popout
 [release-link]:  https://github.com/b4b4r07/stein/releases
+
 [license-badge]: https://img.shields.io/github/license/b4b4r07/stein.svg?style=popout
 [license-link]:  https://b4b4r07.mit-license.org
-[report-budge]:  https://goreportcard.com/badge/github.com/b4b4r07/stein
-[report-link]:   https://goreportcard.com/report/github.com/b4b4r07/stein
+
+[report-badge]: https://goreportcard.com/badge/github.com/b4b4r07/stein
+[report-link]:  https://goreportcard.com/report/github.com/b4b4r07/stein
+
+[go-version-badge]: https://img.shields.io/github/go-mod/go-version/b4b4r07/stein
+[go-version-link]:  https://github.com/b4b4r07/stein/blob/master/go.mod
+
+[website-badge]: https://img.shields.io/website?down_color=lightgrey&down_message=donw&up_color=green&up_message=up&url=https%3A%2F%2Fb4b4r07.github.io%2Fstein
+[website-link]:  https://b4b4r07.github.io/stein/
 
 Stein is a linter for config files with a customizable rule set.
 Supported config file types are JSON, YAML and HCL for now.
