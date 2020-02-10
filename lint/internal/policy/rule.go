@@ -66,7 +66,6 @@ func decodeRuleBlock(block *hcl.Block) (*Rule, hcl.Diagnostics) {
 			// if locals != nil {
 			// 	rule.Locals = locals
 			// }
-			// pp.Println(locals)
 			// rule.Locals = append(rule.Locals, locals...)
 		case "report":
 			report, reportDiags := decodeReportBlock(block)

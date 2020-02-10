@@ -18,7 +18,6 @@ import (
 	"github.com/fatih/color"
 	"github.com/hashicorp/hcl2/gohcl"
 	"github.com/hashicorp/hcl2/hcl"
-	"github.com/k0kubun/pp"
 )
 
 const (
@@ -247,7 +246,7 @@ func (l *Linter) Run(file File) (Result, error) {
 		}
 
 		for _, debug := range rule.Debugs {
-			pp.Println(debug)
+			log.Printf("[TRACE] %#v\n", debug)
 		}
 
 		log.Printf("[TRACE] result: %v\n", logging.Dump(result.Items[len(result.Items)-1]))
