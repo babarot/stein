@@ -28,10 +28,6 @@ run: build ## Run example script
 		_examples/manifests/microservices/*/*/*/* \
 		_examples/spinnaker/*/*/*
 
-.PHONY: release
-release: ## Build for multiple OSs, packaging it and upload to GitHub Release
-	@bash ./scripts/release.sh
-
 .PHONY: help
 help: ## Show help message for Makefile target
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
