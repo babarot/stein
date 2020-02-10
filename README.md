@@ -1,11 +1,13 @@
 stein
 =====
 
-![test](https://github.com/b4b4r07/stein/workflows/test/badge.svg)
-![release](https://github.com/b4b4r07/stein/workflows/release/badge.svg)
+[![test](https://github.com/b4b4r07/stein/workflows/test/badge.svg)][test]
+[![release](https://github.com/b4b4r07/stein/workflows/release/badge.svg)][release]
 [![docs](https://github.com/b4b4r07/stein/workflows/docs/badge.svg)][docs]
 
-[docs]: https://babarot.me/stein
+[test]: https://github.com/b4b4r07/stein/actions?query=workflow%3Atest
+[release]: https://github.com/b4b4r07/stein/actions?query=workflow%3Arelease
+[docs]: https://github.com/b4b4r07/stein/actions?query=workflow%3Adocs
 
 [![][release-badge]][release-link] [![][license-badge]][license-link] [![][report-badge]][report-link] [![][go-version-badge]][go-version-link] [![][website-badge]][website-link]
 
@@ -21,8 +23,8 @@ stein
 [go-version-badge]: https://img.shields.io/github/go-mod/go-version/b4b4r07/stein
 [go-version-link]:  https://github.com/b4b4r07/stein/blob/master/go.mod
 
-[website-badge]: https://img.shields.io/website?down_color=lightgrey&down_message=donw&up_color=green&up_message=up&url=https%3A%2F%2Fb4b4r07.github.io%2Fstein
-[website-link]:  https://b4b4r07.github.io/stein/
+[website-badge]: https://img.shields.io/website?down_color=lightgrey&down_message=down&up_color=green&up_message=up&url=https%3A%2F%2Fbabarot.me%2Fstein
+[website-link]:  https://babarot.me/stein
 
 Stein is a linter for config files with a customizable rule set.
 Supported config file types are JSON, YAML and HCL for now.
@@ -43,4 +45,4 @@ This tool makes it possible to describe those requests as code (called as the [r
 
 ## Documentations
 
-[Stein Documentations](https://b4b4r07.github.io/stein/)
+[Stein Documentations][website-link]
