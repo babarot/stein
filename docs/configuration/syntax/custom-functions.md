@@ -43,7 +43,7 @@ Predefined keywords to be used in `function` block is:
 
 - `params`: Arguments for the function.
 - `variadic_param`: Variable-length argument list. It can be omitted.
-- `result`: Return value. It can take not only just string but also other functions, variables, etc.
+- `result`: Return value. It can take not only just string but also other functions, variables and etc.
 
 ## Examples
 
