@@ -1,28 +1,28 @@
-# This is an example goreleaser.yaml file with some sane defaults.
-# Make sure to check the documentation at http://goreleaser.com
+project_name: stein
+env:
+  - GO111MODULE=on
+before:
+  hooks:
+    - go mod tidy
 builds:
-  - binary: stein
-    goos:
-      - darwin
-      - linux
-    goarch:
-      - amd64
+  - main: .
+    binary: stein
     ldflags:
-     - -X main.Version={{.Version}}
-archive:
-  format: zip
-  name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
-  files:
-    - README.md
-    - CHANGELOG.md
-    - docs/**/*.md
+      - -s -w
+      - -X main.Version={{.Version}}
+      - -X main.Revision={{.ShortCommit}}
+    env:
+      - CGO_ENABLED=0
+archives:
+  - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
+    replacements:
+      darwin: darwin
+      linux: linux
+      windows: windows
+      386: i386
+      amd64: x86_64
+    format_overrides:
+      - goos: windows
+        format: zip
 release:
-  github:
-    owner: b4b4r07
-    name: stein
-changelog:
-  sort: asc
-  filters:
-    exclude:
-    - '^docs:'
-    - '^test:'
+  prerelease: auto

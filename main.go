@@ -14,8 +14,9 @@ import (
 const (
 	// AppName is the application name
 	AppName = "stein"
-	// Version is the application version
-	Version = "0.3.0"
+
+	Version  = "unset"
+	Revision = "unset"
 
 	envEnvPrefix = "STEIN_"
 )
@@ -33,7 +34,7 @@ func main() {
 	}
 	log.SetOutput(logWriter)
 
-	log.Printf("[INFO] Stein version: %s", Version)
+	log.Printf("[INFO] Stein version: %s (%s)", Version, Revision)
 	log.Printf("[INFO] Go runtime version: %s", runtime.Version())
 	log.Printf("[INFO] CLI args: %#v", os.Args)
 
