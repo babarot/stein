@@ -23,6 +23,12 @@ Once the zip is downloaded, unzip it into any directory. The stein binary inside
 
 Copy the binary to anywhere on your system. If you intend to access it from the command-line, make sure to place it somewhere on your `PATH`.
 
+If you're macOS user and using [Homebrew](https://brew.sh/), you can install via brew command:
+
+```console
+$ brew install b4b4r07/tap/stein
+```
+
 ## Compiling from Source
 
 To compile from source, you will need [Go](https://golang.org/) installed and configured properly (including a `GOPATH` environment variable set), as well as a copy of [git](https://www.git-scm.com/) in your `PATH`.
