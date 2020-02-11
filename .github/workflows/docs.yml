@@ -7,7 +7,7 @@ on:
     paths:
     - 'mkdocs.yml'
     - 'docs/**'
-    - '.github/workflows/docs.yml' # Self-trigger
+    - '.github/workflows/docs.yml'
 
 jobs:
   deploy:
