@@ -1,6 +1,7 @@
 package lint
 
 import (
+	"bufio"
 	"testing"
 )
 
@@ -110,5 +111,12 @@ func Test_filesFromArgs(t *testing.T) {
 				t.Errorf("wrong result: got: %#v, want: %#v", got, test.Want)
 			}
 		})
+	}
+}
+
+func Test_handleYAML_LineTooLong(t *testing.T) {
+	_, err := handleYAML("testdata/line-too-long.yaml")
+	if err != bufio.ErrTooLong {
+		t.Fatalf("want %q, got %q", bufio.ErrTooLong, err)
 	}
 }
