@@ -142,6 +142,9 @@ func handleYAML(path string) (files []File, err error) {
 		if err == io.EOF {
 			break
 		}
+		if err != nil {
+			return files, err
+		}
 		documents = append(documents, bytes.Trim(res, "\x00"))
 	}
 
