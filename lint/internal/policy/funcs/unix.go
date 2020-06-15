@@ -3,6 +3,7 @@ package funcs
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"regexp"
 	"strings"
 
@@ -27,15 +28,22 @@ var GrepFunc = function.New(&function.Spec{
 		pattern := args[0].AsString()
 		text := args[1].AsString()
 		var matches []string
-		in := strings.NewReader(text)
-		scanner := bufio.NewScanner(in)
-		for scanner.Scan() {
-			matched, err := regexp.MatchString(pattern, scanner.Text())
+
+		r := bufio.NewReader(strings.NewReader(text))
+		for {
+			l, err := r.ReadString('\n')
+			if err == io.EOF {
+				break
+			} else if err != nil {
+				return cty.NilVal, err
+			}
+			l = strings.TrimRight(l, "\n")
+			matched, err := regexp.MatchString(pattern, l)
 			if err != nil {
 				return cty.NilVal, err
 			}
 			if matched {
-				matches = append(matches, scanner.Text())
+				matches = append(matches, l)
 			}
 		}
 		return cty.StringVal(strings.Join(matches, "\n")), nil

@@ -1,10 +1,21 @@
 package funcs
 
 import (
+	"bufio"
+	"math/rand"
 	"testing"
 
 	"github.com/zclconf/go-cty/cty"
 )
+
+func RandomString(n int) string {
+	var letter = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = letter[rand.Intn(len(letter))]
+	}
+	return string(b)
+}
 
 func TestGrep(t *testing.T) {
 	tests := map[string]struct {
@@ -21,6 +32,11 @@ func TestGrep(t *testing.T) {
 			cty.StringVal("buz"),
 			cty.StringVal("test\nhogehoge\nfoo\nbar\n"),
 			cty.StringVal(""),
+		},
+		"MatchLongString": {
+			cty.StringVal("hoge"),
+			cty.StringVal(RandomString(bufio.MaxScanTokenSize) + "\nhogehoge\nfoo\nbar\nhogebaz\n" + RandomString(bufio.MaxScanTokenSize+1)),
+			cty.StringVal("hogehoge\nhogebaz"),
 		},
 	}
 
