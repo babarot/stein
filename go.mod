@@ -21,7 +21,5 @@ require (
 	github.com/tidwall/gjson v1.1.3
 	github.com/tidwall/match v1.0.1 // indirect
 	github.com/zclconf/go-cty v1.1.1
-	k8s.io/apimachinery v0.0.0-20181127025237-2b1284ed4c93
-	k8s.io/klog v0.0.0-20181108234604-8139d8cb77af // indirect
-	sigs.k8s.io/yaml v1.1.0 // indirect
+	k8s.io/apimachinery v0.19.0-beta.2
 )

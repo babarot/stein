@@ -2,6 +2,9 @@ package lint
 
 import (
 	"bufio"
+	"io/ioutil"
+	"os"
+	"strings"
 	"testing"
 )
 
@@ -114,8 +117,27 @@ func Test_filesFromArgs(t *testing.T) {
 	}
 }
 
+// This test is based on https://github.com/kubernetes/apimachinery/blob/d8530e6c952f75365336be8ea29cfd758ce49ee8/pkg/util/yaml/decoder_test.go#L57-L82
 func Test_handleYAML_LineTooLong(t *testing.T) {
-	_, err := handleYAML("testdata/line-too-long.yaml")
+	tmpfile, err := ioutil.TempFile("", "Test_handleYAML_LineTooLong")
+	if err != nil {
+		t.Fatalf("failed to create temporary file: %s", err)
+	}
+	defer os.Remove(tmpfile.Name())
+
+	d := `
+stuff: 1
+`
+	//  maxLen 5 M
+	dd := strings.Repeat(d, 512*1024)
+	if _, err := tmpfile.WriteString(dd); err != nil {
+		t.Fatalf("failed to write to temporary file: %s", err)
+	}
+	if err := tmpfile.Close(); err != nil {
+		t.Fatalf("failed to close temporary file: %s", err)
+	}
+
+	_, err = handleYAML(tmpfile.Name())
 	if err != bufio.ErrTooLong {
 		t.Fatalf("want %q, got %q", bufio.ErrTooLong, err)
 	}
