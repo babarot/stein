@@ -11,6 +11,6 @@ string, string | boolean
 ## Usage
 
 ```hcl
-"${match("abcdef", "^a")}"
+"${match("^a", "abcdef")}"
 # => true
 ```
