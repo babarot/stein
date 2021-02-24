@@ -1,6 +1,8 @@
 stein
 =====
 
+***2021-02-24 Currently [opa](https://github.com/open-policy-agent/conftest) testing framework is better than this approach. Please do not use this project except for HCL lovers.***
+
 [![test](https://github.com/b4b4r07/stein/workflows/test/badge.svg)][test]
 [![release](https://github.com/b4b4r07/stein/workflows/release/badge.svg)][release]
 [![docs](https://github.com/b4b4r07/stein/workflows/docs/badge.svg)][docs]
