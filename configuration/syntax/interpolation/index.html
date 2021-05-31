@@ -940,55 +940,51 @@
                 
                 
                 <h1 id="interpolation-syntax">Interpolation Syntax<a class="headerlink" href="#interpolation-syntax" title="Permanent link">#</a></h1>
-<p>Embedded within strings in Terraform, whether you're using the Terraform syntax or JSON syntax, you can interpolate other values. These interpolations are wrapped in <code class="codehilite">${}</code>, such as <code class="codehilite"><span class="cp">${</span><span class="n">var</span><span class="o">.</span><span class="n">foo</span><span class="cp">}</span></code>.</p>
+<p>Embedded within strings in Terraform, whether you're using the Terraform syntax or JSON syntax, you can interpolate other values. These interpolations are wrapped in <code class="codehilite">${}</code>, such as <code class="codehilite"><span class="o">$</span><span class="p">{</span><span class="k">var</span><span class="o">.</span><span class="n">foo</span><span class="p">}</span></code>.</p>
 <p>The interpolation syntax is powerful and allows you to reference variables, attributes of resources, call functions, etc.</p>
 <p>You can perform simple math in interpolations, allowing you to write conditions such as <code class="codehilite"><span class="cp">${</span><span class="n">count</span><span class="o">.</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="cp">}</span></code>. And you can also use conditionals to determine a value based on some logic.</p>
 <p>You can escape interpolation with double dollar signs: <code class="codehilite">$${foo}</code> will be rendered as a literal <code class="codehilite"><span class="cp">${</span><span class="n">foo</span><span class="cp">}</span></code>.</p>
 <h2 id="available-variables">Available Variables<a class="headerlink" href="#available-variables" title="Permanent link">#</a></h2>
 <p>There are a variety of available variable references you can use.</p>
 <h3 id="user-string-variables">User string variables<a class="headerlink" href="#user-string-variables" title="Permanent link">#</a></h3>
-<p>Use the <code class="codehilite">var.prefix</code> followed by the variable name. For example, <code class="codehilite"><span class="cp">${</span><span class="n">var</span><span class="o">.</span><span class="n">foo</span><span class="cp">}</span></code> will interpolate the <code class="codehilite">foo</code> variable value.</p>
+<p>Use the <code class="codehilite"><span class="k">var</span><span class="o">.</span><span class="n">prefix</span></code> followed by the variable name. For example, <code class="codehilite"><span class="o">$</span><span class="p">{</span><span class="k">var</span><span class="o">.</span><span class="n">foo</span><span class="p">}</span></code> will interpolate the <code class="codehilite">foo</code> variable value.</p>
 <h3 id="user-map-variables">User map variables<a class="headerlink" href="#user-map-variables" title="Permanent link">#</a></h3>
-<p>The syntax is <code class="codehilite">var.MAP[&quot;KEY&quot;]</code>. For example, <code class="codehilite"><span class="cp">${</span><span class="n">var</span><span class="o">.</span><span class="n">amis</span><span class="p">[</span><span class="s2">&quot;us-east-1&quot;</span><span class="p">]</span><span class="cp">}</span></code> would get the value of the <code class="codehilite">us-east-1</code> key within the amis map variable.</p>
+<p>The syntax is <code class="codehilite"><span class="k">var</span><span class="o">.</span><span class="n">MAP</span><span class="p">[</span><span class="s2">&quot;KEY&quot;</span><span class="p">]</span></code>. For example, <code class="codehilite"><span class="o">$</span><span class="p">{</span><span class="k">var</span><span class="o">.</span><span class="n">amis</span><span class="p">[</span><span class="s2">&quot;us-east-1&quot;</span><span class="p">]}</span></code> would get the value of the <code class="codehilite">us-east-1</code> key within the amis map variable.</p>
 <h3 id="user-list-variables">User list variables<a class="headerlink" href="#user-list-variables" title="Permanent link">#</a></h3>
-<p>The syntax is <code class="codehilite">&quot;<span class="cp">${</span><span class="n">var</span><span class="o">.</span><span class="n">LIST</span><span class="cp">}</span>&quot;</code>. For example, <code class="codehilite">&quot;<span class="cp">${</span><span class="n">var</span><span class="o">.</span><span class="n">subnets</span><span class="cp">}</span>&quot;</code> would get the value of the subnets list, as a list. You can also return list elements by index: <code class="codehilite"><span class="cp">${</span><span class="n">var</span><span class="o">.</span><span class="n">subnets</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="cp">}</span></code>.</p>
+<p>The syntax is <code class="codehilite"><span class="s2">&quot;${var.LIST}&quot;</span></code>. For example, <code class="codehilite"><span class="s2">&quot;${var.subnets}&quot;</span></code> would get the value of the subnets list, as a list. You can also return list elements by index: <code class="codehilite"><span class="err">${</span><span class="nf">var</span><span class="p">.</span><span class="n">subnets</span><span class="o">[</span><span class="n">idx</span><span class="o">]</span><span class="err">}</span><span class="w"></span></code>.</p>
 <h3 id="path-information">Path information<a class="headerlink" href="#path-information" title="Permanent link">#</a></h3>
 <p><em>WIP</em></p>
 <p>The syntax is <code class="codehilite">path.TYPE</code>. <code class="codehilite">TYPE</code> can be <code class="codehilite">file</code>, <code class="codehilite">dir</code>, or <code class="codehilite">policies</code>. cwd will interpolate the current working directory. module will interpolate the path to the current module. root will interpolate the path of the root module. In general, you probably want the path.module variable.</p>
-<div class="codehilite"><pre><span></span>&quot;<span class="cp">${</span><span class="n">path</span><span class="o">.</span><span class="n">file</span><span class="cp">}</span>&quot;
-# =&gt; manifests/microservices/x-gateway-jp/development/Service/a.yaml
-# [Notes]
-#  this variable is an alias of `filename` variable
+<div class="codehilite"><pre><span></span><code><span class="s2">&quot;${path.file}&quot;</span>
+<span class="c1"># =&gt; manifests/microservices/x-gateway-jp/development/Service/a.yaml</span>
+<span class="c1"># [Notes]</span>
+<span class="c1">#  this variable is an alias of `filename` variable</span>
 
-&quot;<span class="cp">${</span><span class="n">path</span><span class="o">.</span><span class="n">dir</span><span class="cp">}</span>&quot;
-# =&gt; manifests/microservices/x-gateway-jp/development/Service
-</pre></div>
-
+<span class="s2">&quot;${path.dir}&quot;</span>
+<span class="c1"># =&gt; manifests/microservices/x-gateway-jp/development/Service</span>
+</code></pre></div>
 <h3 id="predefined-variables">Predefined variables<a class="headerlink" href="#predefined-variables" title="Permanent link">#</a></h3>
 <ul>
 <li><code class="codehilite">filename</code>: Filename to be applied policy (alias of <code class="codehilite">path.policy</code>)</li>
 </ul>
 <h3 id="environment-variables-information">Environment variables information<a class="headerlink" href="#environment-variables-information" title="Permanent link">#</a></h3>
 <p>The syntax is <code class="codehilite">env.ENV</code>. <code class="codehilite">ENV</code> can be <code class="codehilite">USER</code>, <code class="codehilite">HOME</code>, etc. These values comes from <code class="codehilite">env</code> command output.</p>
-<div class="codehilite"><pre><span></span>&quot;<span class="cp">${</span><span class="n">env</span><span class="o">.</span><span class="n">HOME</span><span class="cp">}</span>&quot;
+<div class="codehilite"><pre><span></span><code>&quot;<span class="cp">${</span><span class="n">env</span><span class="o">.</span><span class="n">HOME</span><span class="cp">}</span>&quot;
 # =&gt; /home/username
 
 &quot;<span class="cp">${</span><span class="n">env</span><span class="o">.</span><span class="n">EDITOR</span><span class="cp">}</span>&quot;
 # =&gt; vim
-</pre></div>
-
+</code></pre></div>
 <h2 id="conditionals">Conditionals<a class="headerlink" href="#conditionals" title="Permanent link">#</a></h2>
 <p>Interpolations may contain conditionals to branch on the final value.</p>
-<div class="codehilite"><pre><span></span>&quot;<span class="cp">${</span><span class="n">var</span><span class="o">.</span><span class="n">user</span> <span class="o">==</span> <span class="s2">&quot;john&quot;</span> <span class="err">?</span> <span class="n">var</span><span class="o">.</span><span class="n">member</span> <span class="p">:</span> <span class="n">env</span><span class="o">.</span><span class="n">anonymous</span><span class="cp">}</span>&quot;
+<div class="codehilite"><pre><span></span><code><span class="s2">&quot;${var.user == &quot;</span><span class="n">john</span><span class="s2">&quot; ? var.member : env.anonymous}&quot;</span>
 
-# =&gt; var.member (if var.user is john)
-# =&gt; var.anonymous (if var.user is not john)
-</pre></div>
-
+<span class="c1"># =&gt; var.member (if var.user is john)</span>
+<span class="c1"># =&gt; var.anonymous (if var.user is not john)</span>
+</code></pre></div>
 <p>The conditional syntax is the well-known ternary operation:</p>
-<div class="codehilite"><pre><span></span>CONDITION ? TRUEVAL : FALSEVAL
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code>CONDITION ? TRUEVAL : FALSEVAL
+</code></pre></div>
 <p>The condition can be any valid interpolation syntax, such as variable access, a function call, or even another conditional. The true and false value can also be any valid interpolation syntax. The returned types by the true and false side must be the same.</p>
 <p>The supported operators are:</p>
 <ul>
@@ -997,22 +993,20 @@
 <li>Boolean logic: <code class="codehilite">&amp;&amp;</code>, <code class="codehilite">||</code>, unary <code class="codehilite">!</code></li>
 </ul>
 <h1 id="built-in-functions">Built-in Functions<a class="headerlink" href="#built-in-functions" title="Permanent link">#</a></h1>
-<p>Stein ships with built-in functions. Functions are called with the syntax <code class="codehilite">name(arg, arg2, ...)</code>. For example, to read a file: <code class="codehilite"><span class="cp">${</span><span class="nb">file</span><span class="p">(</span><span class="s2">&quot;path.txt&quot;</span><span class="p">)</span><span class="cp">}</span></code>.</p>
+<p>Stein ships with built-in functions. Functions are called with the syntax <code class="codehilite">name(arg, arg2, ...)</code>. For example, to read a file: <code class="codehilite"><span class="cp">${</span><span class="n">file</span><span class="p">(</span><span class="s2">&quot;path.txt&quot;</span><span class="p">)</span><span class="cp">}</span></code>.</p>
 <p>Stein supports all Terraform's built-in functions listed in <a href="https://www.terraform.io/docs/configuration/interpolation.html#built-in-functions">this page</a>.</p>
 <p>In addition to these functions, it also comes with the original built-in functions to make it even easier to write rules.</p>
 <p>For more details, please see also <mark>Built-in Functions</mark> in Navigation bar on left.</p>
 <h1 id="custom-functions">Custom Functions<a class="headerlink" href="#custom-functions" title="Permanent link">#</a></h1>
 <p>While supporting some useful built-in functions, Stein allows to create user-defined functions.</p>
-<div class="codehilite"><pre><span></span><span class="kd">function</span> <span class="s2">&quot;add&quot;</span> <span class="p">{</span>
-  <span class="nx">params</span> <span class="o">=</span> <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">]</span>
-  <span class="nx">result</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span>
-<span class="p">}</span>
-</pre></div>
-
-<div class="codehilite"><pre><span></span>&quot;<span class="cp">${</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="cp">}</span>&quot;
+<div class="codehilite"><pre><span></span><code>function &quot;add&quot; {
+  params = [a, b]
+  result = a + b
+}
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code>&quot;<span class="cp">${</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="cp">}</span>&quot;
 # =&gt; 4
-</pre></div>
-
+</code></pre></div>
 <p>For more details, please see also <a href="../custom-functions/">Custom Functions</a></p>
 <h2 id="math">Math<a class="headerlink" href="#math" title="Permanent link">#</a></h2>
 <p>Almost the same as <a href="https://www.terraform.io/docs/configuration/interpolation.html#math">Terraform Math</a> mechanism.</p>

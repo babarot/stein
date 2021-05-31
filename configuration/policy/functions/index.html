@@ -882,43 +882,42 @@
                 <p>It is recommended that you read the <a href="../../syntax/custom-functions/">Custom Functions</a> page prior to reading this section of the documentation. The page will explain what the custom functions are and how to use them. On the other hands, this documentation will guide you the basics of writing custom functions and introducing it into your policies efficiently.</p>
 <p>This page assumes you're familiar with the <a href="../../syntax/_index/">configuration syntax</a> already.</p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">#</a></h2>
-<p>A <code class="codehilite">function</code> configuration looks like the following:</p>
-<div class="codehilite"><pre><span></span><span class="kd">function</span> <span class="s2">&quot;get_service_name&quot;</span> <span class="p">{</span>
-  <span class="nx">params</span> <span class="o">=</span> <span class="p">[</span><span class="nx">file</span><span class="p">]</span>
-  <span class="nx">result</span> <span class="o">=</span> <span class="nx">basename</span><span class="p">(</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">file</span><span class="p">))))</span>
-<span class="p">}</span>
+<p>A <code class="codehilite"><span class="k">function</span></code> configuration looks like the following:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="ss">&quot;get_service_name&quot;</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">file</span><span class="o">]</span><span class="w"></span>
+<span class="w">  </span><span class="k">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">basename</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="k">file</span><span class="p">))))</span><span class="w"></span>
+<span class="err">}</span><span class="w"></span>
 
-<span class="kd">function</span> <span class="s2">&quot;get_env&quot;</span> <span class="p">{</span>
-  <span class="nx">params</span> <span class="o">=</span> <span class="p">[</span><span class="nx">file</span><span class="p">]</span>
-  <span class="nx">result</span> <span class="o">=</span> <span class="nx">basename</span><span class="p">(</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">file</span><span class="p">)))</span>
-<span class="p">}</span>
+<span class="k">function</span><span class="w"> </span><span class="ss">&quot;get_env&quot;</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">file</span><span class="o">]</span><span class="w"></span>
+<span class="w">  </span><span class="k">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">basename</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="k">file</span><span class="p">)))</span><span class="w"></span>
+<span class="err">}</span><span class="w"></span>
 
-<span class="kd">function</span> <span class="s2">&quot;get_service_id_with_env&quot;</span> <span class="p">{</span>
-  <span class="nx">params</span> <span class="o">=</span> <span class="p">[</span><span class="nx">file</span><span class="p">]</span>
-  <span class="nx">result</span> <span class="o">=</span> <span class="nx">format</span><span class="p">(</span><span class="s2">&quot;%s-%s&quot;</span><span class="p">,</span> <span class="nx">get_service_name</span><span class="p">(</span><span class="nx">file</span><span class="p">),</span> <span class="nx">lookup</span><span class="p">(</span><span class="kd">var</span><span class="p">.</span><span class="nx">shortened_environment</span><span class="p">,</span> <span class="nx">get_env</span><span class="p">(</span><span class="nx">file</span><span class="p">)))</span>
-<span class="p">}</span>
-</pre></div>
-
+<span class="k">function</span><span class="w"> </span><span class="ss">&quot;get_service_id_with_env&quot;</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">file</span><span class="o">]</span><span class="w"></span>
+<span class="w">  </span><span class="k">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">format</span><span class="p">(</span><span class="ss">&quot;%s-%s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">get_service_name</span><span class="p">(</span><span class="k">file</span><span class="p">),</span><span class="w"> </span><span class="n">lookup</span><span class="p">(</span><span class="nf">var</span><span class="p">.</span><span class="n">shortened_environment</span><span class="p">,</span><span class="w"> </span><span class="n">get_env</span><span class="p">(</span><span class="k">file</span><span class="p">)))</span><span class="w"></span>
+<span class="err">}</span><span class="w"></span>
+</code></pre></div>
 <h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">#</a></h2>
-<p>The <code class="codehilite">function</code> block creates an user-defined function of the given <em>NAME</em> (first parameter). The name must be unique.</p>
+<p>The <code class="codehilite"><span class="k">function</span></code> block creates an user-defined function of the given <em>NAME</em> (first parameter). The name must be unique.</p>
 <p>Within the block (the <code class="codehilite">{ }</code>) is configuration for the function.</p>
 <h3 id="meta-parameters">Meta-parameters<a class="headerlink" href="#meta-parameters" title="Permanent link">#</a></h3>
 <p>There are <strong>meta-parameters</strong> available to all rules:</p>
 <ul>
 <li><code class="codehilite">params</code> (list of strings) - Parameters for the function. Like arguments. It can be referenced within the function. The variable name for <code class="codehilite">params</code> can specify arbitrary string.</li>
-<li><code class="codehilite">variadic_param</code> (list of strings) - Variable arguments for the function.</li>
+<li><code class="codehilite"><span class="n">variadic_param</span></code> (list of strings) - Variable arguments for the function.</li>
 <li><code class="codehilite">result</code> (any) - Return value of the function. It can take just string of course, but also take variables, built-in functions and custom functions even.</li>
 </ul>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">#</a></h2>
 <p>The full syntax is:</p>
-<div class="codehilite"><pre><span></span>rule NAME {
-  params = [ARG, ...]
+<div class="codehilite"><pre><span></span><code><span class="n">rule</span> <span class="n">NAME</span> <span class="p">{</span>
+  <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="n">ARG</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
 
-  [variadic_param = [ARG, ...]]
+  <span class="p">[</span><span class="n">variadic_param</span> <span class="o">=</span> <span class="p">[</span><span class="n">ARG</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span>
 
-  result = RETURN-VALUE
-}
-</pre></div>
+  <span class="n">result</span> <span class="o">=</span> <span class="n">RETURN</span><span class="o">-</span><span class="n">VALUE</span>
+<span class="p">}</span>
+</code></pre></div>
                 
                   
                 

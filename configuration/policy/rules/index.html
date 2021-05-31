@@ -883,7 +883,7 @@
 <p>This page assumes you're familiar with the <a href="../../syntax/_index/">configuration syntax</a> already.</p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">#</a></h2>
 <p>A <code class="codehilite">rule</code> configuration looks like the following:</p>
-<div class="codehilite"><pre><span></span>rule &quot;replicas&quot; {
+<div class="codehilite"><pre><span></span><code>rule &quot;replicas&quot; {
   description = &quot;Check the number of replicas is sufficient&quot;
 
   conditions = [
@@ -895,8 +895,7 @@
     message = &quot;Too few replicas&quot;
   }
 }
-</pre></div>
-
+</code></pre></div>
 <h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">#</a></h2>
 <p>The <code class="codehilite">rule</code> block creates a rule set of the given <em>NAME</em> (first parameter). The name must be unique.</p>
 <p>Within the block (the <code class="codehilite">{ }</code>) is configuration for the rule.</p>
@@ -918,31 +917,29 @@
 </ul>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">#</a></h2>
 <p>The full syntax is:</p>
-<div class="codehilite"><pre><span></span>rule NAME {
-  description = DESCRIPTION
+<div class="codehilite"><pre><span></span><code><span class="k">rule</span><span class="w"> </span><span class="n">NAME</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DESCRIPTION</span><span class="w"></span>
 
-  [depends_on = [NAME, ...]]
+<span class="w">  </span><span class="o">[</span><span class="n">depends_on = [NAME, ...</span><span class="o">]</span><span class="err">]</span><span class="w"></span>
 
-  [PRECONDITION]
+<span class="w">  </span><span class="o">[</span><span class="n">PRECONDITION</span><span class="o">]</span><span class="w"></span>
 
-  conditions = [CONDITION, ...]
+<span class="w">  </span><span class="n">conditions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">CONDITION, ...</span><span class="o">]</span><span class="w"></span>
 
-  REPORT
-}
-</pre></div>
-
+<span class="w">  </span><span class="n">REPORT</span><span class="w"></span>
+<span class="err">}</span><span class="w"></span>
+</code></pre></div>
 <p>where PRECONDITION is:</p>
-<div class="codehilite"><pre><span></span>precondition {
+<div class="codehilite"><pre><span></span><code>precondition {
   cases = [CONDITION, ...]
 }
-</pre></div>
-
+</code></pre></div>
 <p>where REPORT is:</p>
-<div class="codehilite"><pre><span></span>report {
+<div class="codehilite"><pre><span></span><code>report {
   level = [ERROR|WARN]
   message = MESSAGE
 }
-</pre></div>
+</code></pre></div>
                 
                   
                 

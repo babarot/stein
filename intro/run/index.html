@@ -830,25 +830,23 @@ In erroneous cases, a non-zero exit status will be returned.
 It also responds to <code class="codehilite">-h</code> and <code class="codehilite">--help</code> as you'd expect.
 To view a list of the available commands at any time, just run stein with no arguments.</p>
 <p>To apply the rule to that YAML file and run the test you can do with the <a href="../../commands/apply/"><code class="codehilite">apply</code></a> subcommand.</p>
-<div class="codehilite"><pre><span></span><span class="gp">$</span> stein apply -policy rules.hcl service.yaml
+<div class="codehilite"><pre><span></span><code><span class="gp">$ </span>stein apply -policy rules.hcl service.yaml
 <span class="go">service.yaml</span>
 <span class="go">  [ERROR]  rule.namespace_specification  Namespace is not specified</span>
 
 <span class="go">=====================</span>
 <span class="go">1 error(s), 0 warn(s)</span>
-</pre></div>
-
-<p>You can show the error message with exit code <code class="codehilite">1</code>.</p>
+</code></pre></div>
+<p>You can show the error message with exit code <code class="codehilite"><span class="mf">1</span></code>.</p>
 <p>The location (a file path directly or a directory path which is located policies) of policy files can be specified with <code class="codehilite">-policy</code> flag.
 Otherwise, you can tell stein the location of policies with <code class="codehilite">STEIN_POLICY</code> environment variable.</p>
 <p>Moreover, stein automatically checks <code class="codehilite"><span class="na">.policy</span></code> directory whether policies written in HCL are located or not when running.
 So you can put it on <code class="codehilite"><span class="na">.policy</span></code> directory like the following:</p>
-<div class="codehilite"><pre><span></span><span class="gp">$</span> tree .
+<div class="codehilite"><pre><span></span><code><span class="gp">$ </span>tree .
 <span class="go">service.yaml</span>
 <span class="go">.policy/</span>
 <span class="go">`-- rules.hcl</span>
-</pre></div>
-
+</code></pre></div>
 <p>For more details about this behavior, see also <a href="../../configuration/load/">How policies are loaded by Stein</a>.</p>
                 
                   

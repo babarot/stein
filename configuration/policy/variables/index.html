@@ -845,26 +845,25 @@
 <p>This page assumes you're familiar with the <a href="../../syntax/_index/">configuration syntax</a> already.</p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">#</a></h2>
 <p>Input variables can be defined as follows:</p>
-<div class="codehilite"><pre><span></span><span class="kr">variable</span> <span class="s">&quot;key&quot;</span> <span class=" -Punctuation">{</span>
-<span class="na">  type</span> <span class="o">=</span> <span class="s2">&quot;string&quot;</span>
-<span class=" -Punctuation">}</span>
+<div class="codehilite"><pre><span></span><code><span class="kr">variable</span> <span class="nv">&quot;key&quot;</span> <span class="p">{</span>
+  <span class="na">type</span> <span class="o">=</span> <span class="s2">&quot;string&quot;</span>
+<span class="p">}</span>
 
-<span class="kr">variable</span> <span class="s">&quot;images&quot;</span> <span class=" -Punctuation">{</span>
-<span class="na">  type</span> <span class="o">=</span> <span class="s2">&quot;map&quot;</span>
+<span class="kr">variable</span> <span class="nv">&quot;images&quot;</span> <span class="p">{</span>
+  <span class="na">type</span> <span class="o">=</span> <span class="s2">&quot;map&quot;</span>
 
-<span class="na">  default</span> <span class="o">=</span> <span class=" -Punctuation">{</span>
-<span class="na">    us-east-1</span> <span class="o">=</span> <span class="s2">&quot;image-1234&quot;</span>
-<span class="na">    us-west-2</span> <span class="o">=</span> <span class="s2">&quot;image-4567&quot;</span>
-  <span class=" -Punctuation">}</span>
-<span class=" -Punctuation">}</span>
+  <span class="nb">default</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">us-east-1</span> <span class="o">=</span> <span class="s2">&quot;image-1234&quot;</span>
+    <span class="na">us-west-2</span> <span class="o">=</span> <span class="s2">&quot;image-4567&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-<span class="kr">variable</span> <span class="s">&quot;zones&quot;</span> <span class=" -Punctuation">{</span>
-<span class="na">  default</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;us-east-1a&quot;, &quot;us-east-1b&quot;</span><span class="p">]</span>
-<span class=" -Punctuation">}</span>
-</pre></div>
-
+<span class="kr">variable</span> <span class="nv">&quot;zones&quot;</span> <span class="p">{</span>
+  <span class="na">default</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;us-east-1a&quot;, &quot;us-east-1b&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
 <h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">#</a></h2>
-<p>The <code class="codehilite">variable</code> block configures a single input variable for a Terraform module. Each block declares a single variable.</p>
+<p>The <code class="codehilite"><span class="n">variable</span></code> block configures a single input variable for a Terraform module. Each block declares a single variable.</p>
 <p>The name given in the block header is used to assign a value to the variable via the CLI and to reference the variable elsewhere in the configuration.</p>
 <p>Within the block body (between <code class="codehilite">{ }</code>) is configuration for the variable, which accepts the following arguments:</p>
 <p><em>WIP</em></p>

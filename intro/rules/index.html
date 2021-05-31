@@ -764,7 +764,7 @@
                   <h1>Writing Stein rules</h1>
                 
                 <p>Let's say you want to create a policy for the next YAML file.</p>
-<div class="codehilite"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+<div class="codehilite"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
 <span class="nt">metadata</span><span class="p">:</span>
   <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my-service</span>
   <span class="c1"># namespace: echo   &lt;-- OMITTED</span>
@@ -775,15 +775,14 @@
   <span class="p p-Indicator">-</span> <span class="nt">protocol</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">TCP</span>
     <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
     <span class="nt">targetPort</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">9376</span>
-</pre></div>
-
+</code></pre></div>
 <p>This is Kubernetes YAML of <a href="https://kubernetes.io/docs/concepts/services-networking/service/">Service</a> manifest.
 The field <code class="codehilite">metadata.namespace</code> in Service can be omitted.
 However, let's say you want to define it explicitly and force the owner to specify this.
 In such a case, <a href="../../configuration/policy/rules/">rule</a> block is useful.
 A rule is simple block which can be represented by simple DSL schema by using HCL.</p>
 <p>The rule suitable for this case is as follows.</p>
-<div class="codehilite"><pre><span></span>rule &quot;namespace_specification&quot; {
+<div class="codehilite"><pre><span></span><code>rule &quot;namespace_specification&quot; {
   description = &quot;Check namespace name is not empty&quot;
 
   conditions = [
@@ -795,8 +794,7 @@ A rule is simple block which can be represented by simple DSL schema by using HC
     message = &quot;Namespace is not specified&quot;
   }
 }
-</pre></div>
-
+</code></pre></div>
 <p>The most important attributes in rule block is <code class="codehilite">conditions</code> list.</p>
 <p>This list is a collections of boolean values.
 If this list contains one or more <strong><em>false</em></strong> values, this rule will fail.

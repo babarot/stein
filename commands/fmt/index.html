@@ -764,9 +764,8 @@
                   <h1>Command: fmt</h1>
                 
                 <p>The <code class="codehilite">stein fmt</code> command formats a policy source to a canonical format.</p>
-<div class="codehilite"><pre><span></span><span class="n">Usage</span><span class="o">:</span> <span class="n">stein</span> <span class="n">fmt</span> <span class="o">[</span><span class="n">options</span><span class="o">]</span> <span class="n">FILE</span> <span class="o">...</span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="k">Usage</span><span class="err">:</span><span class="w"> </span><span class="n">stein</span><span class="w"> </span><span class="n">fmt</span><span class="w"> </span><span class="o">[</span><span class="n">options</span><span class="o">]</span><span class="w"> </span><span class="k">FILE</span><span class="w"> </span><span class="p">...</span><span class="w"></span>
+</code></pre></div>
 <p>This command formats all the specified policy files to a canonical format.</p>
 <p>By default, policy files are overwritten in place. This behavior can be changed with the <code class="codehilite">-write</code> flag. If a specified FILE is - then stdin is read and the output is always written to stdout.</p>
 <p>The command-line flags are all optional. The list of available flags are:</p>
@@ -774,7 +773,7 @@
 <li><a href="#write-true"><code class="codehilite">-write=true</code></a> - Write formatted policy to the named source file. If false, output will go to stdout. If multiple files are specified, the output will be concatenated directly.</li>
 <li><a href="#check-false"><code class="codehilite">-check=false</code></a> - Don't format, only check if formatting is necessary. Files that require formatting are printed, and a non-zero exit code is returned if changes are required.</li>
 </ul>
-<div class="codehilite"><pre><span></span><span class="gp">$</span> stein fmt -check test.hcl
+<div class="codehilite"><pre><span></span><code><span class="gp">$ </span>stein fmt -check test.hcl
 <span class="go">   config {</span>
 <span class="go">-</span>
 <span class="go">     report {</span>
@@ -786,7 +785,7 @@
 <span class="go">     }</span>
 <span class="go">-</span>
 <span class="go">   }</span>
-</pre></div>
+</code></pre></div>
                 
                   
                 

@@ -864,30 +864,29 @@
 </tbody>
 </table>
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">#</a></h2>
-<div class="codehilite"><pre><span></span>variable &quot;colors&quot; {
-  type = &quot;map&quot;
+<div class="codehilite"><pre><span></span><code><span class="n">variable</span> <span class="s2">&quot;colors&quot;</span> <span class="p">{</span>
+  <span class="n">type</span> <span class="o">=</span> <span class="s2">&quot;map&quot;</span>
 
-  default = {
-    &quot;red&quot; = [
-      &quot;burgundy&quot;,
-      &quot;terracotta&quot;,
-      &quot;scarlet&quot;,
-    ]
-    &quot;blue&quot; = [
-      &quot;heliotrope&quot;,
-      &quot;cerulean blue&quot;,
-      &quot;turquoise blue&quot;,
-    ]
-  }
-}
-</pre></div>
+  <span class="n">default</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;red&quot;</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="s2">&quot;burgundy&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;terracotta&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;scarlet&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="s2">&quot;blue&quot;</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="s2">&quot;heliotrope&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;cerulean blue&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;turquoise blue&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code><span class="s2">&quot;${lookuplist(var.colors, &quot;</span><span class="n">red</span><span class="s2">&quot;)}&quot;</span>
+<span class="c1"># =&gt; [&quot;burgundy&quot;, &quot;terracotta&quot;, &quot;scarlet&quot;]</span>
 
-<div class="codehilite"><pre><span></span>&quot;<span class="cp">${</span><span class="n">lookuplist</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">colors</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span><span class="cp">}</span>&quot;
-# =&gt; [&quot;burgundy&quot;, &quot;terracotta&quot;, &quot;scarlet&quot;]
-
-&quot;<span class="cp">${</span><span class="n">contains</span><span class="p">(</span><span class="n">lookuplist</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">colors</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">),</span> <span class="s2">&quot;scarlet&quot;</span><span class="p">)</span><span class="cp">}</span>&quot;
-# =&gt; true
-</pre></div>
+<span class="s2">&quot;${contains(lookuplist(var.colors, &quot;</span><span class="n">red</span><span class="s2">&quot;), &quot;</span><span class="n">scarlet</span><span class="s2">&quot;)}&quot;</span>
+<span class="c1"># =&gt; true</span>
+</code></pre></div>
                 
                   
                 

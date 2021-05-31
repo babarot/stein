@@ -883,15 +883,14 @@
 <p>This page assumes you're familiar with the <a href="../../syntax/_index/">configuration syntax</a> already.</p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">#</a></h2>
 <p>A <code class="codehilite">config</code> configuration looks like the following:</p>
-<div class="codehilite"><pre><span></span><span class="err">config</span> <span class=" -Punctuation">{</span>
-  <span class="err">report</span> <span class=" -Punctuation">{</span>
-<span class="na">    format</span> <span class="o">=</span> <span class="s2">&quot;${format(&quot;{{.Level}}:  {{.Rule}}  %s&quot;, color(&quot;{{.Message}}&quot;, &quot;white&quot;))}&quot;</span>
-<span class="na">    style</span>  <span class="o">=</span> <span class="s2">&quot;console&quot;</span>
-<span class="na">    color</span>  <span class="o">=</span> <span class="kt">true</span>
-  <span class=" -Punctuation">}</span>
-<span class=" -Punctuation">}</span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="nb">config</span> <span class="p">{</span>
+  <span class="nb">report</span> <span class="p">{</span>
+    <span class="na">format</span> <span class="o">=</span> <span class="s2">&quot;${format(&quot;{{.Level}}:  {{.Rule}}  %s&quot;, color(&quot;{{.Message}}&quot;, &quot;white&quot;))}&quot;</span>
+    <span class="na">style</span>  <span class="o">=</span> <span class="s2">&quot;console&quot;</span>
+    <span class="na">color</span>  <span class="o">=</span> <span class="no">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">#</a></h2>
 <p>Only one <code class="codehilite">config</code> block can be defined.</p>
 <p>Within the block (the <code class="codehilite">{ }</code>) is configuration for the config block.</p>
@@ -906,29 +905,27 @@
 </li>
 </ul>
 <p>If config block isn't defined, the following configuration is used by default.</p>
-<div class="codehilite"><pre><span></span><span class="err">config</span> <span class=" -Punctuation">{</span>
-  <span class="err">report</span> <span class=" -Punctuation">{</span>
-<span class="na">    format</span> <span class="o">=</span> <span class="s2">&quot;${format(&quot;[{{.Level}}]  {{.Rule}}  {{.Message}}&quot;)}&quot;</span>
-<span class="na">    style</span>  <span class="o">=</span> <span class="s2">&quot;console&quot;</span>
-<span class="na">    color</span>  <span class="o">=</span> <span class="kt">true</span>
-  <span class=" -Punctuation">}</span>
-<span class=" -Punctuation">}</span>
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="nb">config</span> <span class="p">{</span>
+  <span class="nb">report</span> <span class="p">{</span>
+    <span class="na">format</span> <span class="o">=</span> <span class="s2">&quot;${format(&quot;[{{.Level}}]  {{.Rule}}  {{.Message}}&quot;)}&quot;</span>
+    <span class="na">style</span>  <span class="o">=</span> <span class="s2">&quot;console&quot;</span>
+    <span class="na">color</span>  <span class="o">=</span> <span class="no">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">#</a></h2>
 <p>The full syntax is:</p>
-<div class="codehilite"><pre><span></span>config {
-  [REPORT]
-}
-</pre></div>
-
+<div class="codehilite"><pre><span></span><code><span class="n">config</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
+<span class="w">  </span><span class="o">[</span><span class="n">REPORT</span><span class="o">]</span><span class="w"></span>
+<span class="err">}</span><span class="w"></span>
+</code></pre></div>
 <p>where REPORT is:</p>
-<div class="codehilite"><pre><span></span>report {
+<div class="codehilite"><pre><span></span><code>report {
   format = FORMAT
   style  = [console|inline]
   color  = bool
 }
-</pre></div>
+</code></pre></div>
                 
                   
                 

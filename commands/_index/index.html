@@ -840,24 +840,22 @@
                 <p>Stein is controlled via a very easy to use command-line interface (CLI). Stein is only a single command-line application: <code class="codehilite">stein</code>. This application then takes a subcommand such as "apply" or "plan". The complete list of subcommands is in the navigation to the left.</p>
 <p>The Stein CLI is a well-behaved command line application. In erroneous cases, a non-zero exit status will be returned. It also responds to <code class="codehilite">-h</code> and <code class="codehilite">--help</code> as you'd expect. To view a list of the available commands at any time, just run <code class="codehilite">stein</code> with no arguments.</p>
 <p>To view a list of the available commands at any time, just run stein with no arguments:</p>
-<div class="codehilite"><pre><span></span><span class="gp">$</span> stein
+<div class="codehilite"><pre><span></span><code><span class="gp">$ </span>stein
 <span class="go">Usage: stein [--version] [--help] &lt;command&gt; [&lt;args&gt;]</span>
 
 <span class="go">Available commands are:</span>
 <span class="go">    apply    Applies a policy to arbitrary config files.</span>
 <span class="go">    fmt      Formats a policy source to a canonical format.</span>
-</pre></div>
-
+</code></pre></div>
 <p>To get help for any specific command, pass the <code class="codehilite">-h</code> flag to the relevant subcommand. For example, to see help about the apply subcommand:</p>
-<div class="codehilite"><pre><span></span><span class="gp">$</span> stein apply -h
+<div class="codehilite"><pre><span></span><code><span class="gp">$ </span>stein apply -h
 <span class="go">Usage of apply:</span>
 <span class="go">  Applies a policy to arbitrary config files.</span>
 
 <span class="go">Options:</span>
 <span class="go">  -policy string</span>
 <span class="go">        path to the policy files or the directory where policy files are located</span>
-</pre></div>
-
+</code></pre></div>
 <h2 id="shell-tab-completion">Shell Tab-completion<a class="headerlink" href="#shell-tab-completion" title="Permanent link">#</a></h2>
 <p>TBD</p>
 <h2 id="debug-stein">Debug stein<a class="headerlink" href="#debug-stein" title="Permanent link">#</a></h2>
