@@ -18,8 +18,7 @@ require (
 	github.com/mitchellh/go-homedir v1.0.0 // indirect
 	github.com/posener/complete v1.2.1 // indirect
 	github.com/sergi/go-diff v1.0.0
-	github.com/tidwall/gjson v1.1.3
-	github.com/tidwall/match v1.0.1 // indirect
+	github.com/tidwall/gjson v1.9.3
 	github.com/zclconf/go-cty v1.1.1
 	k8s.io/apimachinery v0.19.0-beta.2
 )
